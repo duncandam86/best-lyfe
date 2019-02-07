@@ -7,6 +7,8 @@ import LoginForm from './components/login-form'
 import Navbar from './components/navbar'
 import Home from './components/home'
 
+import Bodywrapper from './components/Bodywrapper'
+
 class App extends Component {
   constructor() {
     super()
@@ -59,22 +61,24 @@ class App extends Component {
           <p>Join the party, {this.state.username}!</p>
         }
         {/* Routes to different components */}
-        <Route
-          exact path="/"
-          component={Home} />
-        <Route
-          path="/login"
-          render={() =>
-            <LoginForm
-              updateUser={this.updateUser}
-            />}
-        />
-        <Route
-          path="/signup"
-          render={() =>
-            <Signup/>}
-        />
-
+        
+        <Bodywrapper>
+          <Route
+            exact path="/"
+            component={Home} />
+          <Route
+            path="/login"
+            render={() =>
+              <LoginForm
+                updateUser={this.updateUser}
+              />}
+          />
+          <Route
+            path="/signup"
+            render={() =>
+              <Signup/>}
+          />
+        </Bodywrapper>
       </div>
     );
   }

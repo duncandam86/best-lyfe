@@ -1,43 +1,54 @@
-const express = require('express')
+const express = require("express");
+const PORT = process.env.PORT || 3001;
+const app = express();
+const session = require("express-session");
 const bodyParser = require('body-parser')
-const morgan = require('morgan')
-const session = require('express-session')
-const dbConnection = require('./database') 
-const MongoStore = require('connect-mongo')(session)
-const passport = require('./passport');
-const app = express()
-const PORT = 3001;
-// Route requires
-const user = require('./routes/user')
 
-// MIDDLEWARE
-app.use(morgan('dev'))
+const db = require("./server/models");
+const passport = require("./server/config/passport");
+
+// Define middleware here
 app.use(
 	bodyParser.urlencoded({
 		extended: false
 	})
 )
 app.use(bodyParser.json())
+// Serve up static assets (usually on heroku)
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+}
 
-// Sessions
+//Passport
 app.use(
-	session({
-		secret: 'fraggle-rock', //pick a random string to make the hash that is generated secure
-		store: new MongoStore({ mongooseConnection: dbConnection }),
-		resave: false, //required
-		saveUninitialized: false //required
-	})
-)
+  session({ secret: "keyboard cat", resave: true, saveUninitialized: true })
+);
+app.use(passport.initialize());
+app.use(passport.session());
 
-// Passport
-app.use(passport.initialize())
-app.use(passport.session()) // calls the deserializeUser
+// Define API routes here
+require("./server/routes/user")(app)
+// require("./server/routes/apiRoutes")(app)
+require("./server/routes/htmlRoutes")(app)
 
+//Sequelize
+const syncOptions = { force: false };
 
-// Routes
-app.use('/user', user)
+// If running a test, set syncOptions.force to true
+// clearing the `testdb`
+if (process.env.NODE_ENV === "test") {
+  syncOptions.force = true;
+}
 
-// Starting Server 
-app.listen(PORT, () => {
-	console.log(`App listening on PORT: ${PORT}`)
-})
+// Starting the server, syncing our models ------------------------------------/
+db.sequelize.sync(syncOptions).then(function() {
+  app.listen(PORT, function() {
+    console.log(
+      "==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.",
+      PORT,
+      PORT
+    );
+  });
+});
+
+module.exports = app;

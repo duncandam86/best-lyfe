@@ -4,7 +4,7 @@ import { Route, Link } from "react-router-dom";
 // components
 import Signup from "./components/sign-up";
 import LoginForm from "./components/login-form";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/navbar";
 import Home from "./pages/Home";
 // styles
 import "./App.scss";

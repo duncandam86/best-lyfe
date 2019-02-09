@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Route, Link } from "react-router-dom";
 // components
-import Signup from "./components/sign-up";
-import Login from "./components/login-form";
+import Signup from "./pages/SignUp";
+import Login from "./pages/Login";
 import Navbar from "./components/navbar";
 import Home from "./pages/Home";
 // styles

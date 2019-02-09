@@ -1,10 +1,7 @@
 import React, { Component } from "react";
-import "./style.css";
+import "./style.scss";
 
-function BodyWrapper(
-  props
-  // {title, children}
-  ) {
+function BodyWrapper(props) {
   return (
     <div id="body-wrapper-wrapper">
       <div id="body-wrapper">

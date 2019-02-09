@@ -1,3 +1,11 @@
+@import "./styles/shared.scss";
+
+.App-header {
+  background-color: $green;
+  height: 150px;
+  padding: 20px;
+}
+
 .App {
   text-align: center;
 }
@@ -5,13 +13,6 @@
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 80px;
-}
-
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
 }
 
 .App-title {
@@ -23,9 +24,7 @@
 }
 
 .navbar {
- 
   margin-top: auto;
-  
 }
 #top-filler {
   margin-bottom: auto;
@@ -36,7 +35,10 @@
 }
 
 @keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
-

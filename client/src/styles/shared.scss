@@ -1,0 +1,24 @@
+@import url("https://fonts.googleapis.com/css?family=Boogaloo");
+
+// Update Bulma's global variables
+$family-sans-serif: "Boogaloo", cursive;
+$green: #22b573;
+$primary: $green;
+
+@import "../../node_modules/bulma/sass/utilities/_all.sass";
+@import "../../node_modules/bulma/sass/base/_all.sass";
+@import "../../node_modules/bulma/sass/elements/_all.sass";
+@import "../../node_modules/bulma/sass/components/_all.sass";
+@import "../../node_modules/bulma/sass/grid/_all.sass";
+
+.card {
+  border-radius: 10px;
+  border: grey 2px solid;
+}
+
+.card-header {
+  flex-direction: column;
+  background-color: $green;
+  border-top-left-radius: 7px;
+  border-top-right-radius: 7px;
+}

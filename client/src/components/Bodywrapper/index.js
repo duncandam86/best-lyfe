@@ -3,17 +3,12 @@ import "./style.scss";
 
 function BodyWrapper(props) {
   return (
-    <div id="body-wrapper-wrapper">
-      <div id="body-wrapper">
-        <div id="body-header">
-          {/* {props.title} */}
-          <div id="header-wrapper">
-            <h1>Live your</h1>
-            <h2>Best Lyfe</h2>
-          </div>
-        </div>
-        {props.children}
+    <div className="card has-text-centered">
+      <div className="card-header has-text-centered has-text-white">
+        <p className="is-size-3">{props.title1}</p>
+        <p className="is-size-1">{props.title2}</p>
       </div>
+      {props.children}
     </div>
   );
 }

@@ -4,9 +4,8 @@ import { Route, Link } from "react-router-dom";
 // components
 import Signup from "./components/sign-up";
 import LoginForm from "./components/login-form";
-import Navbar from "./components/navbar";
-import Home from "./components/home";
-import Bodywrapper from "./components/Bodywrapper";
+import Navbar from "./components/Navbar";
+import Home from "./pages/Home";
 // styles
 import "./App.scss";
 
@@ -55,19 +54,18 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Navbar updateUser={this.updateUser} loggedIn={this.state.loggedIn} />
+        {/* <Navbar updateUser={this.updateUser} loggedIn={this.state.loggedIn} /> */}
         {/* greet user if logged in: */}
-        {this.state.loggedIn && <p>Join the party, {this.state.username}!</p>}
+        {/* {this.state.loggedIn && <p>Join the party, {this.state.username}!</p>} */}
         {/* Routes to different components */}
 
-        <Bodywrapper>
-          <Route exact path="/" component={Home} />
-          <Route
-            path="/login"
-            render={() => <LoginForm updateUser={this.updateUser} />}
-          />
-          <Route path="/signup" render={() => <Signup />} />
-        </Bodywrapper>
+        <Route exact path="/" component={Home} />
+        <Route
+          exact
+          path="/login"
+          render={() => <LoginForm updateUser={this.updateUser} />}
+        />
+        <Route path="/signup" render={() => <Signup />} />
       </div>
     );
   }

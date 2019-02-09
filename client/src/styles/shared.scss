@@ -4,6 +4,8 @@
 $family-sans-serif: "Boogaloo", cursive;
 $green: #22b573;
 $primary: $green;
+$button-background-color: grey;
+$button-hover-color: white;
 
 @import "../../node_modules/bulma/sass/utilities/_all.sass";
 @import "../../node_modules/bulma/sass/base/_all.sass";
@@ -14,6 +16,10 @@ $primary: $green;
 .card {
   border-radius: 10px;
   border: grey 2px solid;
+  p {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
 }
 
 .card-header {

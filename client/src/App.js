@@ -3,7 +3,7 @@ import axios from "axios";
 import { Route, Link } from "react-router-dom";
 // components
 import Signup from "./components/sign-up";
-import LoginForm from "./components/login-form";
+import Login from "./components/login-form";
 import Navbar from "./components/navbar";
 import Home from "./pages/Home";
 // styles
@@ -31,9 +31,9 @@ class App extends Component {
   }
 
   getUser() {
-    axios.get('/api/users').then(response => {
-      console.log('Get user response: ')
-      console.log(response.data)
+    axios.get("/api/users").then(response => {
+      console.log("Get user response: ");
+      console.log(response.data);
       if (response.data.user) {
         console.log("Get User: There is a user saved in the server session: ");
 
@@ -63,9 +63,9 @@ class App extends Component {
         <Route
           exact
           path="/login"
-          render={() => <LoginForm updateUser={this.updateUser} />}
+          render={() => <Login updateUser={this.updateUser} />}
         />
-        <Route path="/signup" render={() => <Signup />} />
+        <Route exact path="/signup" component={Signup} />
       </div>
     );
   }

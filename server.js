@@ -1,14 +1,19 @@
 const express = require("express");
 const PORT = process.env.PORT || 3001;
 const app = express();
-var session = require("express-session");
+const session = require("express-session");
+const bodyParser = require('body-parser')
 
 const db = require("./server/models");
-var passport = require("./server/config/passport");
+const passport = require("./server/config/passport");
 
 // Define middleware here
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+app.use(
+	bodyParser.urlencoded({
+		extended: false
+	})
+)
+app.use(bodyParser.json())
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));

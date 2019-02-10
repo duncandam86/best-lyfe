@@ -1,12 +1,10 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Route, Link } from "react-router-dom";
+import { Route } from "react-router-dom";
 // components
 import Signup from "./pages/SignUp";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
-// styles
-import "./App.scss";
 
 class App extends Component {
   constructor() {
@@ -53,11 +51,6 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {/* <Navbar updateUser={this.updateUser} loggedIn={this.state.loggedIn} /> */}
-        {/* greet user if logged in: */}
-        {/* {this.state.loggedIn && <p>Join the party, {this.state.username}!</p>} */}
-        {/* Routes to different components */}
-
         <Route exact path="/" component={Home} />
         <Route
           exact
@@ -65,6 +58,7 @@ class App extends Component {
           render={() => <Login updateUser={this.updateUser} />}
         />
         <Route exact path="/signup" component={Signup} />
+        {/* <Route exact path="/routine" component={Routine} /> */}
       </div>
     );
   }

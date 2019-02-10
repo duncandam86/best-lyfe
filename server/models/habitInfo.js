@@ -23,7 +23,15 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER
     },
     recordArray: {
-      type: DataTypes.ARRAY(DataTypes.BOOLEAN)
+      //type: DataTypes.ARRAY(DataTypes.BOOLEAN)
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      get() {
+        return this.getDataValue("recordArray").split(",");
+      },
+      set(val) {
+        this.setDataValue("recordArray", val.join(","));
+      }
     }
   });
 

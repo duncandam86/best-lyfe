@@ -24,7 +24,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     recordArray: {
       //type: DataTypes.ARRAY(DataTypes.BOOLEAN)
-      type: DataTypes.BOOLEAN,
+      type: DataTypes.STRING,
       allowNull: false,
       get() {
         return this.getDataValue("recordArray").split(",");

@@ -62,7 +62,7 @@ class Signup extends Component {
 
   render() {
     return this.state.redirect ? (
-      <Redirect to="/login" />
+      <Redirect to="/habits" />
     ) : (
       <div className="container is-fluid">
         <div className="columns is-mobile is-centered">

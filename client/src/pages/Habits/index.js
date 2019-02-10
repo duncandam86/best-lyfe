@@ -2,6 +2,7 @@ import React from "react";
 // import LargeLogo from "../../components/LargeLogo";
 import Navbar from "../../components/Navbar";
 import BodyWrapper from "../../components/Bodywrapper";
+import HabitsComponent from "../../components/HabitsComponent"
 //import "../../styles/shared.scss";
 import "./style.scss";
 
@@ -19,15 +20,9 @@ function Habits() {
               </div>
             </div>
             <BodyWrapper title1="Your" title2="Habits">
-              <p className="is-size-3">
-                We know it's hard to stick to productive routines, we've been
-                there! Best Lyfe helps you stick to your productive routines
-                through reminders and habit tracking.
-              </p>
-              <p className="is-size-3">
-                If you're new to Best Lyfe, sign up below and start inputing
-                habits you'd like to add to your daily routine.
-              </p>
+             
+              <HabitsComponent />
+          
             </BodyWrapper>
           </div>
         </div>

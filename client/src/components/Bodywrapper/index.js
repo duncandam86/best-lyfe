@@ -7,9 +7,9 @@ function BodyWrapper(props) {
       <div className="card-header has-text-centered has-text-white">
         <p className="is-size-3">{props.title1}</p>
         <p className="is-size-1">{props.title2}</p>
-      </div>
+      </div><div id="bodywrapper-body">
       {props.children}
-    </div>
+      </div></div>
   );
 }
 

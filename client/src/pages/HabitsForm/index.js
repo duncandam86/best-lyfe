@@ -55,7 +55,7 @@ class HabitsForm extends Component {
              txtAlign="centered"
              title1="New"
              title2="Habit">
-<div id="form-div">
+
           <form className="form">
 
             {/* Habit Name Input */}
@@ -65,7 +65,7 @@ class HabitsForm extends Component {
               name="habitName"
               onChange={this.handleInputChange}
               type="text"
-              placeholder="Workout"
+              placeholder="Ex: Workout"
             />
 
             {/* Habit Time Input */}
@@ -75,7 +75,7 @@ class HabitsForm extends Component {
               name="habitTime"
               onChange={this.handleInputChange}
               type="text"
-              placeholder="6:30am"
+              placeholder="Ex: 6:30am"
             />
 
             {/* Habit Comment Input */}
@@ -85,13 +85,14 @@ class HabitsForm extends Component {
               name="habitComment"
               onChange={this.handleInputChange}
               type="text"
-              placeholder="Legs/Arms/Back&Chest/Cardio"
+              placeholder="Ex: Legs/Arms/Back&Chest/Cardio"
             />
 
-
-            <button onClick={this.handleFormSubmit}>Submit</button>
+            <div id="submit-form-div">
+                <button onClick={this.handleFormSubmit}>Submit</button>
+            </div>
           </form>
-          </div>
+
           </BodyWrapper>
         </div>
       );

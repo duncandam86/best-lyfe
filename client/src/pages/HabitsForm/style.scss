@@ -1,6 +1,19 @@
 input, label{
     display:block;
     text-align:left;
+    width:100%;
+}
+input{
+    border:solid grey 1px;
+}
+
+label{
+    margin-top:15px;
+}
+
+#submit-form-div{
+    display:flex;
+    justify-content: flex-end;
 }
 
 form button{
@@ -10,5 +23,6 @@ form button{
     border-radius:10px;
     height:40px;
     font-size:20px;
+    margin-top:15px;
 
 }

@@ -1,14 +1,16 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
+
 //components
 import BodyWrapper from "../../components/Bodywrapper";
-// import LargeLogo from "../../components/LargeLogo";
 import Navbar from "../../components/Navbar";
 import UserForm from "../../components/UserForm";
 // import LoginError from "../../components/LoginError";
 
+
 //other packages
 import axios from "axios";
+
 //styles
 import "./style.scss";
 
@@ -80,19 +82,19 @@ class Login extends Component {
     return this.state.redirect ? (
       <Redirect to="/routine" />
     ) : (
+      <> <Navbar />
       <div className="container is-fluid">
         <div className="columns is-mobile is-centered">
           <div className="column is-10">
             <div className="level is-marginless">
               <div className="level-item">
-                <Navbar />
               </div>
             </div>
-            <BodyWrapper txtAlign="left" title2="Log In">
+            <BodyWrapper txtAlign="left" title2="Login">
               <UserForm
                 handleSubmit={this.handleSubmit}
                 handleChange={this.handleChange}
-                buttonName="Log In"
+                buttonName="Login"
               />
               <div id="login-error" style={style.error}>
                 <h2>Invalid User or Password</h2>
@@ -101,6 +103,7 @@ class Login extends Component {
           </div>
         </div>
       </div>
+      </>
     );
   }
 }

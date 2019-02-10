@@ -77,7 +77,7 @@ class App extends Component {
         <Route
           exact
           path="/signup"
-          render={() => <Signup updateUser={this.updateUser} />}
+          render={() => <SignupPage updateUser={this.updateUser} />}
         />
         <Route exact path="/habits" render={() => <Habits />} />
         <Route exact path="/routine" component={Routine} />

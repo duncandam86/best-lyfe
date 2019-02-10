@@ -4,6 +4,7 @@ import { Redirect } from "react-router-dom";
 import BodyWrapper from "../../components/Bodywrapper";
 import LargeLogo from "../../components/LargeLogo";
 import UserForm from "../../components/UserForm";
+// import Navbar from "./components/Navbar";
 //other packages
 import axios from "axios";
 //styles

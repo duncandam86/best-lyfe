@@ -1,6 +1,9 @@
 import React from "react";
 import DropDownComponent from "../DropDownComponent";
 import "./style.scss";
+import { Redirect } from "react-router-dom";
+
+
 
 function HabitsComponent(props) {
   return (
@@ -11,32 +14,35 @@ function HabitsComponent(props) {
       </div>
         <div id="habits-body">
           <div id ="habits-header">
-          <h2>Workout
-          {/* {props.Habit} */}
-          </h2>
-          <h3>
-            edit
-            </h3>
+              <h2>Workout
+              {/* {props.Habit} */}
+              </h2>
+              <h3>
+                <a 
+                // href={"/habits/" + habit._id}
+                >remove
+                </a>
+              </h3>
             </div>
           <hr />      
 
-          <h3>Progress:</h3>
+          {/* <h3>Progress:</h3>
           <figure>
 
-          </figure>
+          </figure> */}
 
-          <h3>Name:</h3>
+          <h4>Name:</h4>
           <p>Workout
                   {/* {props.Name} */}
           </p>
 
-          <h3>Frequency:</h3>
-          <p>Mon, Wed, Fri, Sun
+          <h4>Time:</h4>
+          <p>6:30am
                  {/* {props.Frequency} */}
 
           </p>
 
-          <h3>Comments:</h3>
+          <h4>Comments:</h4>
           <p>Mix of Legs, Arms, Cardio, Chest/Back
                  {/* {props.Comments} */}
 

@@ -1,21 +1,23 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { Route } from "react-router-dom";
+
+// styles
+import "./App.scss";
 
 // components
 import Signup from "./components/Signup";
 import LoginForm from "./components/Login";
 import Navbar from "./components/Navbar";
 
-// styles
-import "./App.scss";
 
-import { Route } from "react-router-dom";
-// components
+// pages
 import SignupPage from "./pages/SignUp";
 import LoginPage from "./pages/Login";
 import Home from "./pages/Home";
 import Habits from "./pages/Habits";
 import Routine from "./pages/Routine";
+import HabitsForm from"./pages/HabitsForm";
 
 
 class App extends Component {
@@ -79,6 +81,7 @@ class App extends Component {
         />
         <Route exact path="/habits" render={() => <Habits />} />
         <Route exact path="/routine" component={Routine} />
+        <Route exact path="/habitsform" render={() => <HabitsForm />} />
       </div>
     );
   }

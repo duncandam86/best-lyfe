@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
+
 //components
 import BodyWrapper from "../../components/Bodywrapper";
-import LargeLogo from "../../components/LargeLogo";
 import UserForm from "../../components/UserForm";
-// import Navbar from "./components/Navbar";
+import Navbar from "../../components/Navbar";
+
 //other packages
 import axios from "axios";
+
 //styles
 import "./style.scss";
 
@@ -65,12 +67,13 @@ class Signup extends Component {
     return this.state.redirect ? (
       <Redirect to="/habits" />
     ) : (
+      <> <Navbar />
       <div className="container is-fluid">
         <div className="columns is-mobile is-centered">
           <div className="column is-10">
             <div className="level is-marginless">
               <div className="level-item">
-                <LargeLogo />
+             
               </div>
             </div>
             <BodyWrapper txtAlign="left" title2="Sign Up">
@@ -83,6 +86,7 @@ class Signup extends Component {
           </div>
         </div>
       </div>
+      </>
     );
   }
 }

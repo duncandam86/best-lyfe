@@ -9,7 +9,8 @@ function BodyWrapper(props) {
         <p className="is-size-1 is-size-3-mobile">{props.title2}</p>
       </div>
       {props.children}
-    </div>
+      </div>
+     
   );
 }
 

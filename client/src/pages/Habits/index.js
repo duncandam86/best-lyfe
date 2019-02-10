@@ -2,8 +2,8 @@ import React from "react";
 
 import Navbar from "../../components/Navbar";
 import BodyWrapper from "../../components/Bodywrapper";
-
-
+import HabitsComponent from "../../components/HabitsComponent"
+//import "../../styles/shared.scss";
 import "./style.scss";
 
 function Habits() {

@@ -8,10 +8,10 @@ module.exports = function(app) {
     console.log("Habit Data:");
     console.log(req.body);
     Habit.create({
-      name: req.body.name,
+      title: req.body.title,
       time: req.body.time,
-      frequency: req.body.frequency,
-      comments: req.body.comments
+      // frequency: req.body.frequency,
+      comment: req.body.comments
     }).then(function(results) {
       res.json(results);
     });

@@ -1,11 +1,16 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Route, Link } from "react-router-dom";
+
 // components
-import Signup from "./components/sign-up";
-import LoginForm from "./components/login-form";
-import Navbar from "./components/navbar";
+import Signup from "./components/Signup";
+import LoginForm from "./components/Login";
+import Navbar from "./components/Navbar";
+
+//
 import Home from "./pages/Home";
+import Habits from "./pages/Habits";
+
 // styles
 import "./App.scss";
 
@@ -66,6 +71,7 @@ class App extends Component {
           render={() => <LoginForm updateUser={this.updateUser} />}
         />
         <Route path="/signup" render={() => <Signup />} />
+        <Route path="/habits" render={() => <Habits />} />
       </div>
     );
   }

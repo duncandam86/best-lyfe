@@ -1,3 +1,4 @@
+
 nav{
     display:flex;
     margin-top:10px;
@@ -12,10 +13,21 @@ div.level-item{
 
 #nav-logo{
     height:45px;
+
+nav {
+  display: flex;
+  margin-top: 10px;
+  padding-bottom: 10px;
+  // border-bottom:solid grey 2px;
+  width: 100%;
 }
 
-// a .navbar-burger{
-//     width:100%;
-// }
+div.level-item {
+  display: flex;
+}
 
-// img{width:100000px}
+#nav-logo {
+  height: 45px;
+
+}
+

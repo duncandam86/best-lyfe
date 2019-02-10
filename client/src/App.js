@@ -1,25 +1,30 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Route, Link } from "react-router-dom";
 
 // components
 import Signup from "./components/Signup";
 import LoginForm from "./components/Login";
 import Navbar from "./components/Navbar";
 
-//
-import Home from "./pages/Home";
-import Habits from "./pages/Habits";
-
 // styles
 import "./App.scss";
+
+import { Route } from "react-router-dom";
+// components
+import SignupPage from "./pages/SignUp";
+import LoginPage from "./pages/Login";
+import Home from "./pages/Home";
+import Habits from "./pages/Habits";
+import Routine from "./pages/Routine";
+
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
       loggedIn: false,
-      username: null
+      username: null,
+      userid: null
     };
 
     this.getUser = this.getUser.bind(this);
@@ -36,21 +41,23 @@ class App extends Component {
   }
 
   getUser() {
-    axios.get('/api/users').then(response => {
-      console.log('Get user response: ')
-      console.log(response.data)
+    axios.get("/api/users").then(response => {
+      console.log("Get user response: ");
+      console.log(response.data);
       if (response.data.user) {
         console.log("Get User: There is a user saved in the server session: ");
 
         this.setState({
           loggedIn: true,
-          username: response.data.user.username
+          username: response.data.user.username,
+          userid: response.data.user.id
         });
       } else {
         console.log("Get user: no user");
         this.setState({
           loggedIn: false,
-          username: null
+          username: null,
+          userid: null
         });
       }
     });
@@ -59,19 +66,19 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {/* <Navbar updateUser={this.updateUser} loggedIn={this.state.loggedIn} /> */}
-        {/* greet user if logged in: */}
-        {/* {this.state.loggedIn && <p>Join the party, {this.state.username}!</p>} */}
-        {/* Routes to different components */}
-
         <Route exact path="/" component={Home} />
         <Route
           exact
           path="/login"
-          render={() => <LoginForm updateUser={this.updateUser} />}
+          render={() => <Login updateUser={this.updateUser} />}
         />
-        <Route path="/signup" render={() => <Signup />} />
-        <Route path="/habits" render={() => <Habits />} />
+        <Route
+          exact
+          path="/signup"
+          render={() => <Signup updateUser={this.updateUser} />}
+        />
+        <Route exact path="/habits" render={() => <Habits />} />
+        <Route exact path="/routine" component={Routine} />
       </div>
     );
   }

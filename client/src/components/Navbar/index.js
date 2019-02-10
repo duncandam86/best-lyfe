@@ -1,5 +1,11 @@
 import React, { Component } from "react";
+
+import { Redirect } from "react-router-dom";
+import { Route, Link } from "react-router-dom";
 import "./style.scss";
+import axios from "axios";
+
+
 
 class Navbar extends Component {
   render() {
@@ -20,9 +26,11 @@ class Navbar extends Component {
           <span aria-hidden="true" />
           <span aria-hidden="true" />
         </a>
+
       </nav>
     );
   }
 }
 
 export default Navbar;
+

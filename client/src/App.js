@@ -1,12 +1,22 @@
 import React, { Component } from "react";
 import axios from "axios";
+
+// components
+import Signup from "./components/Signup";
+import LoginForm from "./components/Login";
+import Navbar from "./components/Navbar";
+
+// styles
+import "./App.scss";
+
 import { Route } from "react-router-dom";
 // components
-import Signup from "./pages/SignUp";
-import Login from "./pages/Login";
+import SignupPage from "./pages/SignUp";
+import LoginPage from "./pages/Login";
 import Home from "./pages/Home";
 import Habits from "./pages/Habits";
 import Routine from "./pages/Routine";
+
 
 class App extends Component {
   constructor() {

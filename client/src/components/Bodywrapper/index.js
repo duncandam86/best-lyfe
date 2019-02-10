@@ -1,15 +1,16 @@
-import React, { Component } from "react";
+import React from "react";
 import "./style.scss";
 
 function BodyWrapper(props) {
   return (
-    <div className="card has-text-centered">
+    <div className={`card has-text-${props.txtAlign}`}>
       <div className="card-header has-text-centered has-text-white">
-        <p className="is-size-3">{props.title1}</p>
-        <p className="is-size-1">{props.title2}</p>
-      </div><div id="bodywrapper-body">
+        <p className="is-size-3 is-size-5-mobile">{props.title1}</p>
+        <p className="is-size-1 is-size-3-mobile">{props.title2}</p>
+      </div>
       {props.children}
-      </div></div>
+      </div>
+     
   );
 }
 

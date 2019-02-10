@@ -1,5 +1,5 @@
 import React from "react";
-// import LargeLogo from "../../components/LargeLogo";
+
 import Navbar from "../../components/Navbar";
 import BodyWrapper from "../../components/Bodywrapper";
 import HabitsComponent from "../../components/HabitsComponent"
@@ -30,5 +30,6 @@ function Habits() {
     // </div>
   );
 }
+
 
 export default Habits;

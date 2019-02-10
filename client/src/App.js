@@ -5,13 +5,19 @@ import { Route } from "react-router-dom";
 import Signup from "./pages/SignUp";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
+import Habits from "./pages/Habits";
+import { Route, Link } from "react-router-dom";
+
+// components
+import Navbar from "./components/Navbar";
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
       loggedIn: false,
-      username: null
+      username: null,
+      userid: null
     };
 
     this.getUser = this.getUser.bind(this);
@@ -36,13 +42,15 @@ class App extends Component {
 
         this.setState({
           loggedIn: true,
-          username: response.data.user.username
+          username: response.data.user.username,
+          userid: response.data.user.id
         });
       } else {
         console.log("Get user: no user");
         this.setState({
           loggedIn: false,
-          username: null
+          username: null,
+          userid: null
         });
       }
     });
@@ -57,7 +65,12 @@ class App extends Component {
           path="/login"
           render={() => <Login updateUser={this.updateUser} />}
         />
-        <Route exact path="/signup" component={Signup} />
+        <Route
+          exact
+          path="/signup"
+          render={() => <Signup updateUser={this.updateUser} />}
+        />
+        <Route path="/habits" render={() => <Habits />} />
         {/* <Route exact path="/routine" component={Routine} /> */}
       </div>
     );

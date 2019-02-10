@@ -38,7 +38,7 @@ function UserForm(props) {
             </span>
           </div>
         </div>
-        <SubmitButton onClick={props.handleSubmit} text="Sign Up" />
+        <SubmitButton onClick={props.handleSubmit} text={props.buttonName} />
       </div>
     </div>
   );

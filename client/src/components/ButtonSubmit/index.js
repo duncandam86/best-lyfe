@@ -6,7 +6,7 @@ function SubmitButton(props) {
     <div className="field">
       <div className="control">
         <button
-          className="button is-link"
+          className="button is-large"
           onClick={props.onClick}
           type="submit"
         >

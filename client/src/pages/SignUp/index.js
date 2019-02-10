@@ -42,6 +42,11 @@ class Signup extends Component {
         console.log(response);
         if (!response.data.errmsg) {
           console.log("successful signup");
+          this.props.updateUser({
+            loggedIn: true,
+            username: response.data.username,
+            userid: response.data.id
+          });
           this.setState({
             //redirect to login page
             redirect: true
@@ -71,6 +76,7 @@ class Signup extends Component {
               <UserForm
                 handleSubmit={this.handleSubmit}
                 handleChange={this.handleChange}
+                buttonName="Sign Up"
               />
             </BodyWrapper>
           </div>

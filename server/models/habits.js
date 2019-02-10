@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-  var Habits = sequelize.define("HabitInfo", {
+  var Habits = sequelize.define("Habits", {
     title: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -25,13 +25,13 @@ module.exports = function(sequelize, DataTypes) {
     recordArray: {
       //type: DataTypes.ARRAY(DataTypes.BOOLEAN)
       type: DataTypes.STRING,
-      allowNull: false,
-      get() {
-        return this.getDataValue("recordArray").split(",");
-      },
-      set(val) {
-        this.setDataValue("recordArray", val.join(","));
-      }
+      // allowNull: false,
+      // get() {
+      //   return this.getDataValue("recordArray").split(",");
+      // },
+      // set(val) {
+      //   this.setDataValue("recordArray", val.join(","));
+      // }
     }
   });
 

@@ -21,7 +21,7 @@ function Habits() {
             </div>
             <BodyWrapper title1="Your" title2="Habits">
              
-              {/* <HabitsComponent /> */}
+              <HabitsComponent />
           
             </BodyWrapper>
           </div>

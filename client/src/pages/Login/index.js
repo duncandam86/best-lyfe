@@ -5,10 +5,20 @@ import BodyWrapper from "../../components/Bodywrapper";
 // import LargeLogo from "../../components/LargeLogo";
 import Navbar from "../../components/Navbar";
 import UserForm from "../../components/UserForm";
+// import LoginError from "../../components/LoginError";
+
 //other packages
 import axios from "axios";
 //styles
 import "./style.scss";
+
+const style = {
+  error: {
+    display: "none",
+    color: "red",
+    textAlign: "center"
+  }
+}
 
 class Login extends Component {
   constructor() {
@@ -16,7 +26,8 @@ class Login extends Component {
     this.state = {
       username: "",
       password: "",
-      redirect: null
+      redirect: null,
+      showError: null
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -50,12 +61,20 @@ class Login extends Component {
           this.setState({
             redirect: true
           });
+        } else if (response.status === 401) {
+          console.log("invalid login, RED TEXT")
         }
       })
       .catch(error => {
-        console.log("login error: ", error);
+        console.log("login error: ");
+        console.log(error)
+          console.log("invalid login")
+          document.getElementById("login-error").style.display = "block";
+      
+
       });
   }
+
 
   render() {
     return this.state.redirect ? (
@@ -75,6 +94,9 @@ class Login extends Component {
                 handleChange={this.handleChange}
                 buttonName="Log In"
               />
+              <div id="login-error" style={style.error}>
+                <h2>Invalid User or Password</h2>
+              </div>
             </BodyWrapper>
           </div>
         </div>

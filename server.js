@@ -28,7 +28,7 @@ app.use(passport.session());
 
 // Define API routes here
 require("./server/routes/user")(app)
-// require("./server/routes/apiRoutes")(app)
+require("./server/routes/apiRoutes")(app)
 require("./server/routes/htmlRoutes")(app)
 
 //Sequelize

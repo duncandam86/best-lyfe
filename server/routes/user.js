@@ -24,9 +24,10 @@ module.exports = function(app) {
 
     // res.json("/members");
 
-    console.log("logged in", req.user);
+    console.log("logged in", req.user.dataValues);
     var userInfo = {
-      username: req.user.username
+      username: req.user.username,
+      userid: req.user.id
     };
     res.send(userInfo);
   });

@@ -6,10 +6,7 @@ import Signup from "./pages/SignUp";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Habits from "./pages/Habits";
-import { Route, Link } from "react-router-dom";
-
-// components
-import Navbar from "./components/Navbar";
+import Routine from "./pages/Routine";
 
 class App extends Component {
   constructor() {
@@ -70,8 +67,8 @@ class App extends Component {
           path="/signup"
           render={() => <Signup updateUser={this.updateUser} />}
         />
-        <Route path="/habits" render={() => <Habits />} />
-        {/* <Route exact path="/routine" component={Routine} /> */}
+        <Route exact path="/habits" render={() => <Habits />} />
+        <Route exact path="/routine" component={Routine} />
       </div>
     );
   }

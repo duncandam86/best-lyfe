@@ -10,7 +10,7 @@ function HabitsComponent(props) {
     <div>
       <div id="habits">
         <DropDownComponent />
-        <img src="../images/AddButton.png" />
+        <img src="../../images/AddButton.png" />
       </div>
         <div id="habits-body">
           <div id ="habits-header">

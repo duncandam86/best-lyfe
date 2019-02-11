@@ -67,25 +67,17 @@ class Signup extends Component {
     return this.state.redirect ? (
       <Redirect to="/habitsForm" />
     ) : (
-      <> <Navbar />
-      <div className="container is-fluid">
-        <div className="columns is-mobile is-centered">
-          <div className="column is-10">
-            <div className="level is-marginless">
-              <div className="level-item">
-             
-              </div>
-            </div>
-            <BodyWrapper txtAlign="left" title2="Sign Up">
-              <UserForm
-                handleSubmit={this.handleSubmit}
-                handleChange={this.handleChange}
-                buttonName="Sign Up"
-              />
-            </BodyWrapper>
-          </div>
+      <>
+        <Navbar />
+        <div className="container">
+          <BodyWrapper txtAlign="left" title2="Sign Up">
+            <UserForm
+              handleSubmit={this.handleSubmit}
+              handleChange={this.handleChange}
+              buttonName="Sign Up"
+            />
+          </BodyWrapper>
         </div>
-      </div>
       </>
     );
   }

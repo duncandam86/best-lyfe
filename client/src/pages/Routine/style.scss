@@ -1,3 +1,47 @@
 .field:first-child {
   margin-top: 0.75rem;
 }
+
+#habit-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+#habit-list label {
+  flex-grow: 1;
+  width: auto;
+  display: inline-block;
+}
+
+#habit-list input {
+  flex-grow: 1;
+  width: auto;
+  display: inline-block;
+}
+
+#habit-list div {
+  flex-grow: 1;
+  width: auto;
+  display: inline-block;
+  font-size: 2rem;
+  padding: 0px;
+}
+
+#habit-list .habit-time {
+  flex-grow: 1;
+  width: auto;
+  display: inline-block;
+  font-size: 1rem;
+  color: #22b573;
+  padding: 0px;
+}
+
+#habit-list .habit-title {
+  padding: 0px;
+}
+
+input[type="checkbox"] {
+  transform: scale(1.5);
+  margin-right: 0.75rem;
+}

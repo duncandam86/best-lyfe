@@ -7,7 +7,6 @@ import Navbar from "../../components/Navbar";
 import UserForm from "../../components/UserForm";
 // import LoginError from "../../components/LoginError";
 
-
 //other packages
 import axios from "axios";
 
@@ -20,7 +19,7 @@ const style = {
     color: "red",
     textAlign: "center"
   }
-}
+};
 
 class Login extends Component {
   constructor() {
@@ -51,58 +50,49 @@ class Login extends Component {
         password: this.state.password
       })
       .then(response => {
-        console.log("login response: ", response);
+        //console.log("login response: ", response);
         if (response.status === 200) {
           // update App.js state
           this.props.updateUser({
             loggedIn: true,
             username: response.data.username,
-            userid: response.data.id
+            userid: response.data.userid
           });
           // update the state to redirect to home
           this.setState({
             redirect: true
           });
         } else if (response.status === 401) {
-          console.log("invalid login, RED TEXT")
+          console.log("invalid login, RED TEXT");
         }
       })
       .catch(error => {
         console.log("login error: ");
-        console.log(error)
-          console.log("invalid login")
-          document.getElementById("login-error").style.display = "block";
-      
-
+        console.log(error);
+        console.log("invalid login");
+        document.getElementById("login-error").style.display = "block";
       });
   }
 
-
   render() {
     return this.state.redirect ? (
-      <Redirect to="/habitsForm" userId={this.state.userid}/>
+      <Redirect to="/habitsForm" userId={this.state.userid} />
     ) : (
-      <> <Navbar />
-      <div className="container iss-fluid">
-        <div className="columns is-mobile is-centered">
-          <div className="column is-10">
-            <div className="level is-marginless">
-              <div className="level-item">
-              </div>
-            </div>
-            <BodyWrapper txtAlign="left" title2="Login">
-              <UserForm
-                handleSubmit={this.handleSubmit}
-                handleChange={this.handleChange}
-                buttonName="Login"
-              />
+      <>
+        <Navbar />
+        <div className="container">
+          <BodyWrapper txtAlign="left" title2="Login">
+            <UserForm
+              handleSubmit={this.handleSubmit}
+              handleChange={this.handleChange}
+              buttonName="Login"
+            >
               <div id="login-error" style={style.error}>
                 <h2>Invalid User or Password</h2>
               </div>
-            </BodyWrapper>
-          </div>
+            </UserForm>
+          </BodyWrapper>
         </div>
-      </div>
       </>
     );
   }

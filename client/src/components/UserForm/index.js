@@ -39,6 +39,7 @@ function UserForm(props) {
           </div>
         </div>
         <SubmitButton onClick={props.handleSubmit} text={props.buttonName} />
+        {props.children}
       </div>
     </div>
   );

@@ -4,8 +4,12 @@
 $family-sans-serif: "Boogaloo", cursive;
 $green: #22b573;
 $primary: $green;
-$button-background-color: rgb(155, 154, 154);
+$grey: rgb(155, 154, 154);
+$darkgrey: #5d6468;
+$button-background-color: $grey;
 $button-hover-color: white;
+$link: $grey;
+$link-hover: $darkgrey;
 
 @import "../../node_modules/bulma/sass/utilities/_all.sass";
 @import "../../node_modules/bulma/sass/base/_all.sass";

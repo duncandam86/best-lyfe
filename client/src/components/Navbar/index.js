@@ -1,8 +1,6 @@
 import React, { Component } from "react";
-
-import { Redirect } from "react-router-dom";
-import { Route, Link } from "react-router-dom";
 import "./style.scss";
+<<<<<<< HEAD
 import axios from "axios";
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -28,6 +26,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+=======
+
+// import { Redirect } from "react-router-dom";
+// import { Route, Link } from "react-router-dom";
+// import axios from "axios";
+>>>>>>> 8046a0fb8879e4727e7841a756b874991571c95b
 
 class Navbar extends Component {
 

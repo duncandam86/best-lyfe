@@ -4,7 +4,7 @@ import { Redirect, Link } from "react-router-dom";
 // import LargeLogo from "../../components/LargeLogo";
 import Navbar from "../../components/Navbar";
 import BodyWrapper from "../../components/Bodywrapper";
-import { List, ListItem } from "../../components/List";
+import HabitListItem from "../../components/HabitList";
 
 //other packages
 import axios from "axios";
@@ -13,8 +13,7 @@ import "./style.scss";
 
 class Routine extends Component {
   state = {
-    habits: [],
-    habitChecked: false
+    habits: []
   };
 
   componentDidMount() {
@@ -23,18 +22,23 @@ class Routine extends Component {
 
   loadHabits = () => {
     axios
-      .get("/api/users")
+      .get("/api/habits")
       .then(response => {
+        //console.log(response.data);
         this.setState({ habits: response.data });
       })
       .catch(err => console.log(err));
   };
 
-  handleInputChange = event => {
-    const { name, value } = event.target;
-    this.setState({
-      [name]: value
-    });
+  // handleInputChange = event => {
+  //   const { name, value } = event.target;
+  //   this.setState({
+  //     [name]: value
+  //   });
+  // };
+
+  isChecked = function check() {
+    document.getElementsByTagName("input");
   };
 
   handleFormSubmit = event => {
@@ -51,38 +55,48 @@ class Routine extends Component {
   };
 
   render() {
-    return this.state.redirect ? (
-      <Redirect to="/routine" />
-    ) : (
-      <div className="container is-fluid">
-        <div className="columns is-mobile is-centered">
-          <div className="column is-10">
-            <div className="level is-marginless">
-              <div className="level-item">
-                <Navbar />
+    this.state.habits.forEach(habit => {
+      console.log(habit.id);
+    });
+    //<DeleteBtn onClick={() => this.deletehabit(habit._id)} />
+    return (
+      <>
+        <Navbar />
+        <div className="container">
+          <BodyWrapper txtAlign="left" title1="Your" title2="Routine">
+            <div className="columns is-centered">
+              <div className="column is-four-fifths">
+                {this.state.habits.length ? (
+                  <div id="habit-list">
+                    {this.state.habits.map(habit => (
+                      <HabitListItem
+                        key={habit.id}
+                        dataId={habit.id}
+                        title={habit.title}
+                        time={habit.time}
+                        onChange={this.handleBoxChange}
+                      />
+                    ))}
+                  </div>
+                ) : (
+                  <div className="level">
+                    <div className="level-item has-text-centered">
+                      <div>
+                        <p className="title is-3">No Habits to Display</p>
+                        <p>
+                          <Link to="/habits" className="is-link is-size-5">
+                            Go to the Habits page to create a new habit.
+                          </Link>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
-            <BodyWrapper txtAlign="left" title1="Your" title2="Routine">
-              {this.state.habits.length ? (
-                <List>
-                  {this.state.habits.map(habit => (
-                    <ListItem key={habit.id}>
-                      <Link to={"/habits/" + habit._id}>
-                        <strong>
-                          {habit.title} by {habit.author}
-                        </strong>
-                      </Link>
-                      {/* <DeleteBtn onClick={() => this.deletehabit(habit._id)} /> */}
-                    </ListItem>
-                  ))}
-                </List>
-              ) : (
-                <h3 is-size-3>No Results to Display</h3>
-              )}
-            </BodyWrapper>
-          </div>
+          </BodyWrapper>
         </div>
-      </div>
+      </>
     );
   }
 }

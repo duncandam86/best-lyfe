@@ -5,28 +5,62 @@ const moment = require("moment");
 
 module.exports = function(app) {
   app.post("/api/newHabit", function(req, res) {
-    // console.log("Habit Data:");
-    // console.log(req.body);
+    let whichUser;
+
+    if (req.user) {
+      whichUser = req.user.id;
+    } else {
+      whichUser = 1;
+    }
+
     db.Habits.create({
       title: req.body.title,
       time: req.body.time,
       // frequency: req.body.frequency,
       comment: req.body.comment,
-      UserId: 1,
-      recordArray: 0
+      UserId: whichUser
     }).then(function(results) {
       res.json(results);
     });
   });
 
-  app.get("/api/habits", function(req, res) {});
+  app.get("/api/habits", function(req, res) {
+    let whichUser;
 
-  app.get("/api/habits/:id", function(req, res) {});
+    if (req.user) {
+      whichUser = req.user.id;
+    } else {
+      whichUser = 1;
+    }
 
-  // app.update("/api/habits/:id", function(req, res) {});
+    db.Habits.findAll({
+      where: {
+        userId: whichUser
+      }
+    }).then(function(result) {
+      // console.log(result);
+      res.json(result);
+    });
+  });
+
+  app.get("/api/habits/:id", function(req, res) {
+    console.log("DISPLAY HABIT ID: " + req.params.id);
+    res.json({
+      DISPLAY: req.params.id
+    });
+  });
+
+  app.put("/api/habits/:id", function(req, res) {
+    console.log("UPDATE HABIT ID: " + req.params.id);
+    res.json({
+      UPDATE: req.params.id
+    });
+  });
 
   app.delete("/api/habits/:id", function(req, res) {
-    console.log("Habit ID:");
-    console.log(req);
+    console.log("DELETE HABIT ID: " + req.params.id);
+    res.json({
+      DELETE: req.params.id
+    });
   });
 };

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
 import axios from "axios";
 
 //components
@@ -13,9 +14,10 @@ import "./style.scss";
 class HabitsForm extends Component {
   // Setting the component's initial state
   state = {
-    title: this.state.habitName,
-    time: this.state.habitTime,
-    comment: this.state.habitComment
+    title: "",
+    time: "",
+    comment: "",
+    redirect: null
   };
 
   handleInputChange = event => {
@@ -45,16 +47,21 @@ class HabitsForm extends Component {
       comment: this.state.habitComment
     })
     .then( res => {
-      console.log(res);
       console.log("completed update");
+      this.setState({
+        //redirect to habits page
+        redirect: true
+      });
     })
     
 
   };
 
   render() {
-    // Notice how each input has a `value`, `name`, and `onChange` prop
-    return (
+    //if state.redirect is not null, redirect to different page.
+    return this.state.redirect ? (
+      <Redirect to="/habits" />
+    ) : (
       <div>
         <Navbar />
         <BodyWrapper

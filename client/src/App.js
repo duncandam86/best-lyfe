@@ -6,19 +6,13 @@ import { Route } from "react-router-dom";
 import "./App.scss";
 
 // components
-import Signup from "./components/Signup";
-import LoginForm from "./components/Login";
-import Navbar from "./components/Navbar";
-
-
 // pages
-import SignupPage from "./pages/SignUp";
-import LoginPage from "./pages/Login";
+import Signup from "./pages/SignUp";
+import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Habits from "./pages/Habits";
 import Routine from "./pages/Routine";
-import HabitsForm from"./pages/HabitsForm";
-
+import HabitsForm from "./pages/HabitsForm";
 
 class App extends Component {
   constructor() {
@@ -39,7 +33,12 @@ class App extends Component {
   }
 
   updateUser(userObject) {
-    this.setState(userObject);
+    //console.log(userObject);
+    this.setState({
+      loggedIn: userObject.loggedIn,
+      username: userObject.username,
+      userid: userObject.userid
+    });
   }
 
   getUser() {
@@ -72,12 +71,12 @@ class App extends Component {
         <Route
           exact
           path="/login"
-          render={() => <LoginPage updateUser={this.updateUser} />}
+          render={() => <Login updateUser={this.updateUser} />}
         />
         <Route
           exact
           path="/signup"
-          render={() => <SignupPage updateUser={this.updateUser} />}
+          render={() => <Signup updateUser={this.updateUser} />}
         />
         <Route exact path="/habits" render={() => <Habits />} />
         <Route exact path="/routine" component={Routine} />

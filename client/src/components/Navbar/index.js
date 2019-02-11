@@ -5,62 +5,70 @@ import { Route, Link } from "react-router-dom";
 import "./style.scss";
 import axios from "axios";
 
-// document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
+  // Get all "navbar-burger" elements
+  const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
 
-//   // Get all "navbar-burger" elements
-//   const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+  // Check if there are any navbar burgers
+  if ($navbarBurgers.length > 0) {
 
-//   // Check if there are any navbar burgers
-//   if ($navbarBurgers.length > 0) {
+    // Add a click event on each of them
+    $navbarBurgers.forEach( el => {
+      el.addEventListener('click', () => {
 
-//     // Add a click event on each of them
-//     $navbarBurgers.forEach( el => {
-//       el.addEventListener('click', () => {
+        // Get the target from the "data-target" attribute
+        const target = el.dataset.target;
+        const targetDoc = document.getElementById(target);
 
-//         // Get the target from the "data-target" attribute
-//         const target = el.dataset.target;
-//         const targetDoc = document.getElementById(target);
+        // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+        el.classList.toggle('is-active');
+        targetDoc.classList.toggle('is-active');
 
-//         // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
-//         el.classList.toggle('is-active');
-//         targetDoc.classList.toggle('is-active');
-
-//       });
-//     });
-//   }
-
-// });
+      });
+    });
+  }
+});
 
 class Navbar extends Component {
 
   render() {
     return (
-      <nav>
-        
-        <img
-          id="nav-logo"
-          src="../images/BestLyfe_Logo_Horizontal.png"
-          alt="Best Lyfe logo"
-        />
-        <a
-          role="button"
-          className="navbar-burger"
-          aria-label="menu"
-          aria-expanded="false"
-          >
-          <span aria-hidden="true" />
-          <span aria-hidden="true" />
-          <span aria-hidden="true" />
-          {/* <a class="navbar-item">Home</a> */}
-        </a>
+
+      <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <img id="nav-logo" src="../images/BestLyfe_Logo_Horizontal.png"  alt="Best Lyfe logo" ></img>
         
 
+          <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
+        </div>
+
+        <div id="navbarBasicExample" class="navbar-menu">
+          <div class="navbar-start">
+            
+            <a class="navbar-item">
+              Routine
+            </a>
+
+            <a class="navbar-item">
+              Habits
+            </a>
+
+          </div>
+
+          <div class="navbar-end">
+            <a class="navbar-item">
+              Logout
+            </a>
+          </div>
+        </div>
       </nav>
-
 
     );
   }
 }
 
 export default Navbar;
-

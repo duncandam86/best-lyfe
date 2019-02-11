@@ -2,18 +2,18 @@ const express = require("express");
 const PORT = process.env.PORT || 3001;
 const app = express();
 const session = require("express-session");
-const bodyParser = require('body-parser')
+const bodyParser = require("body-parser");
 
 const db = require("./server/models");
 const passport = require("./server/config/passport");
 
 // Define middleware here
 app.use(
-	bodyParser.urlencoded({
-		extended: false
-	})
-)
-app.use(bodyParser.json())
+  bodyParser.urlencoded({
+    extended: false
+  })
+);
+app.use(bodyParser.json());
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
@@ -27,9 +27,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Define API routes here
-require("./server/routes/user")(app)
-require("./server/routes/apiRoutes")(app)
-require("./server/routes/htmlRoutes")(app)
+require("./server/routes/user")(app);
+require("./server/routes/apiRoutes")(app);
+require("./server/routes/htmlRoutes")(app);
 
 //Sequelize
 const syncOptions = { force: false };

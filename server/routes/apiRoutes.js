@@ -46,12 +46,24 @@ module.exports = function(app) {
     })
   });
 
-  app.get("/api/habits/:id", function(req, res) {});
+  app.get("/api/habits/:id", function(req, res) {
+    console.log("DISPLAY HABIT ID: " + req.params.id);
+    res.json({
+      "DISPLAY": req.params.id
+    })
+  });
 
-  app.put("/api/habits/:id", function(req, res) {});
+  app.put("/api/habits/:id", function(req, res) {
+    console.log("UPDATE HABIT ID: " + req.params.id);
+    res.json({
+      "UPDATE": req.params.id
+    })
+  });
 
   app.delete("/api/habits/:id", function(req, res) {
-    console.log("Habit ID:");
-    console.log(req);
+    console.log("DELETE HABIT ID: " + req.params.id);
+    res.json({
+      "DELETE": req.params.id
+    })
   });
 };

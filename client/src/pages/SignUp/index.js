@@ -65,7 +65,7 @@ class Signup extends Component {
 
   render() {
     return this.state.redirect ? (
-      <Redirect to="/habits" />
+      <Redirect to="/habitsForm" />
     ) : (
       <> <Navbar />
       <div className="container is-fluid">

@@ -5,15 +5,13 @@ const moment = require("moment");
 
 module.exports = function(app) {
   app.post("/api/newHabit", function(req, res) {
-    // console.log("Habit Data:");
-    console.log(req.body);
-    console.log("User: " + req.user.id)
+
     let userId;
 
-    if (req.user.id) {
+    if (req.user) {
       userId = req.user.id
     } else {
-      userId = 9999
+      userId = 1
     }
 
     db.Habits.create({
@@ -21,8 +19,7 @@ module.exports = function(app) {
       time: req.body.time,
       // frequency: req.body.frequency,
       comment: req.body.comment,
-      UserId: userId,
-      recordArray: 0
+      UserId: userId
     }).then(function(results) {
       res.json(results);
     });

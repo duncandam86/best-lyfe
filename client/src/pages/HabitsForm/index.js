@@ -13,9 +13,9 @@ import "./style.scss";
 class HabitsForm extends Component {
   // Setting the component's initial state
   state = {
-    title: this.state.habitName,
-    time: this.state.habitTime,
-    comment: this.state.habitComment
+    title: "",
+    time: "",
+    comment: ""
   };
 
   handleInputChange = event => {

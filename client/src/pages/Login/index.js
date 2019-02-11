@@ -80,10 +80,10 @@ class Login extends Component {
 
   render() {
     return this.state.redirect ? (
-      <Redirect to="/routine" />
+      <Redirect to="/habitsForm" userId={this.state.userid}/>
     ) : (
       <> <Navbar />
-      <div className="container is-fluid">
+      <div className="container iss-fluid">
         <div className="columns is-mobile is-centered">
           <div className="column is-10">
             <div className="level is-marginless">

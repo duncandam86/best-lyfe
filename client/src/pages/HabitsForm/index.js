@@ -49,7 +49,7 @@ class HabitsForm extends Component {
     .then( res => {
       console.log("completed update");
       this.setState({
-        //redirect to login page
+        //redirect to habits page
         redirect: true
       });
     })
@@ -58,7 +58,7 @@ class HabitsForm extends Component {
   };
 
   render() {
-    // Notice how each input has a `value`, `name`, and `onChange` prop
+    //if state.redirect is not null, redirect to different page.
     return this.state.redirect ? (
       <Redirect to="/habits" />
     ) : (

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
 import axios from "axios";
 
 //components
@@ -15,7 +16,8 @@ class HabitsForm extends Component {
   state = {
     title: "",
     time: "",
-    comment: ""
+    comment: "",
+    redirect: null
   };
 
   handleInputChange = event => {
@@ -45,8 +47,11 @@ class HabitsForm extends Component {
       comment: this.state.habitComment
     })
     .then( res => {
-      console.log(res);
       console.log("completed update");
+      this.setState({
+        //redirect to login page
+        redirect: true
+      });
     })
     
 
@@ -54,7 +59,9 @@ class HabitsForm extends Component {
 
   render() {
     // Notice how each input has a `value`, `name`, and `onChange` prop
-    return (
+    return this.state.redirect ? (
+      <Redirect to="/habits" />
+    ) : (
       <div>
         <Navbar />
         <BodyWrapper

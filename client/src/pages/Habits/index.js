@@ -7,7 +7,7 @@ import BodyWrapper from "../../components/Bodywrapper";
 import DropDownComponent from "../../components/DropDownComponent";
 //import "../../styles/shared.scss";
 import "./style.scss";
-import Moment from 'moment';
+import Moment from "moment";
 // import Moment from 'react-moment';
 import axios from "axios";
 
@@ -22,52 +22,49 @@ class Habits extends Component {
       this.setState({
         habitArray: res.data
       });
+    });
+  }
 
- 
+  getHabitStreak = () => {
+    this.state.habitArray.forEach(habit => {
+      console.log(habit);
+      console.log("Updated at" + habit.updatedAt);
 
-        //* current Date
-        let d1 = new Date(); //"now"
+      //* current Date
+      let d1 = new Date();
+      //* last update Date
+      let updatedAt = habit.updatedAt;
+      let d2 = new Date(updatedAt);
 
-        //* updatedAT Date
-        let updatedAt = this.state.habitArray[0].updatedAt;
-        let d2 = new Date(updatedAt)  // some date
-        let diff = Math.abs(d1-d2);
-        console.log("Difference in Milliseconds + "+diff)
-        let days = ((diff / (1000*60*60*24)) % 7)
-        console.log("Day's difference (raw streak)" + days)
+      //* find out how long from this moment compared to the last update
+      let diff = Math.abs(d1 - d2);
+      console.log("Difference in Milliseconds + " + diff);
+      let days = (diff / (1000 * 60 * 60 * 24)) % 7;
+      console.log("Day's difference (raw streak)" + days);
 
-
-  //* LOGIC
-   if ((days) > 1) {
-    let streak = Math.Floor(days)
-    console.log("Streak is " + streak) 
-   }else{
-     let streak = 0;
-     console.log("Streak is " + streak)
-    }
-
-
-
-
+      //* LOGIC
+      if (days === 1 || days > 1) {
+        let streak = 0;
+        console.log("Streak is " + streak);
+      } else {
+        let streak = Math.floor(days);
+        console.log("Streak is " + streak);
       }
-    )}
 
-  // getHabitStreak = () => {
-  //   this.state.habitArray.forEach(tile => {
-  //   console.log("Updated at" + this.state.habitArray[0].updatedAt);
-  //   console.log("created at" + this.state.habitArray[0].createdAt)
-    
-
-  //   const dateToFormat = this.state.habitArray[0].updatedAt;
-  //   console.log(dateToFormat);
-  // })
-  // };
-
+      //*end GetHabitsStreak
+    });
+    //* end ComponentDidMount
+  };
 
   render() {
     return (
       <>
         <Navbar />
+
+        {/*  this button console.logs the streak
+        <button onClick={this.getHabitStreak}>CHECK ME</button> */}
+
+
         <div className="container">
           <BodyWrapper title1="Your" title2="Habits">
             <div id="habits">
@@ -104,8 +101,6 @@ class Habits extends Component {
               <p>
                 Mix of Legs, Arms, Cardio, Chest/Back{/* {props.Comments} */}
               </p>
-
-       
             </div>
           </BodyWrapper>
         </div>

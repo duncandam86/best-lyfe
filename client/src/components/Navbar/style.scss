@@ -29,12 +29,11 @@ div.level-item {
 
 #nav-logo {
   height: 45px;
-
 }
 
 .burger{
   position:absolute;
-  right:0;
+  right:-20;
   justify-content: flex-end;
 }
 
@@ -52,5 +51,23 @@ div.level-item {
 }
 
 .navbar-brand{
+  width:100%;
+}
+
+#navbarBasicExample{
+  position:absolute;
+  right:0px;
+  top:50px;
+}
+
+span.span{
+background-color:rgb(86,177,121);
+color:rgb(86,177,121);
+height:5px;
+width:15px;
+margin-top:2px;
+}
+
+#navbar{
   width:100%;
 }

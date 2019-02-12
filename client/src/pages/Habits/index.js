@@ -32,7 +32,7 @@ class Habits extends Component {
         <div className="container">
           <BodyWrapper title1="Your" title2="Habits">
             <div id="habits">
-              <DropDownComponent />
+              <DropDownComponent habitArray={this.state.habitArray}/>
               <img src="../../images/AddButton.png" />
             </div>
             <div id="habits-body">

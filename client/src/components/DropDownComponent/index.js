@@ -1,7 +1,8 @@
 import React from "react";
 import "./style.scss";
+import DropDownItem from "../DropDownItem"
 
-function DropDownComponent() {
+function DropDownComponent(props) {
   return (
     <div className="dropdown is-hoverable">
 
@@ -19,7 +20,9 @@ function DropDownComponent() {
     <div className="dropdown-menu" id="dropdown-menu" role="menu">
       <div className="dropdown-content">
 
-        <a href="#" className="dropdown-item is-active">
+        {props.habitArray.map(index => <DropDownItem name={index.title}/>)}
+
+        {/* <a href="#" className="dropdown-item is-active">
          Workout
         </a>
         <a className="dropdown-item">
@@ -27,7 +30,7 @@ function DropDownComponent() {
         </a>
         <a href="#" className="dropdown-item">
           Read the News
-        </a>
+        </a> */}
         
       </div>
     </div>

@@ -50,10 +50,17 @@ module.exports = function(app) {
     });
   });
 
-  app.put("/api/habits/:id", function(req, res) {
-    console.log("UPDATE HABIT ID: " + req.params.id);
+  // app.put("/api/habits/:id", function(req, res) {
+  //   console.log("UPDATE HABIT ID: " + req.params.id);
+  //   res.json({
+  //     UPDATE: req.params.id
+  //   });
+  // });
+
+  app.put("/api/habits/", function(req, res) {
+    console.log("UPDATE HABITS: " + req.params);
     res.json({
-      UPDATE: req.params.id
+      UPDATE: "This is returned from the route"
     });
   });
 

@@ -31,35 +31,35 @@ class Routine extends Component {
       .catch(err => console.log(err));
   };
 
-  // handleInputChange = event => {
-  //   const { name, value } = event.target;
-  //   this.setState({
-  //     [name]: value
-  //   });
-  // };
-
-  isChecked = function check() {
-    document.getElementsByTagName("input");
+  getCompletedHabits = () => {
+    const habitsChecked = [];
+    const habits = document.getElementsByTagName("input");
+    const habitsArray = Array.prototype.slice.call(habits);
+    //console.log(inputArray);
+    const completedHabits = habitsArray.filter(habit => habit.checked === true);
+    completedHabits.forEach(function(checkbox) {
+      let checkedstatus = {};
+      //console.log(checkbox.id, checkbox.checked);
+      checkedstatus[checkbox.id] = checkbox.checked;
+      habitsChecked.push(checkedstatus);
+    });
+    return habitsChecked;
+    //console.log(habitsChecked);
   };
 
   handlePageSubmit = event => {
     event.preventDefault();
-    // if (this.state.title && this.state.author) {
-    //   API.savehabit({
-    //     title: this.state.title,
-    //     author: this.state.author,
-    //     synopsis: this.state.synopsis
-    //   })
-    //     .then(res => this.loadhabits())
-    //     .catch(err => console.log(err));
-    // }
+    const habits = this.getCompletedHabits();
+    console.log(habits);
+    axios
+      .put("/api/habits", habits)
+      .then(response => {
+        console.log(response.data);
+      })
+      .catch(err => console.log(err));
   };
 
   render() {
-    this.state.habits.forEach(habit => {
-      console.log(habit.id);
-    });
-    //<DeleteBtn onClick={() => this.deletehabit(habit._id)} />
     return (
       <>
         <Navbar />
@@ -81,7 +81,10 @@ class Routine extends Component {
                     </div>
                     <div className="level">
                       <div className="level-item has-text-centered">
-                        <SubmitButton text="Submit" />
+                        <SubmitButton
+                          text="Submit"
+                          onClick={this.handlePageSubmit}
+                        />
                       </div>
                     </div>
                   </div>

@@ -34,12 +34,18 @@
   display: inline-block;
   font-size: 1rem;
   color: #22b573;
-  padding: 0px;
+  padding: 10px;
 }
 
-#habit-list .habit-title {
-  padding: 0px;
-}
+// #habit-list .habit-title {
+//   padding: 0px;
+// }
+
+// .align-box {
+//   display: flex;
+//   justify-content: center;
+//   align-content: center;
+// }
 
 input[type="checkbox"] {
   transform: scale(1.5);

@@ -54,6 +54,8 @@ class Routine extends Component {
     // }
   };
 
+  
+
   render() {
     this.state.habits.forEach(habit => {
       console.log(habit.id);

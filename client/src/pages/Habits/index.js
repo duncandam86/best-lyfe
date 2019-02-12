@@ -22,6 +22,12 @@ class Habits extends Component {
       });
 
       console.log(this.state.habitArray);
+
+      console.log("created at" + this.state.habitArray[0].createdAt)
+      console.log("updated at" + this.state.habitArray[0].updatedAt)
+
+     
+
     });
   }
 
@@ -54,6 +60,10 @@ class Habits extends Component {
 
               <h4>Name:</h4>
               <p>Workout{/* {props.Name} */}</p>
+
+              <h4>Streak:</h4>
+              <p>5 DAYS{/* {props.Days} */}</p>
+
               <h4>Time:</h4>
               <p>6:30am{/* {props.Time} */}</p>
 
@@ -62,7 +72,7 @@ class Habits extends Component {
                 Mix of Legs, Arms, Cardio, Chest/Back{/* {props.Comments} */}
               </p>
 
-              <button id="complete">Complete</button>
+       
             </div>
           </BodyWrapper>
         </div>

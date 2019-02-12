@@ -5,6 +5,7 @@ import { Redirect, Link } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import BodyWrapper from "../../components/Bodywrapper";
 import HabitListItem from "../../components/HabitList";
+import SubmitButton from "../../components/ButtonSubmit";
 
 //other packages
 import axios from "axios";
@@ -41,7 +42,7 @@ class Routine extends Component {
     document.getElementsByTagName("input");
   };
 
-  handleFormSubmit = event => {
+  handlePageSubmit = event => {
     event.preventDefault();
     // if (this.state.title && this.state.author) {
     //   API.savehabit({
@@ -67,16 +68,22 @@ class Routine extends Component {
             <div className="columns is-centered">
               <div className="column is-four-fifths">
                 {this.state.habits.length ? (
-                  <div id="habit-list">
-                    {this.state.habits.map(habit => (
-                      <HabitListItem
-                        key={habit.id}
-                        dataId={habit.id}
-                        title={habit.title}
-                        time={habit.time}
-                        onChange={this.handleBoxChange}
-                      />
-                    ))}
+                  <div>
+                    <div id="habit-list">
+                      {this.state.habits.map(habit => (
+                        <HabitListItem
+                          key={habit.id}
+                          dataId={habit.id}
+                          title={habit.title}
+                          time={habit.time}
+                        />
+                      ))}
+                    </div>
+                    <div className="level">
+                      <div className="level-item has-text-centered">
+                        <SubmitButton text="Submit" />
+                      </div>
+                    </div>
                   </div>
                 ) : (
                   <div className="level">

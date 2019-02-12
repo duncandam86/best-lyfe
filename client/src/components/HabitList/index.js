@@ -11,12 +11,12 @@ export default function HabitListItem(props) {
         type="checkbox"
         id={`habit${props.dataId}`}
         data-id={props.dataId}
-        onChange={props.onChange}
       />
       {props.time ? (
-        <div>
-          <p className="habit-title is-paddingless">{props.title}</p>
-          <p className="habit-time is-paddingless">{props.time}</p>
+        <div className="habit-item">
+          <span className="habit-title is-paddingless">{props.title}</span>
+          <br />
+          <span className="habit-time is-paddingless">{props.time}</span>
         </div>
       ) : (
         <div className="habit-title is-paddingless">{props.title}</div>

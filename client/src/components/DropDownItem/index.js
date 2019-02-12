@@ -4,8 +4,8 @@ import React from "react";
 function DropDownItem(props) {
   return (
       <>
-        <a href="#" className="dropdown-item is-active">
-          {props.name}
+        <a href="#" className="dropdown-item is-active" data-id={props.habitId}>
+          {props.name} - {props.habitId}
         </a>
       </>
   );

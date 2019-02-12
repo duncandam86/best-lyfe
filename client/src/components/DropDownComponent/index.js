@@ -20,9 +20,9 @@ function DropDownComponent(props) {
     <div className="dropdown-menu" id="dropdown-menu" role="menu">
       <div className="dropdown-content">
 
-        {props.habitArray.map(index => <DropDownItem name={index.title}/>)}
+        {props.habitArray.map(index => <DropDownItem name={index.title} habitId={index.id}/>)
 
-        {/* <a href="#" className="dropdown-item is-active">
+        /* <a href="#" className="dropdown-item is-active">
          Workout
         </a>
         <a className="dropdown-item">

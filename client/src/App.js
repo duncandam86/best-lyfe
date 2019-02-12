@@ -1,32 +1,86 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
-import "./App.css";
-import axios from 'axios'
+import axios from "axios";
+import { Route } from "react-router-dom";
+
+// styles
+import "./App.scss";
+
+// components
+// pages
+import Signup from "./pages/SignUp";
+import Login from "./pages/Login";
+import Home from "./pages/Home";
+import Habits from "./pages/Habits";
+import Routine from "./pages/Routine";
+import HabitsForm from "./pages/HabitsForm";
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      loggedIn: false,
+      username: null,
+      userid: null
+    };
 
-  state = {
-    "testValue": "getting..."
+    this.getUser = this.getUser.bind(this);
+    this.componentDidMount = this.componentDidMount.bind(this);
+    this.updateUser = this.updateUser.bind(this);
   }
 
   componentDidMount() {
-    console.log("Mounting App");
-    axios.get("/api/test")
-      .then((res) => {
-        console.log(res.data.test);
-        this.setState({"testValue": res.data.test})
-    })
+    this.getUser();
   }
+
+  updateUser(userObject) {
+    //console.log(userObject);
+    this.setState({
+      loggedIn: userObject.loggedIn,
+      username: userObject.username,
+      userid: userObject.userid
+    });
+  }
+
+  getUser() {
+    axios.get("/api/users").then(response => {
+      console.log("Get user response: ");
+      console.log(response.data);
+      if (response.data.user) {
+        console.log("Get User: There is a user saved in the server session: ");
+
+        this.setState({
+          loggedIn: true,
+          username: response.data.user.username,
+          userid: response.data.user.id
+        });
+      } else {
+        console.log("Get user: no user");
+        this.setState({
+          loggedIn: false,
+          username: null,
+          userid: null
+        });
+      }
+    });
+  }
+
   render() {
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to Green Wayze App</h2>
-        </div>
-        <p className="App-intro">
-          Test data is {this.state.testValue}
-        </p>
+        <Route exact path="/" component={Home} />
+        <Route
+          exact
+          path="/login"
+          render={() => <Login updateUser={this.updateUser} />}
+        />
+        <Route
+          exact
+          path="/signup"
+          render={() => <Signup updateUser={this.updateUser} />}
+        />
+        <Route exact path="/habits" render={() => <Habits />} />
+        <Route exact path="/routine" component={Routine} />
+        <Route exact path="/habitsform" render={() => <HabitsForm />} />
       </div>
     );
   }

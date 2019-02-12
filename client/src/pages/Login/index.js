@@ -76,7 +76,7 @@ class Login extends Component {
 
   render() {
     return this.state.redirect ? (
-      <Redirect to="/habits" userId={this.state.userid} />
+      <Redirect to="/routine" userId={this.state.userid} />
     ) : (
       <>
         <Navbar />

@@ -35,4 +35,22 @@ div.level-item {
 .burger{
   position:absolute;
   right:0;
+  justify-content: flex-end;
+}
+
+#relative{
+  position:relative;
+  // float:right;
+}
+
+.navbar-menu{
+  position:absolute;
+}
+
+.navbar{
+  position:relative;
+}
+
+.navbar-brand{
+  width:100%;
 }

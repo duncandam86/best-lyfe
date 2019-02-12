@@ -3,7 +3,7 @@
     border-radius:10px;
     background-color:rgb(77,77,77);
     color:white;
-
+    padding:0;
 }
 
 button img{
@@ -16,9 +16,7 @@ button img{
 }
 
 
-#addhabit-button{
-    margin-right:50px;
-}
+
 
 #span4{
     width:100px;
@@ -27,3 +25,17 @@ button img{
 #span5{
     width:100px;
 }
+
+.dropdown .button{
+    height:100%;
+    font-size:20px;
+    align-content: center;
+    justify-content: center;
+}
+
+.dropdown{
+   display:flex; 
+   align-content: center;
+   justify-content: center; 
+}
+

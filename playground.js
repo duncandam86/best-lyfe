@@ -25,13 +25,53 @@
 
 
 
-let tab = [0,0,0,1,1,1,0,0,0,0,1,0,1,1,1,1,1];
+// let tab = [0,0,0,1,1,1,0,0,0,0,1,0,1,1,1,1,1];
 
-let streaks = tab.reduce(function(res, n) { 
-  if (n) res[res.length-1]++;
-  else res.push(0);
-  return res;
-}, [0]);
+// let streaks = tab.reduce(function(res, n) { 
+//   if (n) res[res.length-1]++;
+//   else res.push(0);
+//   return res;
+// }, [0]);
 
-console.log(streaks.join(","));
-console.log(Math.max.apply(Math, streaks));
+// console.log(streaks.join(","));
+// console.log(Math.max.apply(Math, streaks));
+
+const moment = require("moment");
+moment().format();
+
+const habit = {
+    title: "water",
+    updatedAt: "2019-02-9 01:59:19",
+    consecutive: 2
+}
+
+console.log("Yesterday " + moment().subtract(1, "days").format("ll"))
+console.log("Current Day " + moment().format("ll"));
+console.log("-----------------")
+
+//* For Each Habit....
+
+console.log("Updated At Moment " + moment(habit.updatedAt).format("ll"))
+
+//* if the days are the same, dont update the streak
+if (moment(habit.updatedAt).format('ll') === moment().format('ll')) {
+  console.log("The day’s match");
+  //* nothing should happen
+
+
+  //* if it was updated yesterday, then
+} else if (moment(habit.updatedAt).format('ll') === moment().subtract(1, 'days').format('ll')) {
+  console.log("The updated At is the same as yesterday ")
+  habit.consecutive++;
+  console.log("number of consecutive days " + habit.consecutive);
+
+  //* if it way more than a day ago that it was updated, then record the longestStreak if possible and set consecutive back to 0
+} else if (moment(habit.updatedAt).format("ll") > moment().format("ll")) {
+  if (habit.consecutive > habit.longestStreak) {
+    habit.longestStreak === habit.consecutive;
+  }
+  habit.consecutive = 0;
+  console.log("habit.consecutive " + habit.consecutive);
+}
+
+console.log(habit);

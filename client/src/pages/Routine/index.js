@@ -27,21 +27,25 @@ class Routine extends Component {
       .then(response => {
         //console.log(response.data);
         this.setState({ habits: response.data });
+        console.log(response.data)
       })
       .catch(err => console.log(err));
   };
 
   getCompletedHabits = () => {
     const habitsChecked = [];
+    const newHabitArray = this.state.habits;
+    console.log("New Habits: ", newHabitArray)
     const habits = document.getElementsByTagName("input");
     const habitsArray = Array.prototype.slice.call(habits);
     //console.log(inputArray);
     const completedHabits = habitsArray.filter(habit => habit.checked === true);
+
     completedHabits.forEach(function(checkbox) {
-      let checkedstatus = {};
-      //console.log(checkbox.id, checkbox.checked);
-      checkedstatus[checkbox.id] = checkbox.checked;
-      habitsChecked.push(checkedstatus);
+      
+      const thisHabit = newHabitArray.filter(habit => habit.id === +checkbox.id);
+
+      habitsChecked.push(thisHabit[0]);
     });
     return habitsChecked;
     //console.log(habitsChecked);
@@ -50,13 +54,19 @@ class Routine extends Component {
   handlePageSubmit = event => {
     event.preventDefault();
     const habits = this.getCompletedHabits();
-    console.log(habits);
-    axios
-      .put("/api/habits", habits)
+    // console.log(habits);
+
+    habits.forEach(habit => {
+      console.log(habit.id);
+      axios
+      .put("/api/habits/" + habit.id, habit)
       .then(response => {
         console.log(response.data);
       })
       .catch(err => console.log(err));
+    })
+
+    
   };
 
   

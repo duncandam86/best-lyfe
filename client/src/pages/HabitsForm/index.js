@@ -3,13 +3,12 @@ import { Redirect } from "react-router-dom";
 import axios from "axios";
 
 //components
-import Navbar from "../../components/Navbar";
+import TradNavbar from "../../components/TradNavbar";
+// import Navbar from "../../components/Navbar";
 import BodyWrapper from "../../components/Bodywrapper";
 
 //styles
 import "./style.scss";
-
-
 
 class HabitsForm extends Component {
   // Setting the component's initial state
@@ -40,21 +39,19 @@ class HabitsForm extends Component {
     //   habitComment: ""
     // });
 
-
-    axios.post("/api/newHabit", {
-      title: this.state.habitName,
-      time: this.state.habitTime,
-      comment: this.state.habitComment
-    })
-    .then( res => {
-      console.log("completed update");
-      this.setState({
-        //redirect to habits page
-        redirect: true
+    axios
+      .post("/api/newHabit", {
+        title: this.state.habitName,
+        time: this.state.habitTime,
+        comment: this.state.habitComment
+      })
+      .then(res => {
+        console.log("completed update");
+        this.setState({
+          //redirect to habits page
+          redirect: true
+        });
       });
-    })
-    
-
   };
 
   render() {
@@ -63,14 +60,11 @@ class HabitsForm extends Component {
       <Redirect to="/habits" />
     ) : (
       <div>
-        <Navbar />
-        <BodyWrapper
-          txtAlign="centered"
-          title1="New"
-          title2="Habit">
+        {/* <Navbar /> */}
+        <TradNavbar />
+        <BodyWrapper txtAlign="centered" title1="New" title2="Habit">
           <div id="form-div">
             <form className="form">
-
               {/* Habit Name Input */}
               <label>Name:</label>
               <input
@@ -79,6 +73,7 @@ class HabitsForm extends Component {
                 onChange={this.handleInputChange}
                 type="text"
                 placeholder="Workout"
+                maxlength = "19"
               />
 
               {/* Habit Time Input */}
@@ -88,7 +83,8 @@ class HabitsForm extends Component {
                 name="habitTime"
                 onChange={this.handleInputChange}
                 type="text"
-                placeholder="6:30am"
+                placeholder="Military Time - 14:30"
+                maxlength = "5"
               />
 
               {/* Habit Comment Input */}
@@ -99,8 +95,8 @@ class HabitsForm extends Component {
                 onChange={this.handleInputChange}
                 type="text"
                 placeholder="Legs/Arms/Back&Chest/Cardio"
+                maxlength = "50"
               />
-
 
               <button onClick={this.handleFormSubmit}>Submit</button>
             </form>

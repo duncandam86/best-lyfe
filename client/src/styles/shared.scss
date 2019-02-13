@@ -10,6 +10,8 @@ $button-background-color: $grey;
 $button-hover-color: white;
 $link: $grey;
 $link-hover: $darkgrey;
+$dropdown-content-background-color: $grey;
+$dropdown-item-color: white;
 
 @import "../../node_modules/bulma/sass/utilities/_all.sass";
 @import "../../node_modules/bulma/sass/base/_all.sass";

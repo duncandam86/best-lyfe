@@ -6,17 +6,12 @@ import "./style.scss";
 
 export default function HabitListItem(props) {
   return (
-    <label for={`habit${props.dataId}`} className="checkbox">
-      <input
-        type="checkbox"
-        id={`habit${props.dataId}`}
-        data-id={props.dataId}
-        onChange={props.onChange}
-      />
+    <label htmlFor={props.dataId} className="checkbox">
+      <input type="checkbox" id={props.dataId} />
       {props.time ? (
-        <div>
-          <p className="habit-title is-paddingless">{props.title}</p>
-          <p className="habit-time is-paddingless">{props.time}</p>
+        <div className="habit-item">
+          <span className="habit-title is-paddingless">{props.title}</span>
+          <span className="habit-time">{props.time}</span>
         </div>
       ) : (
         <div className="habit-title is-paddingless">{props.title}</div>

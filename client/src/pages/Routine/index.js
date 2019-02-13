@@ -2,9 +2,11 @@ import React, { Component } from "react";
 import { Redirect, Link } from "react-router-dom";
 //components
 // import LargeLogo from "../../components/LargeLogo";
-import Navbar from "../../components/Navbar";
+// import Navbar from "../../components/Navbar";
+import TradNavbar from "../../components/TradNavbar";
 import BodyWrapper from "../../components/Bodywrapper";
 import HabitListItem from "../../components/HabitList";
+import SubmitButton from "../../components/ButtonSubmit";
 
 //other packages
 import axios from "axios";
@@ -26,57 +28,77 @@ class Routine extends Component {
       .then(response => {
         //console.log(response.data);
         this.setState({ habits: response.data });
+        console.log(response.data)
       })
       .catch(err => console.log(err));
   };
 
-  // handleInputChange = event => {
-  //   const { name, value } = event.target;
-  //   this.setState({
-  //     [name]: value
-  //   });
-  // };
+  getCompletedHabits = () => {
+    const habitsChecked = [];
+    const newHabitArray = this.state.habits;
+    console.log("New Habits: ", newHabitArray)
+    const habits = document.getElementsByTagName("input");
+    const habitsArray = Array.prototype.slice.call(habits);
+    //console.log(inputArray);
+    const completedHabits = habitsArray.filter(habit => habit.checked === true);
 
-  isChecked = function check() {
-    document.getElementsByTagName("input");
+    completedHabits.forEach(function(checkbox) {
+      
+      const thisHabit = newHabitArray.filter(habit => habit.id === +checkbox.id);
+
+      habitsChecked.push(thisHabit[0]);
+    });
+    return habitsChecked;
+    //console.log(habitsChecked);
   };
 
-  handleFormSubmit = event => {
+  handlePageSubmit = event => {
     event.preventDefault();
-    // if (this.state.title && this.state.author) {
-    //   API.savehabit({
-    //     title: this.state.title,
-    //     author: this.state.author,
-    //     synopsis: this.state.synopsis
-    //   })
-    //     .then(res => this.loadhabits())
-    //     .catch(err => console.log(err));
-    // }
+    const habits = this.getCompletedHabits();
+    // console.log(habits);
+
+    habits.forEach(habit => {
+      console.log(habit.id);
+      axios
+      .put("/api/habits/" + habit.id, habit)
+      .then(response => {
+        console.log(response.data);
+      })
+      .catch(err => console.log(err));
+    })
+
+    
   };
 
   render() {
-    this.state.habits.forEach(habit => {
-      console.log(habit.id);
-    });
-    //<DeleteBtn onClick={() => this.deletehabit(habit._id)} />
     return (
       <>
-        <Navbar />
+        {/* <Navbar /> */}
+        <TradNavbar />
         <div className="container">
           <BodyWrapper txtAlign="left" title1="Your" title2="Routine">
             <div className="columns is-centered">
               <div className="column is-four-fifths">
                 {this.state.habits.length ? (
-                  <div id="habit-list">
-                    {this.state.habits.map(habit => (
-                      <HabitListItem
-                        key={habit.id}
-                        dataId={habit.id}
-                        title={habit.title}
-                        time={habit.time}
-                        onChange={this.handleBoxChange}
-                      />
-                    ))}
+                  <div>
+                    <div id="habit-list">
+                      {this.state.habits.map(habit => (
+                        <HabitListItem
+                          key={habit.id}
+                          dataId={habit.id}
+                          title={habit.title}
+                          time={habit.time}
+                        />
+                      ))}
+                    </div>
+                    <div className="level">
+                      <div className="level-item has-text-centered">
+                        <SubmitButton
+                          text="Submit"
+                          onClick={this.handlePageSubmit}
+                        />
+                      </div>
+                    </div>
                   </div>
                 ) : (
                   <div className="level">

@@ -8,13 +8,13 @@ function Home() {
   return (
     <div>
       <div className="container is-fluid">
-        <div className="columns is-mobile is-centered">
+        {/* <div className="columns is-mobile is-centered">
           <div className="column is-10">
-            <div className="level is-marginless">
-              <div className="level-item">
+            <div className="level is-marginless">*/}
+              <div className="level-item"> 
                 <LargeLogo />
               </div>
-            </div>
+            {/* </div> */}
             <BodyWrapper
               txtAlign="centered"
               title1="Live your"
@@ -37,8 +37,8 @@ function Home() {
               </div>
             </BodyWrapper>
           </div>
-        </div>
-      </div>
+        {/* </div> */}
+      {/* // </div> */}
     </div>
   );
 }

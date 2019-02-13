@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import "./style.scss";
+import { Redirect } from "react-router-dom";
+import { Route, Link } from "react-router-dom";
 import axios from "axios";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -18,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const target = el.dataset.target;
         const targetDoc = document.getElementById(target);
 
-        // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+        // Toggle the "is-active" className on both the "navbar-burger" and the "navbar-menu"
         el.classList.toggle("is-active");
         targetDoc.classList.toggle("is-active");
       });
@@ -27,44 +29,105 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 class Navbar extends Component {
+  constructor() {
+    super();
+    this.logout = this.logout.bind(this);
+  }
+
+  state = {
+    username: "",
+    password: "",
+    redirect: null,
+    showError: null
+  };
+
+  logout(event) {
+    event.preventDefault();
+    console.log("logging out");
+    axios
+      .post("/logout")
+      .then(response => {
+        console.log(response);
+        if (response.status === 200) {
+          this.setState({
+            loggedIn: false,
+            username: null,
+            redirect: true
+          });
+          console.log("logged out");
+        }
+      })
+      .catch(error => {
+        console.log("Logout error");
+        console.log(error);
+      });
+  }
+
   render() {
-    return (
+    return this.state.redirect ? (
+      <Redirect to="/login" userId={this.state.userid} />
+    ) : (
       <div>
-        <nav class="navbar" role="navigation" aria-label="main navigation">
-          <div class="navbar-brand">
+        <nav
+          className="navbar is-right"
+          role="navigation"
+          aria-label="main navigation"
+        >
+          <div className="navbar-brand is-right">
             <img
               id="nav-logo"
               src="../images/BestLyfe_Logo_Horizontal.png"
               alt="Best Lyfe logo"
             />
+            <Link
+              to="#"
+              className="btn btn-link text-secondary navbar-item"
+              onClick={this.logout}
+            >
+              <span className="text-secondary">Logout</span>
+            </Link>
 
             <a
               role="button"
-              class="navbar-burger burger"
+              className="navbar-burger burger is-right"
               aria-label="menu"
               aria-expanded="false"
               data-target="navbarBasicExample"
             >
-              <span aria-hidden="true" />
-              <span aria-hidden="true" />
-              <span aria-hidden="true" />
+              <span className="span" aria-hidden="true" />
+              <span className="span" aria-hidden="true" />
+              <span className="span" aria-hidden="true" />
             </a>
           </div>
+
           <div id="relative">
-            <div id="navbarBasicExample" class="navbar-menu">
-              <div class="navbar-start">
-                <a class="navbar-item">Routine</a>
+            <div className="navbar-dropdown is-right">
+              <div id="navbarBasicExample" className="navbar-menu is-right">
+                <div className="navbar-start is-right">
+                  <a className="navbar-item is-right" href="/routine">
+                    Routine
+                  </a>
 
-                <a class="navbar-item">Habits</a>
-              </div>
+                  <a className="navbar-item is-right" href="/habits">
+                    Habits
+                  </a>
+                </div>
 
-              <div class="navbar-end">
-                <a class="navbar-item">Logout</a>
+                <div className="navbar-end">
+                  {/* <a className="navbar-item" href="" >Logout</a> */}
+
+                  {/* <Link
+                to="#"
+                className="btn btn-link text-secondary navbar-item"
+                onClick={this.logout}
+              >
+                <span className="text-secondary">Logout</span>
+              </Link> */}
+                </div>
               </div>
             </div>
           </div>
         </nav>
-        {/* <header id="nav-bottom" /> */}
       </div>
     );
   }

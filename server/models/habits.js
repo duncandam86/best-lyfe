@@ -14,13 +14,16 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.TIME
     },
     consecutive: {
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
+      defaultValue: 0
     },
     longestStreak: {
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
+      defaultValue: 0
     },
     totalDays: {
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
+      defaultValue: 0
     },
     recordArray: {
       //type: DataTypes.ARRAY(DataTypes.BOOLEAN)

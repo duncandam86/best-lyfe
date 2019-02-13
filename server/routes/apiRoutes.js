@@ -2,6 +2,7 @@ const db = require("../models");
 // const sequelize = require("sequelize");
 // const Op = Sequelize.Op;
 const moment = require("moment");
+moment().format();
 
 module.exports = function (app) {
   app.post("/api/newHabit", function (req, res) {
@@ -55,32 +56,43 @@ module.exports = function (app) {
 
     let habit = req.body;
 
-    //* current Date
-    let d1 = new Date();
-    //* last update Date
-    let d2 = new Date(habit.updatedAt);
+    console.log("Yesterday " + moment().subtract(1, "days").format("ll"))
+    console.log("Current Day " + moment().format("ll"));
+    console.log("-----------------")
 
-    //* find out how long from this moment compared to the last update
-    let diff = Math.abs(d1 - d2);
-    // console.log(“Difference in Milliseconds + ” + diff);
-    let days = (diff / (1000 * 60 * 60 * 24)) % 7;
+    //* For Each Habit....
 
-    //* LOGIC
-    // if you havent updated your habits in more than a day, then see if you need to update longest streak and reset the streak
-    if (Math.floor(days) > 1) {
-      // checking for longest streak
-      if (habit.consecutive > habit.longestStreak) {
-        // console.log(longestStreak);
-        habit.longestStreak = habit.consecutive;
-      }
-      // restart your streak
-      // let streak = 0;
-    } else if (Math.floor(days) === 1) {
-      // console.log(“streak and longest streak” + streak + longestStreak);
+    console.log("Updated At Moment " + moment(habit.updatedAt).format("ll"))
+
+    //* if the days are the same, dont update the streak
+    if (moment(habit.updatedAt).format('ll') === moment().format('ll')) {
+      console.log("The day’s match");
+      //* nothing should happen
+
+
+      //* if it was updated yesterday, then
+    } else if (moment(habit.updatedAt).format('ll') === moment().subtract(1, 'days').format('ll')) {
+      console.log("The updated At is the same as yesterday ")
       habit.consecutive++;
+      console.log("number of consecutive days " + habit.consecutive);
+
+      //* if it way more than a day ago that it was updated, then record the longestStreak if possible and set consecutive back to 0
+    } else if (moment(habit.updatedAt).format("ll") > moment().format("ll")) {
+      if (habit.consecutive > habit.longestStreak) {
+        habit.longestStreak === habit.consecutive;
+      }
+      habit.consecutive = 0;
+      console.log("habit.consecutive " + habit.consecutive);
     }
 
     console.log(habit);
+
+    db.Habits.update(
+      {consecutive: habit.consecutive,
+        longestStreak: habit.longestStreak
+      },
+      {where: {id: habit.id}}
+    )
     res.json({
       UPDATE: habit
     });

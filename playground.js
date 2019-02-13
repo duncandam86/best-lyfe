@@ -36,34 +36,42 @@
 // console.log(streaks.join(","));
 // console.log(Math.max.apply(Math, streaks));
 
+const moment = require("moment");
+moment().format();
+
 const habit = {
     title: "water",
-    updatedAt: "2019-02-11 01:59:19",
+    updatedAt: "2019-02-9 01:59:19",
     consecutive: 2
 }
 
-console.log("Updated at" + habit.updatedAt);
+console.log("Yesterday " + moment().subtract(1, "days").format("ll"))
+console.log("Current Day " + moment().format("ll"));
+console.log("-----------------")
 
-let streak = habit.consecutive;
-//* current Date
-let d1 = new Date();
-//* last update Date
-let updatedAt = habit.updatedAt;
-let d2 = new Date(updatedAt);
-// console.log("Now: " + d1);
-// console.log("last: " + d2);
+//* For Each Habit....
 
-//* find out how long from this moment compared to the last update
-let diff = Math.abs(d1 - d2);
-console.log("Difference in Milliseconds + " + diff);
-let days = (diff / (1000 * 60 * 60 * 24)) % 7;
-console.log("Day's difference (raw streak)" + days);
+console.log("Updated At Moment " + moment(habit.updatedAt).format("ll"))
 
-//* LOGIC
-if ( Math.floor(days) > 1) {
-    streak = 0;
-} else if (Math.floor(days) === 1) {
-    streak++;   
+//* if the days are the same, dont update the streak
+if (moment(habit.updatedAt).format('ll') === moment().format('ll')) {
+  console.log("The day’s match");
+  //* nothing should happen
+
+
+  //* if it was updated yesterday, then
+} else if (moment(habit.updatedAt).format('ll') === moment().subtract(1, 'days').format('ll')) {
+  console.log("The updated At is the same as yesterday ")
+  habit.consecutive++;
+  console.log("number of consecutive days " + habit.consecutive);
+
+  //* if it way more than a day ago that it was updated, then record the longestStreak if possible and set consecutive back to 0
+} else if (moment(habit.updatedAt).format("ll") > moment().format("ll")) {
+  if (habit.consecutive > habit.longestStreak) {
+    habit.longestStreak === habit.consecutive;
+  }
+  habit.consecutive = 0;
+  console.log("habit.consecutive " + habit.consecutive);
 }
-console.log("Streak is " + streak);
-      //*end GetHabitsStreak
+
+console.log(habit);

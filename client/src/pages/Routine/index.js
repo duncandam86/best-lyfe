@@ -69,8 +69,6 @@ class Routine extends Component {
     
   };
 
-  
-
   render() {
     return (
       <>

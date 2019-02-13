@@ -28,51 +28,51 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-
-
 class Navbar extends Component {
   constructor() {
-  super();
-  this.logout = this.logout.bind(this);
-}
+    super();
+    this.logout = this.logout.bind(this);
+  }
 
-state = {
-  username: "",
-  password: "",
-  redirect: null,
-  showError: null
-};
+  state = {
+    username: "",
+    password: "",
+    redirect: null,
+    showError: null
+  };
 
-logout(event) {
-  event.preventDefault();
-  console.log("logging out");
-  axios
-    .post("/logout")
-    .then(response => {
-      console.log(response);
-      if (response.status === 200) {
-        this.setState({
-          loggedIn: false,
-          username: null,
-          redirect: true
-        });
-        console.log("logged out");
-        
-      }
-    })
-    .catch(error => {
-      console.log("Logout error");
-      console.log(error)
-    });
-}
-
+  logout(event) {
+    event.preventDefault();
+    console.log("logging out");
+    axios
+      .post("/logout")
+      .then(response => {
+        console.log(response);
+        if (response.status === 200) {
+          this.setState({
+            loggedIn: false,
+            username: null,
+            redirect: true
+          });
+          console.log("logged out");
+        }
+      })
+      .catch(error => {
+        console.log("Logout error");
+        console.log(error);
+      });
+  }
 
   render() {
     return this.state.redirect ? (
       <Redirect to="/login" userId={this.state.userid} />
     ) : (
       <div>
-        <nav className="navbar is-right" role="navigation" aria-label="main navigation">
+        <nav
+          className="navbar is-right"
+          role="navigation"
+          aria-label="main navigation"
+        >
           <div className="navbar-brand is-right">
             <img
               id="nav-logo"
@@ -80,12 +80,12 @@ logout(event) {
               alt="Best Lyfe logo"
             />
             <Link
-                to="#"
-                className="btn btn-link text-secondary navbar-item"
-                onClick={this.logout}
-              >
-                <span className="text-secondary">Logout</span>
-              </Link>
+              to="#"
+              className="btn btn-link text-secondary navbar-item"
+              onClick={this.logout}
+            >
+              <span className="text-secondary">Logout</span>
+            </Link>
 
             <a
               role="button"
@@ -100,42 +100,36 @@ logout(event) {
             </a>
           </div>
 
-
-
           <div id="relative">
-          <div class="navbar-dropdown is-right">
+            <div className="navbar-dropdown is-right">
+              <div id="navbarBasicExample" className="navbar-menu is-right">
+                <div className="navbar-start is-right">
+                  <a className="navbar-item is-right" href="/routine">
+                    Routine
+                  </a>
 
+                  <a className="navbar-item is-right" href="/habits">
+                    Habits
+                  </a>
+                </div>
 
-            <div id="navbarBasicExample" className="navbar-menu is-right">
-              <div className="navbar-start is-right">
-                <a className="navbar-item is-right" href="/routine">Routine</a>
+                <div className="navbar-end">
+                  {/* <a className="navbar-item" href="" >Logout</a> */}
 
-                <a className="navbar-item is-right" href="/habits">Habits</a>
-              </div>
-
-              <div className="navbar-end">
-                {/* <a className="navbar-item" href="" >Logout</a> */}
-                
-                
-                
-                {/* <Link
+                  {/* <Link
                 to="#"
                 className="btn btn-link text-secondary navbar-item"
                 onClick={this.logout}
               >
                 <span className="text-secondary">Logout</span>
               </Link> */}
-                
-                
-               
+                </div>
               </div>
             </div>
           </div>
-          </div>
         </nav>
       </div>
-    
-      );
+    );
   }
 }
 

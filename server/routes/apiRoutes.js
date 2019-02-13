@@ -4,7 +4,7 @@ const db = require("../models");
 const moment = require("moment");
 
 module.exports = function(app) {
-  app.post("/api/newHabit", function(req, res) {
+ app.post("/api/newHabit", function(req, res) {
     let whichUser;
 
     if (req.user) {
@@ -22,7 +22,7 @@ module.exports = function(app) {
     }).then(function(results) {
       res.json(results);
     });
-  });
+  }); 
 
   app.get("/api/habits", function(req, res) {
     let whichUser;
@@ -59,8 +59,9 @@ module.exports = function(app) {
 
   app.put("/api/habits/", function(req, res) {
     console.log("UPDATE HABITS: " + req.params);
+    console.log("req: " + req);
     res.json({
-      UPDATE: "This is returned from the route"
+      UPDATE: req.params
     });
   });
 

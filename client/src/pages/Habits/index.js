@@ -13,7 +13,9 @@ import axios from "axios";
 
 class Habits extends Component {
   state = {
-    habitArray: []
+    habitArray: [],
+    selectedHabit: {},
+    dropDownTitle: "Select a Habit"
   };
 
   componentDidMount() {
@@ -56,7 +58,32 @@ class Habits extends Component {
     //* end ComponentDidMount
   };
 
+  handleDropDownChange = habitid => {
+    const filteredHabit = this.state.habitArray
+      .slice(0)
+      .filter(habit => habit.id === habitid);
+    const selectedHabit = {
+      id: filteredHabit[0].id,
+      title: filteredHabit[0].title,
+      consecutive: filteredHabit[0].consecutive,
+      time: filteredHabit[0].time,
+      comment: filteredHabit[0].comment
+    };
+    //console.log(selectedHabit);
+    this.setState({
+      dropDownTitle: filteredHabit[0].title,
+      selectedHabit: selectedHabit
+    });
+  };
+
   render() {
+    const hasStreak = this.state.selectedHabit.consecutive;
+    const madeSelection = this.state.selectedHabit.title;
+    const hasTime = this.state.selectedHabit.time;
+    let displayStatus = "hide";
+    if (madeSelection) {
+      displayStatus = "show";
+    }
     return (
       <>
         <Navbar />
@@ -64,43 +91,55 @@ class Habits extends Component {
         {/*  this button console.logs the streak
         <button onClick={this.getHabitStreak}>CHECK ME</button> */}
 
-
         <div className="container">
           <BodyWrapper title1="Your" title2="Habits">
             <div id="habits">
-              <DropDownComponent habitArray={this.state.habitArray} />
+              <DropDownComponent
+                habitArray={this.state.habitArray}
+                selectedHabit={this.state.dropDownTitle}
+                onClick={this.handleDropDownChange}
+              />
               <img src="../../images/AddButton.png" />
             </div>
             <div id="habits-body">
               <div id="habits-header">
-                <h2>Workout {/* {props.Habit} */}</h2>
-                <div className="remove">
-                  <h3>
-                    <a
-                    // href={"/habits/" + habit._id}
-                    >
-                      remove
-                    </a>
-                  </h3>
-                </div>
+                <h2>{this.state.selectedHabit.title}</h2>
+                {madeSelection ? (
+                  <div className="remove">
+                    <h3>
+                      <a>remove</a>
+                    </h3>
+                  </div>
+                ) : (
+                  <div />
+                )}
               </div>
               <hr />
 
               {/* <h3>Progress:</h3><figure></figure> */}
 
-              <h4>Name:</h4>
-              <p>Workout{/* {props.Name} */}</p>
+              <div className={displayStatus}>
+                <h4>Streak:</h4>
+                <p>
+                  {hasStreak
+                    ? hasStreak + " DAYS"
+                    : "Start a new streak today!"}
+                </p>
 
-              <h4>Streak:</h4>
-              <p>5 DAYS{/* {props.Days} */}</p>
+                <div>
+                  {hasTime ? (
+                    <div>
+                      <h4>Time:</h4>
+                      <p>{this.state.selectedHabit.time}</p>
+                    </div>
+                  ) : (
+                    <div />
+                  )}
+                </div>
 
-              <h4>Time:</h4>
-              <p>6:30am{/* {props.Time} */}</p>
-
-              <h4>Comments:</h4>
-              <p>
-                Mix of Legs, Arms, Cardio, Chest/Back{/* {props.Comments} */}
-              </p>
+                <h4>Comments:</h4>
+                <p>{this.state.selectedHabit.consecutive}</p>
+              </div>
             </div>
           </BodyWrapper>
         </div>

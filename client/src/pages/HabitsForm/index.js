@@ -9,8 +9,6 @@ import BodyWrapper from "../../components/Bodywrapper";
 //styles
 import "./style.scss";
 
-
-
 class HabitsForm extends Component {
   // Setting the component's initial state
   state = {
@@ -40,21 +38,19 @@ class HabitsForm extends Component {
     //   habitComment: ""
     // });
 
-
-    axios.post("/api/newHabit", {
-      title: this.state.habitName,
-      time: this.state.habitTime,
-      comment: this.state.habitComment
-    })
-    .then( res => {
-      console.log("completed update");
-      this.setState({
-        //redirect to habits page
-        redirect: true
+    axios
+      .post("/api/newHabit", {
+        title: this.state.habitName,
+        time: this.state.habitTime,
+        comment: this.state.habitComment
+      })
+      .then(res => {
+        console.log("completed update");
+        this.setState({
+          //redirect to habits page
+          redirect: true
+        });
       });
-    })
-    
-
   };
 
   render() {
@@ -64,13 +60,9 @@ class HabitsForm extends Component {
     ) : (
       <div>
         <Navbar />
-        <BodyWrapper
-          txtAlign="centered"
-          title1="New"
-          title2="Habit">
+        <BodyWrapper txtAlign="centered" title1="New" title2="Habit">
           <div id="form-div">
             <form className="form">
-
               {/* Habit Name Input */}
               <label>Name:</label>
               <input
@@ -100,7 +92,6 @@ class HabitsForm extends Component {
                 type="text"
                 placeholder="Legs/Arms/Back&Chest/Cardio"
               />
-
 
               <button onClick={this.handleFormSubmit}>Submit</button>
             </form>

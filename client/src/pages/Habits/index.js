@@ -76,6 +76,15 @@ class Habits extends Component {
     });
   };
 
+  removeHabit() {
+    axios.delete("api/habits/:id").then(res => {
+      console.log(res);
+      this.setState({
+        DELETE: this.habit.id
+      });
+    });
+  }
+
   render() {
     const hasStreak = this.state.selectedHabit.consecutive;
     const madeSelection = this.state.selectedHabit.title;
@@ -99,7 +108,9 @@ class Habits extends Component {
                 selectedHabit={this.state.dropDownTitle}
                 onClick={this.handleDropDownChange}
               />
-              <img src="../../images/AddButton.png" />
+              <a href={"/habitsform"}>
+                <img src="../../images/AddButton.png" />
+              </a>
             </div>
             <div id="habits-body">
               <div id="habits-header">

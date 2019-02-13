@@ -31,33 +31,46 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 class Navbar extends Component {
-//   constructor() {
-//   super();
-//   this.logout = this.logout.bind(this);
-// }
+  constructor() {
+  super();
+  this.logout = this.logout.bind(this);
+}
 
-// logout(event) {
-//   event.preventDefault();
-//   console.log("logging out");
-//   axios
-//     .post("/logout")
-//     .then(response => {
-//       console.log(response.data);
-//       if (response.status === 200) {
-//         this.props.updateUser({
-//           loggedIn: false,
-//           username: null
-//         });
-//       }
-//     })
-//     .catch(error => {
-//       console.log("Logout error");
-//     });
-// }
+state = {
+  username: "",
+  password: "",
+  redirect: null,
+  showError: null
+};
+
+logout(event) {
+  event.preventDefault();
+  console.log("logging out");
+  axios
+    .post("/logout")
+    .then(response => {
+      console.log(response);
+      if (response.status === 200) {
+        this.setState({
+          loggedIn: false,
+          username: null,
+          redirect: true
+        });
+        console.log("logged out");
+        
+      }
+    })
+    .catch(error => {
+      console.log("Logout error");
+      console.log(error)
+    });
+}
 
 
   render() {
-    return (
+    return this.state.redirect ? (
+      <Redirect to="/login" userId={this.state.userid} />
+    ) : (
       <div>
         <nav className="navbar is-right" role="navigation" aria-label="main navigation">
           <div className="navbar-brand is-right">

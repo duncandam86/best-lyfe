@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { Redirect, Link } from "react-router-dom";
 //components
 // import LargeLogo from "../../components/LargeLogo";
-import Navbar from "../../components/Navbar";
+// import Navbar from "../../components/Navbar";
+import TradNavbar from "../../components/TradNavbar";
 import BodyWrapper from "../../components/Bodywrapper";
 import HabitListItem from "../../components/HabitList";
 import SubmitButton from "../../components/ButtonSubmit";
@@ -72,7 +73,8 @@ class Routine extends Component {
   render() {
     return (
       <>
-        <Navbar />
+        {/* <Navbar /> */}
+        <TradNavbar />
         <div className="container">
           <BodyWrapper txtAlign="left" title1="Your" title2="Routine">
             <div className="columns is-centered">

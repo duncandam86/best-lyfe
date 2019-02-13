@@ -1,0 +1,23 @@
+#nav{
+    padding-bottom:0;
+}
+
+#logout{
+    padding:0;
+    margin:0;
+}
+#nav-items{
+    display:flex;
+    align-content:flex-end;
+    justify-content: flex-end;
+    width:50%;
+}
+
+#logout{
+    color:rgb(86,177,121);
+}
+
+#nav-items a{
+    margin:0 7.5px;
+    margin-top:15px;
+}

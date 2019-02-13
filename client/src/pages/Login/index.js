@@ -4,6 +4,7 @@ import { Redirect } from "react-router-dom";
 //components
 import BodyWrapper from "../../components/Bodywrapper";
 import Navbar from "../../components/Navbar";
+import TradNavbar from "../../components/TradNavbar";
 import UserForm from "../../components/UserForm";
 // import LoginError from "../../components/LoginError";
 
@@ -79,7 +80,8 @@ class Login extends Component {
       <Redirect to="/routine" userId={this.state.userid} />
     ) : (
       <>
-        <Navbar />
+        {/* <Navbar /> */}
+        <TradNavbar />
         <div className="container">
           <BodyWrapper txtAlign="left" title2="Login">
             <UserForm

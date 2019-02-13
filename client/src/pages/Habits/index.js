@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 
 import Navbar from "../../components/Navbar";
+import TradNavbar from "../../components/TradNavbar";
 import BodyWrapper from "../../components/Bodywrapper";
-// import HabitsComponent from "../../components/HabitsComponent";
 import DropDownComponent from "../../components/DropDownComponent";
 //import "../../styles/shared.scss";
 import "./style.scss";
@@ -86,8 +86,8 @@ class Habits extends Component {
     }
     return (
       <>
-        <Navbar />
-
+        {/* <Navbar /> */}
+        <TradNavbar />
         {/*  this button console.logs the streak
         <button onClick={this.getHabitStreak}>CHECK ME</button> */}
 

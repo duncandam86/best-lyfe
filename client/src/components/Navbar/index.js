@@ -31,29 +31,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 class Navbar extends Component {
-  constructor() {
-  super();
-  this.logout = this.logout.bind(this);
-}
+//   constructor() {
+//   super();
+//   this.logout = this.logout.bind(this);
+// }
 
-logout(event) {
-  event.preventDefault();
-  console.log("logging out");
-  axios
-    .post("/logout")
-    .then(response => {
-      console.log(response.data);
-      if (response.status === 200) {
-        this.props.updateUser({
-          loggedIn: false,
-          username: null
-        });
-      }
-    })
-    .catch(error => {
-      console.log("Logout error");
-    });
-}
+// logout(event) {
+//   event.preventDefault();
+//   console.log("logging out");
+//   axios
+//     .post("/logout")
+//     .then(response => {
+//       console.log(response.data);
+//       if (response.status === 200) {
+//         this.props.updateUser({
+//           loggedIn: false,
+//           username: null
+//         });
+//       }
+//     })
+//     .catch(error => {
+//       console.log("Logout error");
+//     });
+// }
 
 
   render() {
@@ -66,6 +66,13 @@ logout(event) {
               src="../images/BestLyfe_Logo_Horizontal.png"
               alt="Best Lyfe logo"
             />
+            <Link
+                to="#"
+                className="btn btn-link text-secondary navbar-item"
+                onClick={this.logout}
+              >
+                <span className="text-secondary">Logout</span>
+              </Link>
 
             <a
               role="button"
@@ -98,13 +105,13 @@ logout(event) {
                 
                 
                 
-                <Link
+                {/* <Link
                 to="#"
                 className="btn btn-link text-secondary navbar-item"
                 onClick={this.logout}
               >
                 <span className="text-secondary">Logout</span>
-              </Link>
+              </Link> */}
                 
                 
                

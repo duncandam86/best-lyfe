@@ -31,36 +31,36 @@ class Habits extends Component {
     })
   };
 
-  getHabitStreak = () => {
-    this.state.habitArray.forEach(habit => {
-      console.log(habit);
-      console.log("Updated at" + habit.updatedAt);
+  // getHabitStreak = () => {
+  //   this.state.habitArray.forEach(habit => {
+  //     console.log(habit);
+  //     console.log("Updated at" + habit.updatedAt);
 
-      //* current Date
-      let d1 = new Date();
-      //* last update Date
-      let updatedAt = habit.updatedAt;
-      let d2 = new Date(updatedAt);
+  //     //* current Date
+  //     let d1 = new Date();
+  //     //* last update Date
+  //     let updatedAt = habit.updatedAt;
+  //     let d2 = new Date(updatedAt);
 
-      //* find out how long from this moment compared to the last update
-      let diff = Math.abs(d1 - d2);
-      console.log("Difference in Milliseconds + " + diff);
-      let days = (diff / (1000 * 60 * 60 * 24)) % 7;
-      console.log("Day's difference (raw streak)" + days);
+  //     //* find out how long from this moment compared to the last update
+  //     let diff = Math.abs(d1 - d2);
+  //     console.log("Difference in Milliseconds + " + diff);
+  //     let days = (diff / (1000 * 60 * 60 * 24)) % 7;
+  //     console.log("Day's difference (raw streak)" + days);
 
-      //* LOGIC
-      if (days === 1 || days > 1) {
-        let streak = 0;
-        console.log("Streak is " + streak);
-      } else {
-        let streak = Math.floor(days);
-        console.log("Streak is " + streak);
-      }
+  //     //* LOGIC
+  //     if (days === 1 || days > 1) {
+  //       let streak = 0;
+  //       console.log("Streak is " + streak);
+  //     } else {
+  //       let streak = Math.floor(days);
+  //       console.log("Streak is " + streak);
+  //     }
 
-      //*end GetHabitsStreak
-    });
-    //* end ComponentDidMount
-  };
+  //     //*end GetHabitsStreak
+  //   });
+  //   //* end ComponentDidMount
+  // };
 
   handleDropDownChange = habitid => {
     const filteredHabit = this.state.habitArray
@@ -96,8 +96,8 @@ class Habits extends Component {
     }
     return (
       <>
-        {/* <Navbar /> */}
-        <TradNavbar />
+        <Navbar />
+        {/* <TradNavbar /> */}
         {/*  this button console.logs the streak
         <button onClick={this.getHabitStreak}>CHECK ME</button> */}
 

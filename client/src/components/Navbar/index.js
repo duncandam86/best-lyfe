@@ -2,31 +2,10 @@ import React, { Component } from "react";
 import "./style.scss";
 import { Redirect } from "react-router-dom";
 import { Route, Link } from "react-router-dom";
+import withClickOutside from "../HOC/withClickOutside";
+
 import axios from "axios";
 
-document.addEventListener("DOMContentLoaded", () => {
-  // Get all "navbar-burger" elements
-  const $navbarBurgers = Array.prototype.slice.call(
-    document.querySelectorAll(".navbar-burger"),
-    0
-  );
-
-  // Check if there are any navbar burgers
-  if ($navbarBurgers.length > 0) {
-    // Add a click event on each of them
-    $navbarBurgers.forEach(el => {
-      el.addEventListener("click", () => {
-        // Get the target from the "data-target" attribute
-        const target = el.dataset.target;
-        const targetDoc = document.getElementById(target);
-
-        // Toggle the "is-active" className on both the "navbar-burger" and the "navbar-menu"
-        el.classList.toggle("is-active");
-        targetDoc.classList.toggle("is-active");
-      });
-    });
-  }
-});
 
 class Navbar extends Component {
   constructor() {
@@ -40,6 +19,7 @@ class Navbar extends Component {
     redirect: null,
     showError: null
   };
+
 
   logout(event) {
     event.preventDefault();
@@ -79,20 +59,15 @@ class Navbar extends Component {
               src="../images/BestLyfe_Logo_Horizontal.png"
               alt="Best Lyfe logo"
             />
-            <Link
-              to="#"
-              className="btn btn-link text-secondary navbar-item"
-              onClick={this.logout}
-            >
-              <span className="text-secondary">Logout</span>
-            </Link>
+            
 
             <a
               role="button"
-              className="navbar-burger burger is-right"
+              className={"navbar-burger burger is-right" + (this.props.isOpen ? " is-active" : "")}
               aria-label="menu"
               aria-expanded="false"
               data-target="navbarBasicExample"
+              onClick={this.props.toggleOpen}
             >
               <span className="span" aria-hidden="true" />
               <span className="span" aria-hidden="true" />
@@ -102,7 +77,7 @@ class Navbar extends Component {
 
           <div id="relative">
             <div className="navbar-dropdown is-right">
-              <div id="navbarBasicExample" className="navbar-menu is-right">
+              <div id="navbarBasicExample" className={"navbar-menu is-right" + (this.props.isOpen ? " is-active" : "")}>
                 <div className="navbar-start is-right">
                   <a className="navbar-item is-right" href="/routine">
                     Routine
@@ -114,15 +89,14 @@ class Navbar extends Component {
                 </div>
 
                 <div className="navbar-end">
-                  {/* <a className="navbar-item" href="" >Logout</a> */}
 
-                  {/* <Link
+                  <Link
                 to="#"
                 className="btn btn-link text-secondary navbar-item"
                 onClick={this.logout}
               >
                 <span className="text-secondary">Logout</span>
-              </Link> */}
+              </Link>
                 </div>
               </div>
             </div>
@@ -133,4 +107,4 @@ class Navbar extends Component {
   }
 }
 
-export default Navbar;
+export default withClickOutside(Navbar);

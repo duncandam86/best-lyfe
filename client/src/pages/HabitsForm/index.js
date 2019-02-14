@@ -4,7 +4,7 @@ import axios from "axios";
 
 //components
 import TradNavbar from "../../components/TradNavbar";
-// import Navbar from "../../components/Navbar";
+import Navbar from "../../components/Navbar";
 import BodyWrapper from "../../components/Bodywrapper";
 
 //styles
@@ -60,8 +60,8 @@ class HabitsForm extends Component {
       <Redirect to="/habits" />
     ) : (
       <div>
-        {/* <Navbar /> */}
-        <TradNavbar />
+        <Navbar />
+        {/* <TradNavbar /> */}
         <BodyWrapper txtAlign="centered" title1="New" title2="Habit">
           <div id="form-div">
             <form className="form">

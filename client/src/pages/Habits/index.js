@@ -19,13 +19,17 @@ class Habits extends Component {
   };
 
   componentDidMount() {
+    this.loadHabits();
+  };
+
+  loadHabits() {
     axios.get("/api/habits").then(res => {
       // console.log(res);
       this.setState({
         habitArray: res.data
       });
-    });
-  }
+    })
+  };
 
   getHabitStreak = () => {
     this.state.habitArray.forEach(habit => {
@@ -76,14 +80,11 @@ class Habits extends Component {
     });
   };
 
-  removeHabit() {
-    axios.delete("api/habits/:id").then(res => {
-      console.log(res);
-      this.setState({
-        DELETE: this.habit.id
-      });
-    });
-  }
+  removeHabit = id => {
+    axios.delete("api/habits/" + id)
+    .then(res => this.loadHabits())
+    .catch(err => console.log(err));
+  };
 
   render() {
     const hasStreak = this.state.selectedHabit.consecutive;
@@ -118,7 +119,11 @@ class Habits extends Component {
                 {madeSelection ? (
                   <div className="remove">
                     <h3>
-                      <a>remove</a>
+                      <a
+                      onClick={() => this.removeHabit(this.state.selectedHabit.id)}
+                      >
+                      remove
+                      </a>
                     </h3>
                   </div>
                 ) : (

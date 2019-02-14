@@ -108,6 +108,10 @@ module.exports = function (app) {
 
   app.delete("/api/habits/:id", function (req, res) {
     console.log("DELETE HABIT ID: " + req.params.id);
+    db.Habits.destroy(
+      {
+      where: {id:req.params.id}
+      });
     res.json({
       DELETE: req.params.id
     });

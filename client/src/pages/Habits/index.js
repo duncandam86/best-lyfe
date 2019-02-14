@@ -20,7 +20,7 @@ class Habits extends Component {
 
   componentDidMount() {
     this.loadHabits();
-  };
+  }
 
   loadHabits() {
     axios.get("/api/habits").then(res => {
@@ -28,8 +28,8 @@ class Habits extends Component {
       this.setState({
         habitArray: res.data
       });
-    })
-  };
+    });
+  }
 
   // getHabitStreak = () => {
   //   this.state.habitArray.forEach(habit => {
@@ -80,10 +80,22 @@ class Habits extends Component {
     });
   };
 
+  removeSelectedHabit() {
+    const selectedHabit = {};
+    this.setState({
+      dropDownTitle: "Select a Habit",
+      selectedHabit: selectedHabit
+    });
+  }
+
   removeHabit = id => {
-    axios.delete("api/habits/" + id)
-    .then(res => this.loadHabits())
-    .catch(err => console.log(err));
+    axios
+      .delete("api/habits/" + id)
+      .then(res => {
+        this.loadHabits();
+        this.removeSelectedHabit();
+      })
+      .catch(err => console.log(err));
   };
 
   render() {
@@ -120,9 +132,11 @@ class Habits extends Component {
                   <div className="remove">
                     <h3>
                       <a
-                      onClick={() => this.removeHabit(this.state.selectedHabit.id)}
+                        onClick={() =>
+                          this.removeHabit(this.state.selectedHabit.id)
+                        }
                       >
-                      remove
+                        remove
                       </a>
                     </h3>
                   </div>

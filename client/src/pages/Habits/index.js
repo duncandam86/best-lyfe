@@ -138,7 +138,7 @@ class Habits extends Component {
                 </div>
 
                 <h4>Comments:</h4>
-                <p>{this.state.selectedHabit.consecutive}</p>
+                <p>{this.state.selectedHabit.comment}</p>
               </div>
             </div>
           </BodyWrapper>

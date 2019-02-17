@@ -20,7 +20,7 @@ class LoginForm extends Component {
             <input
               className="input"
               type="text"
-              placeholder="Username"
+              placeholder="you@where.what"
               name="userEmail"
               value={props.userEmail}
               onChange={props.handleChange}

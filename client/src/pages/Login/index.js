@@ -26,7 +26,7 @@ class Login extends Component {
   constructor() {
     super();
     this.state = {
-      username: "",
+      userEmail: "",
       password: "",
       redirect: null,
       showError: null
@@ -44,10 +44,11 @@ class Login extends Component {
   handleSubmit(event) {
     event.preventDefault();
     console.log("handleSubmit");
+    console.log(this.state.userEmail, this.state.password)
 
     axios
       .post("/api/login", {
-        username: this.state.username,
+        userEmail: this.state.userEmail,
         password: this.state.password
       })
       .then(response => {

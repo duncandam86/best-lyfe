@@ -5,7 +5,7 @@ import { Redirect } from "react-router-dom";
 import BodyWrapper from "../../components/Bodywrapper";
 import Navbar from "../../components/Navbar";
 // import TradNavbar from "../../components/TradNavbar";
-import UserForm from "../../components/UserForm";
+import LoginForm from "../../components/LoginForm";
 // import LoginError from "../../components/LoginError";
 
 //other packages
@@ -84,7 +84,7 @@ class Login extends Component {
         {/* <TradNavbar /> */}
         <div className="container">
           <BodyWrapper txtAlign="left" title2="Login">
-            <UserForm
+            <LoginForm
               handleSubmit={this.handleSubmit}
               handleChange={this.handleChange}
               buttonName="Login"
@@ -92,7 +92,7 @@ class Login extends Component {
               <div id="login-error" style={style.error}>
                 <h2>Invalid User or Password</h2>
               </div>
-            </UserForm>
+            </LoginForm>
           </BodyWrapper>
         </div>
       </>

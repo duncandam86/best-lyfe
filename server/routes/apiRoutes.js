@@ -67,6 +67,7 @@ module.exports = function(app) {
 
   app.put("/api/habits/:id", function(req, res) {
     console.log("UPDATE HABIT ID: " + req.params.id);
+    console.log("ReqBody ", req.body);
 
     const habit = req.body[0];
     console.log("habit", habit.id);

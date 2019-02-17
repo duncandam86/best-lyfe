@@ -1,10 +1,12 @@
+$grey: rgb(155, 154, 154);
+
 .label__text {
   display: flex;
   align-items: center;
 }
 
-input[type="checkbox"]:disabled + .label {
-  color: grey;
+a.disable {
+  color: $grey;
 }
 
 .label__checkbox {

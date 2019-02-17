@@ -13,7 +13,8 @@ import "./style.scss";
 
 class Routine extends Component {
   state = {
-    habits: []
+    completedHabits: [],
+    remainingHabits: []
   };
 
   componentDidMount() {
@@ -25,9 +26,9 @@ class Routine extends Component {
       .get("/api/habits")
       .then(response => {
         //console.log(response.data);
-        let allHabits = response.data;
+        const allHabits = response.data;
         allHabits.forEach(habit => {
-          let isUpdated = this.checkIfUpdated(habit.updatedAt);
+          let isUpdated = this.checkIfUpdated(habit.createdAt, habit.updatedAt);
           if (isUpdated) {
             habit.checked = true;
             habit.disabled = true;
@@ -37,16 +38,29 @@ class Routine extends Component {
           }
           return habit;
         });
-        this.setState({ habits: allHabits });
+        const completedHabits = allHabits.filter(
+          habit => habit.checked === true
+        );
+        const remainingHabits = allHabits.filter(
+          habit => habit.checked === false
+        );
+        //this.setState({ habits: allHabits });
+        this.setState({
+          completedHabits: completedHabits,
+          remainingHabits: remainingHabits
+        });
         //console.log(response.data);
       })
       .catch(err => console.log(err));
   };
 
-  checkIfUpdated = habitDate => {
+  checkIfUpdated = (createdDate, updatedDate) => {
     const todayDate = new Date().getDate();
-    const habitD = new Date(habitDate).getDate();
-    if (todayDate - habitD === 0) {
+    const habitCreated = new Date(createdDate).getDate();
+    const habitUpdated = new Date(updatedDate).getDate();
+    if (habitCreated === todayDate) {
+      return false;
+    } else if (todayDate - habitUpdated === 0) {
       return true;
     } else {
       return false;
@@ -56,7 +70,7 @@ class Routine extends Component {
   handleHabitClick = event => {
     event.preventDefault();
     //console.log(event.target.id);
-    const checkedHabit = this.state.habits.filter(
+    const checkedHabit = this.state.remainingHabits.filter(
       habit => habit.id === +event.target.id
     );
 
@@ -71,6 +85,13 @@ class Routine extends Component {
 
   render() {
     //console.log("Routine habits", this.state.habits);
+    let anyHabits = false;
+    if (
+      this.state.completedHabits.length > 0 ||
+      this.state.remainingHabits.length > 0
+    ) {
+      anyHabits = true;
+    }
     return (
       <>
         <Navbar />
@@ -79,10 +100,12 @@ class Routine extends Component {
           <BodyWrapper txtAlign="left" title1="Your" title2="Routine">
             <div className="columns is-centered">
               <div className="column is-four-fifths">
-                {this.state.habits.length ? (
-                  <div>
+                {this.state.remainingHabits.length > 0 && (
+                  <div id="habit-remain" className="is-size-3">
+                    Habits Remaining Today
+                    <hr className="routine-hr" />
                     <div id="habit-list">
-                      {this.state.habits.map(habit => (
+                      {this.state.remainingHabits.map(habit => (
                         <HabitListItem
                           key={habit.id}
                           id={habit.id}
@@ -95,14 +118,34 @@ class Routine extends Component {
                       ))}
                     </div>
                   </div>
-                ) : (
+                )}
+                {this.state.completedHabits.length > 0 && (
+                  <div id="habit-complete" className="is-size-3">
+                    Habits Completed
+                    <hr className="routine-hr" />
+                    <div id="habit-list">
+                      {this.state.completedHabits.map(habit => (
+                        <HabitListItem
+                          key={habit.id}
+                          id={habit.id}
+                          title={habit.title}
+                          time={habit.time}
+                          isChecked={habit.checked}
+                          isDisabled={habit.disabled}
+                          onClick={this.handleHabitClick}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                )}
+                {!anyHabits && (
                   <div className="level">
                     <div className="level-item has-text-centered">
                       <div>
-                        <p className="title is-3">No Habits to Display</p>
+                        <p className="title is-3">No Habits</p>
                         <p>
-                          <Link to="/habits" className="is-link is-size-5">
-                            Go to the Habits page to create a new habit.
+                          <Link to="/habitsform" className="is-link is-size-5">
+                            Click here to create a new habit.
                           </Link>
                         </p>
                       </div>

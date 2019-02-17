@@ -89,8 +89,8 @@ class Routine extends Component {
                           title={habit.title}
                           time={habit.time}
                           isChecked={habit.checked}
-                          onClick={this.handleHabitClick}
                           isDisabled={habit.disabled}
+                          onClick={this.handleHabitClick}
                         />
                       ))}
                     </div>

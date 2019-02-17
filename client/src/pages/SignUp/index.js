@@ -26,7 +26,7 @@ class Signup extends Component {
   }
 
   handleChange(event) {
-    console.log(event.target.name);
+    // console.log(event.target.name);
     this.setState({
       [event.target.name]: event.target.value
     });
@@ -83,19 +83,10 @@ class Signup extends Component {
       document.getElementById("phone-err").innerText = ""
     }
 
-
-
-    // if (this.state.userPhone.length !== 10) {
-    //   errorCount++;
-    //   console.log("Please enter a valid phone number")
-    // }
-
     if (!errorCount) {
       console.log("We'll log you in shortly.")
       // this.signUpUser()
     }
-
-
 
   }
 

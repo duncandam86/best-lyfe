@@ -3,7 +3,6 @@ import { Redirect } from "react-router-dom";
 import axios from "axios";
 
 //components
-import TradNavbar from "../../components/TradNavbar";
 import Navbar from "../../components/Navbar";
 import BodyWrapper from "../../components/Bodywrapper";
 
@@ -73,7 +72,7 @@ class HabitsForm extends Component {
                 onChange={this.handleInputChange}
                 type="text"
                 placeholder="Workout"
-                maxlength = "19"
+                maxlength="19"
               />
 
               {/* Habit Time Input */}
@@ -84,7 +83,7 @@ class HabitsForm extends Component {
                 onChange={this.handleInputChange}
                 type="text"
                 placeholder="Military Time - 14:30"
-                maxlength = "5"
+                maxlength="5"
               />
 
               {/* Habit Comment Input */}
@@ -95,7 +94,7 @@ class HabitsForm extends Component {
                 onChange={this.handleInputChange}
                 type="text"
                 placeholder="Legs/Arms/Back&Chest/Cardio"
-                maxlength = "50"
+                maxlength="50"
               />
 
               <button onClick={this.handleFormSubmit}>Submit</button>

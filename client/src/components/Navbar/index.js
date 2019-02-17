@@ -1,11 +1,9 @@
 import React, { Component } from "react";
 import "./style.scss";
-import { Redirect } from "react-router-dom";
-import { Route, Link } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import withClickOutside from "../HOC/withClickOutside";
 
 import axios from "axios";
-
 
 class Navbar extends Component {
   constructor() {
@@ -19,7 +17,6 @@ class Navbar extends Component {
     redirect: null,
     showError: null
   };
-
 
   logout(event) {
     event.preventDefault();
@@ -48,7 +45,7 @@ class Navbar extends Component {
       <Redirect to="/login" userId={this.state.userid} />
     ) : (
       <div>
-        <nav
+        <div
           className="navbar is-right"
           role="navigation"
           aria-label="main navigation"
@@ -59,11 +56,13 @@ class Navbar extends Component {
               src="../images/BestLyfe_Logo_Horizontal.png"
               alt="Best Lyfe logo"
             />
-            
 
             <a
               role="button"
-              className={"navbar-burger burger is-right" + (this.props.isOpen ? " is-active" : "")}
+              className={
+                "navbar-burger burger is-right" +
+                (this.props.isOpen ? " is-active" : "")
+              }
               aria-label="menu"
               aria-expanded="false"
               data-target="navbarBasicExample"
@@ -77,7 +76,13 @@ class Navbar extends Component {
 
           <div id="relative">
             <div className="navbar-dropdown is-right">
-              <div id="navbarBasicExample" className={"navbar-menu is-right" + (this.props.isOpen ? " is-active" : "")}>
+              <div
+                id="navbarBasicExample"
+                className={
+                  "navbar-menu is-right" +
+                  (this.props.isOpen ? " is-active" : "")
+                }
+              >
                 <div className="navbar-start is-right">
                   <a className="navbar-item is-right" href="/routine">
                     Routine
@@ -89,19 +94,18 @@ class Navbar extends Component {
                 </div>
 
                 <div className="navbar-end">
-
                   <Link
-                to="#"
-                className="btn btn-link text-secondary navbar-item"
-                onClick={this.logout}
-              >
-                <span className="text-secondary">Logout</span>
-              </Link>
+                    to="#"
+                    className="btn btn-link text-secondary navbar-item"
+                    onClick={this.logout}
+                  >
+                    <span className="text-secondary">Logout</span>
+                  </Link>
                 </div>
               </div>
             </div>
           </div>
-        </nav>
+        </div>
       </div>
     );
   }

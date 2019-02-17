@@ -1,12 +1,10 @@
 import React, { Component } from "react";
-import { Redirect, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 //components
-// import LargeLogo from "../../components/LargeLogo";
+
 import Navbar from "../../components/Navbar";
-import TradNavbar from "../../components/TradNavbar";
 import BodyWrapper from "../../components/Bodywrapper";
 import HabitListItem from "../../components/HabitList";
-import SubmitButton from "../../components/ButtonSubmit";
 
 //other packages
 import axios from "axios";
@@ -27,50 +25,52 @@ class Routine extends Component {
       .get("/api/habits")
       .then(response => {
         //console.log(response.data);
-        this.setState({ habits: response.data });
-        console.log(response.data)
+        let allHabits = response.data;
+        allHabits.forEach(habit => {
+          let isUpdated = this.checkIfUpdated(habit.updatedAt);
+          if (isUpdated) {
+            habit.checked = true;
+            habit.disabled = true;
+          } else {
+            habit.checked = false;
+            habit.disabled = false;
+          }
+          return habit;
+        });
+        this.setState({ habits: allHabits });
+        //console.log(response.data);
       })
       .catch(err => console.log(err));
   };
 
-  getCompletedHabits = () => {
-    const habitsChecked = [];
-    const newHabitArray = this.state.habits;
-    console.log("New Habits: ", newHabitArray)
-    const habits = document.getElementsByTagName("input");
-    const habitsArray = Array.prototype.slice.call(habits);
-    //console.log(inputArray);
-    const completedHabits = habitsArray.filter(habit => habit.checked === true);
-
-    completedHabits.forEach(function(checkbox) {
-      
-      const thisHabit = newHabitArray.filter(habit => habit.id === +checkbox.id);
-
-      habitsChecked.push(thisHabit[0]);
-    });
-    return habitsChecked;
-    //console.log(habitsChecked);
+  checkIfUpdated = habitDate => {
+    const todayDate = new Date().getDate();
+    const habitD = new Date(habitDate).getDate();
+    if (todayDate - habitD === 0) {
+      return true;
+    } else {
+      return false;
+    }
   };
 
-  handlePageSubmit = event => {
+  handleHabitClick = event => {
     event.preventDefault();
-    const habits = this.getCompletedHabits();
-    // console.log(habits);
+    //console.log(event.target.id);
+    const checkedHabit = this.state.habits.filter(
+      habit => habit.id === +event.target.id
+    );
 
-    habits.forEach(habit => {
-      console.log(habit.id);
-      axios
-      .put("/api/habits/" + habit.id, habit)
+    axios
+      .put("/api/habits/" + event.target.id, checkedHabit)
       .then(response => {
-        console.log(response.data);
+        this.loadHabits();
+        //console.log(response.data);
       })
       .catch(err => console.log(err));
-    })
-
-    
   };
 
   render() {
+    //console.log("Routine habits", this.state.habits);
     return (
       <>
         <Navbar />
@@ -85,19 +85,14 @@ class Routine extends Component {
                       {this.state.habits.map(habit => (
                         <HabitListItem
                           key={habit.id}
-                          dataId={habit.id}
+                          id={habit.id}
                           title={habit.title}
                           time={habit.time}
+                          isChecked={habit.checked}
+                          onClick={this.handleHabitClick}
+                          isDisabled={habit.disabled}
                         />
                       ))}
-                    </div>
-                    <div className="level">
-                      <div className="level-item has-text-centered">
-                        <SubmitButton
-                          text="Submit"
-                          onClick={this.handlePageSubmit}
-                        />
-                      </div>
                     </div>
                   </div>
                 ) : (

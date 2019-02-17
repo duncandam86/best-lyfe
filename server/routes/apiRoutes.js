@@ -4,8 +4,8 @@ const db = require("../models");
 const moment = require("moment");
 moment().format();
 
-module.exports = function (app) {
-  app.post("/api/newHabit", function (req, res) {
+module.exports = function(app) {
+  app.post("/api/newHabit", function(req, res) {
     let whichUser;
 
     if (req.user) {
@@ -20,12 +20,12 @@ module.exports = function (app) {
       // frequency: req.body.frequency,
       comment: req.body.comment,
       UserId: whichUser
-    }).then(function (results) {
+    }).then(function(results) {
       res.json(results);
     });
   });
 
-  app.get("/api/habits", function (req, res) {
+  app.get("/api/habits", function(req, res) {
     let whichUser;
 
     if (req.user) {
@@ -38,41 +38,64 @@ module.exports = function (app) {
       where: {
         userId: whichUser
       }
-    }).then(function (result) {
+    }).then(function(result) {
       // console.log(result);
       res.json(result);
     });
   });
 
-  app.get("/api/habits/:id", function (req, res) {
+  app.get("/api/habits/:id", function(req, res) {
     console.log("DISPLAY HABIT ID: " + req.params.id);
-    res.json({
-      DISPLAY: req.params.id
+    let whichUser;
+
+    if (req.user) {
+      whichUser = req.user.id;
+    } else {
+      whichUser = 1;
+    }
+
+    db.Habits.findOne({
+      where: {
+        userId: whichUser,
+        id: req.params.id
+      }
+    }).then(function(result) {
+      console.log(result);
+      res.json(result);
     });
   });
 
-  app.put("/api/habits/:id", function (req, res) {
+  app.put("/api/habits/:id", function(req, res) {
     console.log("UPDATE HABIT ID: " + req.params.id);
 
-    let habit = req.body;
+    const habit = req.body[0];
+    console.log("habit", habit.id);
 
-    console.log("Yesterday " + moment().subtract(1, "days").format("ll"))
-    console.log("Current Day " + moment().format("ll"));
-    console.log("-----------------")
+    // console.log(
+    //   "Yesterday " +
+    //     moment()
+    //       .subtract(1, "days")
+    //       .format("ll")
+    // );
+    // console.log("Current Day " + moment().format("ll"));
+    // console.log("-----------------");
 
-    //* For Each Habit....
+    // //* For Each Habit....
 
-    console.log("Updated At Moment " + moment(habit.updatedAt).format("ll"))
+    //console.log("Updated At Moment " + moment(habit.updatedAt).format("ll"));
 
     //* if the days are the same, dont update the streak
-    if (moment(habit.updatedAt).format('ll') === moment().format('ll')) {
-      console.log("The day’s match");
+    if (moment(habit.updatedAt).format("ll") === moment().format("ll")) {
+      //console.log("The day’s match");
       //* nothing should happen
-
-
       //* if it was updated yesterday, then
-    } else if (moment(habit.updatedAt).format('ll') === moment().subtract(1, 'days').format('ll')) {
-      console.log("The updated At is the same as yesterday ")
+    } else if (
+      moment(habit.updatedAt).format("ll") ===
+      moment()
+        .subtract(1, "days")
+        .format("ll")
+    ) {
+      console.log("The updated At is the same as yesterday ");
       habit.consecutive++;
       console.log("number of consecutive days " + habit.consecutive);
 
@@ -82,36 +105,26 @@ module.exports = function (app) {
         habit.longestStreak === habit.consecutive;
       }
       habit.consecutive = 0;
-      console.log("habit.consecutive " + habit.consecutive);
+      console.log("habit.consecutive ", habit.consecutive);
     }
 
-    console.log(habit);
+    //console.log(habit);
 
     db.Habits.update(
-      {consecutive: habit.consecutive,
-        longestStreak: habit.longestStreak
-      },
-      {where: {id: habit.id}}
-    )
-    res.json({
-      UPDATE: habit
-    });
-  });
-
-  app.put("/api/habits/", function (req, res) {
-    console.log(req.body);
-
-    res.json({
-      UPDATE: req.body
-    });
-  });
-
-  app.delete("/api/habits/:id", function (req, res) {
-    console.log("DELETE HABIT ID: " + req.params.id);
-    db.Habits.destroy(
-      {
-      where: {id:req.params.id}
+      { consecutive: habit.consecutive, longestStreak: habit.longestStreak },
+      { where: { id: habit.id } }
+    ).then(function(result) {
+      res.json({
+        UPDATE: result
       });
+    });
+  });
+
+  app.delete("/api/habits/:id", function(req, res) {
+    console.log("DELETE HABIT ID: " + req.params.id);
+    db.Habits.destroy({
+      where: { id: req.params.id }
+    });
     res.json({
       DELETE: req.params.id
     });

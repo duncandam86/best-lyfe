@@ -34,7 +34,7 @@ export default function withClickOutside(WrappedComponent) {
      * Alert if clicked on outside of element
      */
     handleClickOutside(event) {
-      console.log(this.wrapperRef);
+      //console.log(this.wrapperRef);
       if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
         this.setState({ isOpen: false });
       }

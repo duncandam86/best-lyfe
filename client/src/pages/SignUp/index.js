@@ -19,6 +19,8 @@ class Signup extends Component {
     this.state = {
       username: "",
       password: "",
+      usernameValid: "",
+      invalidUsernameText: "",
       redirect: false
     };
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -45,22 +47,28 @@ class Signup extends Component {
       .then(response => {
         console.log(response);
         if (!response.data.errmsg) {
-          console.log("successful signup");
-          this.props.updateUser({
-            loggedIn: true,
-            username: response.data.username,
-            userid: response.data.id
-          });
-          this.setState({
-            //redirect to login page
-            redirect: true
-          });
+          // console.log("successful signup");
+          // this.props.updateUser({
+          //   loggedIn: true,
+          //   username: response.data.username,
+          //   userid: response.data.id
+          // });
+          // this.setState({
+          //   //redirect to login page
+          //   redirect: true
+          // });
         } else {
           console.log("username already taken");
         }
       })
       .catch(error => {
-        console.log("signup error: ", error);
+        console.log("error: ", error.data);
+        if (error.data === "username must be unique") {
+          this.setState({
+            usernameValid: "is-danger",
+            invalidUsernameText: "Username must be unique"
+          });
+        }
       });
   }
 

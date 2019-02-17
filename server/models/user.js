@@ -20,16 +20,15 @@ module.exports = function(sequelize, DataTypes) {
     },
     userPhone: {
       type: DataTypes.INTEGER,
-      allowNull: false,
       validate: {
         len: 10,
         isInt: true
       }
     },
-    firstName: {
+    userFirstName: {
       type: DataTypes.STRING
     },
-    lastName: {
+    userLastName: {
       type: DataTypes.STRING
     }
   });

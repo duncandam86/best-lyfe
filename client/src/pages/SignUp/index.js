@@ -76,7 +76,7 @@ class Signup extends Component {
 
     //Phone error handling
     if (!this.state.userPhone) {
-      errorCount++
+      // errorCount++
 
       document.getElementById("phone-err").innerText = "Please enter a phone number."
     } else {
@@ -85,7 +85,7 @@ class Signup extends Component {
 
     if (!errorCount) {
       console.log("We'll log you in shortly.")
-      // this.signUpUser()
+      this.signUpUser()
     }
 
   }
@@ -96,7 +96,9 @@ class Signup extends Component {
       .post("api/signup/", {
         userEmail: this.state.userEmail,
         password: this.state.password,
-        userPhone: this.state.userPhone
+        userPhone: this.state.userPhone,
+        userFirstName: this.state.userFirstName,
+        userLastName: this.state.userLastName
       })
       .then(response => {
         console.log(response);

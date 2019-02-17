@@ -39,7 +39,9 @@ module.exports = function(app) {
     db.User.create({
       userEmail: req.body.userEmail,
       password: req.body.password,
-      userPhone: req.body.userPhone
+      userPhone: req.body.userPhone,
+      userFirstName: req.body.userFirstName,
+      userLastName: req.body.userLastName
     })
       .then(function(data) {
         console.log(data.dataValues);

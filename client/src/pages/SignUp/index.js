@@ -19,6 +19,8 @@ class Signup extends Component {
     this.state = {
       userEmail: "",
       password: "",
+      usernameValid: "",
+      invalidUsernameText: "",
       redirect: false
     };
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -118,7 +120,13 @@ class Signup extends Component {
         }
       })
       .catch(error => {
-        console.log("signup error: ", error);
+        console.log("error: ", error.data);
+        if (error.data === "username must be unique") {
+          this.setState({
+            usernameValid: "is-danger",
+            invalidUsernameText: "Username must be unique"
+          });
+        }
       });
   }
 

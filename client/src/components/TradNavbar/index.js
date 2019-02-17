@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 
 import "./style.scss";
-import { Redirect } from "react-router-dom";
-import { Route, Link } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import axios from "axios";
 
 class TradNavbar extends Component {
@@ -46,21 +45,19 @@ class TradNavbar extends Component {
     ) : (
       <nav id="nav">
         <div>
-            <img id="nav-logo" src="../images/BestLyfe_Logo_Horizontal.png" />
+          <img
+            id="nav-logo"
+            src="../images/BestLyfe_Logo_Horizontal.png"
+            alt="Best Lyfe logo"
+          />
         </div>
 
         <div id="nav-items">
-  
-              <a href="/habits">Habits</a>
-              <a href="/routine">Routine</a>
-                <Link
-                  to="#"
-                  className = ""
-                  onClick={this.logout}
-                >
-                  <span id="logout">Logout</span>
-                </Link>
-         
+          <a href="/habits">Habits</a>
+          <a href="/routine">Routine</a>
+          <Link to="#" className="" onClick={this.logout}>
+            <span id="logout">Logout</span>
+          </Link>
         </div>
       </nav>
     );

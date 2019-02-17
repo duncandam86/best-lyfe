@@ -35,6 +35,7 @@ export default function withClickOutside(WrappedComponent) {
      */
     handleClickOutside(event) {
       // console.log(this.wrapperRef);
+
       if (this.wrapperRef && !this.wrapperRef.contains(event.target)) {
         this.setState({ isOpen: false });
       }

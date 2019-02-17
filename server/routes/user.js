@@ -46,19 +46,19 @@ module.exports = function(app) {
       .then(function(data) {
         console.log(data.dataValues);
         //res.redirect(307, "/login");
-        res.json(data.dataValues);
+        res.json("SQLDataValues ", data.dataValues);
       })
       .catch(function(err) {
-        console.log(err);
-        res.json(err);
-        // res.status(422).json(err.errors[0].message);
+        console.log("SQLerror ", err.errors[0].message);
+        //res.json(err);
+        res.json(err.errors[0].message);
       });
   });
 
   // Route for logging user out
   app.post("/logout", function(req, res) {
     req.logout();
-    console.log(req.user)
+    console.log(req.user);
     res.redirect("/");
   });
 

@@ -32,7 +32,7 @@ require("./server/routes/apiRoutes")(app);
 require("./server/routes/htmlRoutes")(app);
 
 //Sequelize
-const syncOptions = { force: false };
+const syncOptions = { force: true };
 
 // If running a test, set syncOptions.force to true
 // clearing the `testdb`

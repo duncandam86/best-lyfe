@@ -17,7 +17,7 @@ class Signup extends Component {
   constructor() {
     super();
     this.state = {
-      username: "",
+      userEmail: "",
       password: "",
       redirect: false
     };
@@ -33,14 +33,79 @@ class Signup extends Component {
   }
 
   handleSubmit(event) {
-    console.log("sign-up handleSubmit, username: ", this.state.username);
+
+    console.log("sign-up handleSubmit, username: ", this.state.userEmail);
     event.preventDefault();
 
+    let errorCount = 0;
+
+    //E-Mail error handling
+    if (!this.state.userEmail) {
+      errorCount++
+      document.getElementById("email-err").innerText = "Please enter an email"
+    } else if (this.state.userEmail.indexOf("@") < 0) {
+      errorCount++;
+      document.getElementById("email-err").innerText = "Please enter a valid email (hint: where you @?";
+    } else if (this.state.userEmail.indexOf(".") < 0) {
+      errorCount++;
+      document.getElementById("email-err").innerText = "Please enter a valid email (hint: End of discussion.  Period.";
+    } else {
+      document.getElementById("email-err").innerText = ""
+    }
+
+    //Password error handling
+    if (!this.state.password) {
+      errorCount++
+
+      document.getElementById("pw-err").innerText = "Please enter a password"
+    } else {
+      document.getElementById("pw-err").innerText = ""
+    }
+
+    if (!this.state.password2) {
+      errorCount++
+
+      document.getElementById("pw2-err").innerText = "Please re-enter your password"
+    } else if (this.state.password !== this.state.password2) {
+      errorCount++
+
+      document.getElementById("pw2-err").innerText = "Passwords Don't Match";
+    } else {
+      document.getElementById("pw2-err").innerText = ""
+    }
+
+    //Phone error handling
+    if (!this.state.userPhone) {
+      errorCount++
+
+      document.getElementById("phone-err").innerText = "Please enter a phone number."
+    } else {
+      document.getElementById("phone-err").innerText = ""
+    }
+
+
+
+    // if (this.state.userPhone.length !== 10) {
+    //   errorCount++;
+    //   console.log("Please enter a valid phone number")
+    // }
+
+    if (!errorCount) {
+      console.log("We'll log you in shortly.")
+      // this.signUpUser()
+    }
+
+
+
+  }
+
+  signUpUser = () => {
     //request to server to add a new username/password
     axios
       .post("api/signup/", {
-        username: this.state.username,
-        password: this.state.password
+        userEmail: this.state.userEmail,
+        password: this.state.password,
+        userPhone: this.state.userPhone
       })
       .then(response => {
         console.log(response);
@@ -48,7 +113,7 @@ class Signup extends Component {
           console.log("successful signup");
           this.props.updateUser({
             loggedIn: true,
-            username: response.data.username,
+            userEmail: response.data.userEmail,
             userid: response.data.id
           });
           this.setState({
@@ -68,20 +133,20 @@ class Signup extends Component {
     return this.state.redirect ? (
       <Redirect to="/habitsForm" />
     ) : (
-      <>
-        <Navbar />
-        {/* <TradNavbar /> */}
-        <div className="container">
-          <BodyWrapper txtAlign="left" title2="Sign Up">
-            <UserForm
-              handleSubmit={this.handleSubmit}
-              handleChange={this.handleChange}
-              buttonName="Sign Up"
-            />
-          </BodyWrapper>
-        </div>
-      </>
-    );
+        <>
+          <Navbar />
+          {/* <TradNavbar /> */}
+          <div className="container">
+            <BodyWrapper txtAlign="left" title2="Sign Up">
+              <UserForm
+                handleSubmit={this.handleSubmit}
+                handleChange={this.handleChange}
+                buttonName="Sign Up"
+              />
+            </BodyWrapper>
+          </div>
+        </>
+      );
   }
 }
 

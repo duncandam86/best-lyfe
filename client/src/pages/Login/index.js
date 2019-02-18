@@ -5,7 +5,7 @@ import { Redirect } from "react-router-dom";
 import BodyWrapper from "../../components/Bodywrapper";
 import Navbar from "../../components/Navbar";
 // import TradNavbar from "../../components/TradNavbar";
-import UserForm from "../../components/UserForm";
+import LoginForm from "../../components/LoginForm";
 // import LoginError from "../../components/LoginError";
 
 //other packages
@@ -26,7 +26,7 @@ class Login extends Component {
   constructor() {
     super();
     this.state = {
-      username: "",
+      userEmail: "",
       password: "",
       redirect: null,
       showError: null
@@ -44,10 +44,11 @@ class Login extends Component {
   handleSubmit(event) {
     event.preventDefault();
     console.log("handleSubmit");
+    console.log(this.state.userEmail, this.state.password)
 
     axios
       .post("/api/login", {
-        username: this.state.username,
+        userEmail: this.state.userEmail,
         password: this.state.password
       })
       .then(response => {
@@ -84,7 +85,7 @@ class Login extends Component {
         {/* <TradNavbar /> */}
         <div className="container">
           <BodyWrapper txtAlign="left" title2="Login">
-            <UserForm
+            <LoginForm
               handleSubmit={this.handleSubmit}
               handleChange={this.handleChange}
               buttonName="Login"
@@ -92,7 +93,7 @@ class Login extends Component {
               <div id="login-error" style={style.error}>
                 <h2>Invalid User or Password</h2>
               </div>
-            </UserForm>
+            </LoginForm>
           </BodyWrapper>
         </div>
       </>

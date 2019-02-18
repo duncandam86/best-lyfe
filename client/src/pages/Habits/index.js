@@ -1,14 +1,9 @@
 import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
-
 import Navbar from "../../components/Navbar";
 import BodyWrapper from "../../components/Bodywrapper";
-// import HabitsComponent from "../../components/HabitsComponent";
-import DropDownComponent from "../../components/DropDownComponent";
 //import "../../styles/shared.scss";
 import "./style.scss";
-import Moment from "moment";
-// import Moment from 'react-moment';
+
 import axios from "axios";
 import Button from "../../components/ButtonLink";
 import PieChart from "../../components/PieChart";
@@ -16,20 +11,22 @@ import SevenDayChart from "../../components/SevenDayChart";
 
 class Habits extends Component {
   state = {
-    habitArray: [],
-    selectedHabit: {},
-    dropDownTitle: "Select a Habit"
+    //habitArray: [],
+    selectedHabit: {}
+    //dropDownTitle: "Select a Habit"
   };
 
   componentDidMount() {
-    axios.get("/api/habits").then(res => {
+    const habitid = parseInt(this.props.match.params.id, 10);
+    axios.get("/api/habits/" + habitid).then(res => {
       // console.log(res);
       this.setState({
-        habitArray: res.data
+        selectedHabit: res.data
       });
       console.log(res.data)
     });
   }
+
 
   handleDropDownChange = habitid => {
     const filteredHabit = this.state.habitArray
@@ -44,11 +41,21 @@ class Habits extends Component {
       comment: filteredHabit[0].comment
     };
     //console.log(selectedHabit);
+
+  updateStreak = streak => {
+    console.log("in updateStreak", streak);
+    //FOR TESTING
+    streak = 4;
+    //
+    const selectedHabitStreak = this.state.selectedHabit.slice(0);
+    console.log("selectedstreak", selectedHabitStreak);
+    selectedHabitStreak.consecutive = streak;
+
     this.setState({
-      dropDownTitle: filteredHabit[0].title,
-      selectedHabit: selectedHabit
+      selectedHabit: selectedHabitStreak
     });
   };
+
 
   removeSelectedHabit() {
     const selectedHabit = {};
@@ -68,7 +75,27 @@ class Habits extends Component {
       .catch(err => console.log(err));
   };
 
+  // handleDropDownChange = habitid => {
+  //   const filteredHabit = this.state.habitArray
+  //     .slice(0)
+  //     .filter(habit => habit.id === habitid);
+  //   const selectedHabit = {
+  //     id: filteredHabit[0].id,
+  //     title: filteredHabit[0].title,
+  //     consecutive: filteredHabit[0].consecutive,
+  //     time: filteredHabit[0].time,
+  //     comment: filteredHabit[0].comment
+  //   };
+  //   //console.log(selectedHabit);
+  //   this.setState({
+  //     dropDownTitle: filteredHabit[0].title,
+  //     selectedHabit: selectedHabit
+  //   });
+  // };
+
+
   render() {
+    //console.log("Streak", this.state.selectedHabit.consecutive);
     const hasStreak = this.state.selectedHabit.consecutive;
     const longestStreak = this.state.selectedHabit.longestStreak;
     const madeSelection = this.state.selectedHabit.title;
@@ -89,12 +116,17 @@ class Habits extends Component {
 
         <div className="container">
           <BodyWrapper title1="Your" title2="Habits">
-             <DropDownComponent
+
+            {/* <div id="habits">
+              <DropDownComponent
                 habitArray={this.state.habitArray}
                 selectedHabit={this.state.dropDownTitle}
                 onClick={this.handleDropDownChange}
               />
-            
+
+              <img src="../../images/AddButton.png" />
+            </div> */}
+
             <div id="habits-body">
               <div id="habits-header">
                 <h2>{this.state.selectedHabit.title}</h2>

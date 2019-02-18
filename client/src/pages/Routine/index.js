@@ -1,12 +1,10 @@
 import React, { Component } from "react";
-import { Redirect, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 //components
-// import LargeLogo from "../../components/LargeLogo";
+
 import Navbar from "../../components/Navbar";
-import TradNavbar from "../../components/TradNavbar";
 import BodyWrapper from "../../components/Bodywrapper";
 import HabitListItem from "../../components/HabitList";
-import SubmitButton from "../../components/ButtonSubmit";
 
 //other packages
 import axios from "axios";
@@ -15,7 +13,8 @@ import "./style.scss";
 
 class Routine extends Component {
   state = {
-    habits: []
+    completedHabits: [],
+    remainingHabits: []
   };
 
   componentDidMount() {
@@ -27,50 +26,72 @@ class Routine extends Component {
       .get("/api/habits")
       .then(response => {
         //console.log(response.data);
-        this.setState({ habits: response.data });
-        console.log(response.data)
+        const allHabits = response.data;
+        allHabits.forEach(habit => {
+          let isUpdated = this.checkIfUpdated(habit.createdAt, habit.updatedAt);
+          if (isUpdated) {
+            habit.checked = true;
+            habit.disabled = true;
+          } else {
+            habit.checked = false;
+            habit.disabled = false;
+          }
+          return habit;
+        });
+        const completedHabits = allHabits.filter(
+          habit => habit.checked === true
+        );
+        const remainingHabits = allHabits.filter(
+          habit => habit.checked === false
+        );
+        //this.setState({ habits: allHabits });
+        this.setState({
+          completedHabits: completedHabits,
+          remainingHabits: remainingHabits
+        });
+        //console.log(response.data);
       })
       .catch(err => console.log(err));
   };
 
-  getCompletedHabits = () => {
-    const habitsChecked = [];
-    const newHabitArray = this.state.habits;
-    console.log("New Habits: ", newHabitArray)
-    const habits = document.getElementsByTagName("input");
-    const habitsArray = Array.prototype.slice.call(habits);
-    //console.log(inputArray);
-    const completedHabits = habitsArray.filter(habit => habit.checked === true);
-
-    completedHabits.forEach(function(checkbox) {
-      
-      const thisHabit = newHabitArray.filter(habit => habit.id === +checkbox.id);
-
-      habitsChecked.push(thisHabit[0]);
-    });
-    return habitsChecked;
-    //console.log(habitsChecked);
+  checkIfUpdated = (createdDate, updatedDate) => {
+    const todayDate = new Date().getDate();
+    const habitCreated = new Date(createdDate).getDate();
+    const habitUpdated = new Date(updatedDate).getDate();
+    if (habitCreated === todayDate) {
+      return false;
+    } else if (todayDate - habitUpdated === 0) {
+      return true;
+    } else {
+      return false;
+    }
   };
 
-  handlePageSubmit = event => {
+  handleHabitClick = event => {
     event.preventDefault();
-    const habits = this.getCompletedHabits();
-    // console.log(habits);
+    //console.log(event.target.id);
+    const checkedHabit = this.state.remainingHabits.filter(
+      habit => habit.id === +event.target.id
+    );
 
-    habits.forEach(habit => {
-      console.log(habit.id);
-      axios
-      .put("/api/habits/" + habit.id, habit)
+    axios
+      .put("/api/habits/" + event.target.id, checkedHabit)
       .then(response => {
-        console.log(response.data);
+        this.loadHabits();
+        //console.log(response.data);
       })
       .catch(err => console.log(err));
-    })
-
-    
   };
 
   render() {
+    //console.log("Routine habits", this.state.habits);
+    let anyHabits = false;
+    if (
+      this.state.completedHabits.length > 0 ||
+      this.state.remainingHabits.length > 0
+    ) {
+      anyHabits = true;
+    }
     return (
       <>
         <Navbar />
@@ -79,35 +100,52 @@ class Routine extends Component {
           <BodyWrapper txtAlign="left" title1="Your" title2="Routine">
             <div className="columns is-centered">
               <div className="column is-four-fifths">
-                {this.state.habits.length ? (
-                  <div>
+                {this.state.remainingHabits.length > 0 && (
+                  <div id="habit-remain" className="is-size-3">
+                    Habits Remaining Today
+                    <hr className="routine-hr" />
                     <div id="habit-list">
-                      {this.state.habits.map(habit => (
+                      {this.state.remainingHabits.map(habit => (
                         <HabitListItem
                           key={habit.id}
-                          dataId={habit.id}
+                          id={habit.id}
                           title={habit.title}
                           time={habit.time}
+                          isChecked={habit.checked}
+                          isDisabled={habit.disabled}
+                          onClick={this.handleHabitClick}
                         />
                       ))}
                     </div>
-                    <div className="level">
-                      <div className="level-item has-text-centered">
-                        <SubmitButton
-                          text="Submit"
-                          onClick={this.handlePageSubmit}
+                  </div>
+                )}
+                {this.state.completedHabits.length > 0 && (
+                  <div id="habit-complete" className="is-size-3">
+                    Habits Completed
+                    <hr className="routine-hr" />
+                    <div id="habit-list">
+                      {this.state.completedHabits.map(habit => (
+                        <HabitListItem
+                          key={habit.id}
+                          id={habit.id}
+                          title={habit.title}
+                          time={habit.time}
+                          isChecked={habit.checked}
+                          isDisabled={habit.disabled}
+                          onClick={this.handleHabitClick}
                         />
-                      </div>
+                      ))}
                     </div>
                   </div>
-                ) : (
+                )}
+                {!anyHabits && (
                   <div className="level">
                     <div className="level-item has-text-centered">
                       <div>
-                        <p className="title is-3">No Habits to Display</p>
+                        <p className="title is-3">No Habits</p>
                         <p>
-                          <Link to="/habits" className="is-link is-size-5">
-                            Go to the Habits page to create a new habit.
+                          <Link to="/habitsform" className="is-link is-size-5">
+                            Click here to create a new habit.
                           </Link>
                         </p>
                       </div>

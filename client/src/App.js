@@ -13,6 +13,7 @@ import Home from "./pages/Home";
 import Habits from "./pages/Habits";
 import Routine from "./pages/Routine";
 import HabitsForm from "./pages/HabitsForm";
+import UserProfile from "./pages/UserProfile";
 
 class App extends Component {
   constructor() {
@@ -81,6 +82,7 @@ class App extends Component {
         <Route path="/habits/:id" component={Habits} />
         <Route exact path="/routine" component={Routine} />
         <Route exact path="/habitsform" component={HabitsForm} />
+        <Route exact path="/userprofile" component={UserProfile} />
       </div>
     );
   }

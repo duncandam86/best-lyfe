@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./style.scss";
 
-function Button(props) {
+function LinkButton(props) {
   return (
     <Link className="button is-large" to={props.page}>
       {props.name}
@@ -10,4 +10,4 @@ function Button(props) {
   );
 }
 
-export default Button;
+export default LinkButton;

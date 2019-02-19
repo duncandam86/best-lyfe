@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 //components
-
 import Navbar from "../../components/Navbar";
 import BodyWrapper from "../../components/Bodywrapper";
 import HabitListItem from "../../components/HabitList";
-
+import LinkButton from "../../components/ButtonLink";
 //other packages
 import axios from "axios";
 //styles
@@ -56,9 +55,9 @@ class Routine extends Component {
 
   checkIfUpdated = (createdDate, updatedDate) => {
     const todayDate = new Date().getDate();
-    const habitCreated = new Date(createdDate).getDate();
+    //const habitCreated = new Date(createdDate).getDate();
     const habitUpdated = new Date(updatedDate).getDate();
-    if (habitCreated === todayDate) {
+    if (createdDate === updatedDate) {
       return false;
     } else if (todayDate - habitUpdated === 0) {
       return true;
@@ -95,7 +94,6 @@ class Routine extends Component {
     return (
       <>
         <Navbar />
-        {/* <TradNavbar /> */}
         <div className="container">
           <BodyWrapper txtAlign="left" title1="Your" title2="Routine">
             <div className="columns is-centered">
@@ -135,6 +133,13 @@ class Routine extends Component {
                           onClick={this.handleHabitClick}
                         />
                       ))}
+                    </div>
+                  </div>
+                )}
+                {anyHabits && (
+                  <div id="add-habit" className="level">
+                    <div className="level-item has-text-centered">
+                      <LinkButton page="/habitsform" name="Add New Habit" />
                     </div>
                   </div>
                 )}

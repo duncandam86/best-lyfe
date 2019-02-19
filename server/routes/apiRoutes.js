@@ -45,6 +45,7 @@ module.exports = function(app) {
   });
 
   app.get("/api/habits/:id", function(req, res) {
+    console.log("URL", req.originalUrl);
     console.log("DISPLAY HABIT ID: " + req.params.id);
     let whichUser;
 
@@ -125,9 +126,10 @@ module.exports = function(app) {
     console.log("DELETE HABIT ID: " + req.params.id);
     db.Habits.destroy({
       where: { id: req.params.id }
-    });
-    res.json({
-      DELETE: req.params.id
+    }).then(function(result) {
+      res.json({
+        DELETE: result
+      });
     });
   });
 };

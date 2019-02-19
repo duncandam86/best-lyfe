@@ -7,37 +7,37 @@
   align-content: center;
   margin-top: 10px;
   height: 45px;
-  padding-left:10px;
-  padding-right:10px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 #habits-body {
   text-align: left;
   padding: 10px;
   margin-top: 10px;
-  padding-top:0;
+  padding-top: 0;
 }
 
 #habits-body h2 {
   color: rgb(86, 177, 121);
   font-size: 30px;
-  margin-top:15px;
-  font-size:2rem;
+  margin-top: 15px;
+  font-size: 2rem;
 }
 
 #habits-body p {
   font-weight: 300;
   // margin-bottom: 20px;
   color: rgb(86, 177, 121);
-  font-size:1rem;
+  font-size: 1rem;
 }
 
 .hide {
   display: none;
 }
-#habits-body h4{
-  font-size:1.5rem;
-  margin-top:10px;
+#habits-body h4 {
+  font-size: 1.5rem;
+  margin-top: 10px;
 }
 
 //* *****************************
@@ -50,46 +50,43 @@
   align-items: center;
 }
 
-#habits-header h2{
-  margin-top:0;
-}
-
-a.button {
-  height:30px;
-  font-size:10px;
-  color:white;
-  margin-bottom:0;
+#habits-header h2 {
+  margin-top: 0;
 }
 
 //* *****************************
 //* STREAKS
 //* *****************************
-#green{
-  color:rgb(86, 177, 121);
-  font-size:14px;
+#green {
+  color: rgb(86, 177, 121);
+  font-size: 14px;
 }
 
-#streaks h4{
-  font-size:15px;
-  margin-top:0;
+#streaks h4 {
+  font-size: 15px;
+  margin-top: 0;
 }
 
-#streaks{
-  margin-bottom:15px;
-  border:black 2px solid;
+#streaks {
+  margin-bottom: 15px;
+  border: black 2px solid;
   border-radius: 10px;
-  text-align:center;
+  text-align: center;
 }
 
 //* *****************************
 //* REMOVE BUTTON
 //* *****************************
-.remove a{
-  color:red;
-  text-align:center;
-  margin:auto;
+.remove a {
+  color: red;
+  text-align: center;
+  margin: auto;
 }
-div.remove{
-  display:flex;
+div.remove {
+  display: flex;
   justify-content: center;
+}
+
+.remove h3 {
+  margin-top: 1rem;
 }

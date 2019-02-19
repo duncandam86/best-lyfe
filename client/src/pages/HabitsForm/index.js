@@ -31,20 +31,27 @@ class HabitsForm extends Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
-
-    axios
-      .post("/api/newHabit", {
+    let habitData = {};
+    if (this.state.time === "") {
+      habitData = {
+        title: this.state.title,
+        comment: this.state.comment
+      };
+    } else {
+      habitData = {
         title: this.state.title,
         time: this.state.time,
         comment: this.state.comment
-      })
-      .then(res => {
-        console.log("completed update");
-        this.setState({
-          //redirect to habits page
-          redirect: true
-        });
+      };
+    }
+
+    axios.post("/api/newHabit", habitData).then(res => {
+      console.log("completed update");
+      this.setState({
+        //redirect to habits page
+        redirect: true
       });
+    });
   };
 
   render() {
@@ -69,7 +76,7 @@ class HabitsForm extends Component {
                     name="title"
                     value={this.state.title}
                     onChange={this.handleInputChange}
-                    maxlength="19"
+                    maxLength="19"
                   />
                 </div>
               </div>

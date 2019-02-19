@@ -1,7 +1,7 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import BodyWrapper from "../../components/Bodywrapper";
-//import "../../styles/shared.scss";
 import "./style.scss";
 
 import axios from "axios";
@@ -11,9 +11,8 @@ import SevenDayChart from "../../components/SevenDayChart";
 
 class Habits extends Component {
   state = {
-    //habitArray: [],
-    selectedHabit: {}
-    //dropDownTitle: "Select a Habit"
+    selectedHabit: {},
+    redirect: null
   };
 
   componentDidMount() {
@@ -23,24 +22,7 @@ class Habits extends Component {
       this.setState({
         selectedHabit: res.data
       });
-      console.log(res.data)
     });
-  }
-
-
-  handleDropDownChange = habitid => {
-    const filteredHabit = this.state.habitArray
-      .slice(0)
-      .filter(habit => habit.id === habitid);
-    const selectedHabit = {
-      id: filteredHabit[0].id,
-      title: filteredHabit[0].title,
-      consecutive: filteredHabit[0].consecutive,
-      longestStreak: filteredHabit[0].longestStreak,
-      time: filteredHabit[0].time,
-      comment: filteredHabit[0].comment
-    };
-    //console.log(selectedHabit);
   }
 
   updateStreak = streak => {
@@ -57,21 +39,14 @@ class Habits extends Component {
     });
   };
 
-
-  removeSelectedHabit = () => {
-    const selectedHabit = {};
-    this.setState({
-      dropDownTitle: "Select a Habit",
-      selectedHabit: selectedHabit
-    });
-  }
-
   removeHabit = id => {
+    console.log("removeHabit", id);
     axios
-      .delete("api/habits/" + id)
+      .delete("/api/habits/" + id)
       .then(res => {
-        this.loadHabits();
-        this.removeSelectedHabit();
+        this.setState({
+          redirect: true
+        });
       })
       .catch(err => console.log(err));
   };
@@ -94,7 +69,6 @@ class Habits extends Component {
   //   });
   // };
 
-
   render() {
     //console.log("Streak", this.state.selectedHabit.consecutive);
     const hasStreak = this.state.selectedHabit.consecutive;
@@ -107,9 +81,10 @@ class Habits extends Component {
     }
     // console.log(longestStreak)
 
-    return (
+    return this.state.redirect ? (
+      <Redirect to="/routine" />
+    ) : (
       <>
-    
         <Navbar />
 
         {/*  this button console.logs the streak
@@ -117,70 +92,71 @@ class Habits extends Component {
 
         <div className="container">
           <BodyWrapper title1="Your" title2="Habits">
-
-            {/* <div id="habits">
-              <DropDownComponent
-                habitArray={this.state.habitArray}
-                selectedHabit={this.state.dropDownTitle}
-                onClick={this.handleDropDownChange}
-              />
-
-              <img src="../../images/AddButton.png" />
-            </div> */}
-
             <div id="habits-body">
               <div id="habits-header">
                 <h2>{this.state.selectedHabit.title}</h2>
                 {madeSelection ? (
-                <Button name="back" page="/routine" />
-// {/* <a href="/routine"><img src="../../images/BackArrow.png" width="32.5px" /></a> */}
-
-
+                  <Button name="back" page="/routine" />
                 ) : (
+                  // {/* <a href="/routine"><img src="../../images/BackArrow.png" width="32.5px" /></a> */}
+
                   <div />
-                  
                 )}
-               
               </div>
-         
 
               {/* <h3>Progress:</h3><figure></figure> */}
 
               <div className={displayStatus}>
                 {/* <hr /> */}
                 <div id="streaks">
-                  <h4>Current Streak: <span id="green"> {hasStreak
-                      ? hasStreak + " DAYS"
-                      : "Start a new streak!"}</span></h4>
+                  <h4>
+                    Current Streak:{" "}
+                    <span id="green">
+                      {" "}
+                      {hasStreak ? hasStreak + " DAYS" : "Start a new streak!"}
+                    </span>
+                  </h4>
 
-                  <h4>Longest Streak: <span id="green">{longestStreak
-                      ? longestStreak + " DAYS"
-                      : "Get started on your longest streak!"}</span></h4>
-                  </div>
-                  
-                  <PieChart />
-                  <SevenDayChart />
-                  
-                  <div>
-                    {hasTime ? (
-                      <div>
-                        <h4>Time:</h4>
-                        <p>{this.state.selectedHabit.time}</p>
-                      </div>
-                    ) : (
-                      <div />
-                    )}
-                  </div>
+                  <h4>
+                    Longest Streak:{" "}
+                    <span id="green">
+                      {longestStreak
+                        ? longestStreak + " DAYS"
+                        : "Get started on your longest streak!"}
+                    </span>
+                  </h4>
+                </div>
 
-                  <h4>Comments:</h4>
-                  <p>{this.state.selectedHabit.comment}</p>
-                  
+                <PieChart />
+                <SevenDayChart />
+
+                <div>
+                  {hasTime ? (
+                    <div>
+                      <h4>Time:</h4>
+                      <p>{this.state.selectedHabit.time}</p>
+                    </div>
+                  ) : (
+                    <div />
+                  )}
                 </div>
-                <div className="remove">
-                  <h3><a>REMOVE HABIT</a></h3>
-                </div>
+
+                <h4>Comments:</h4>
+                <p>{this.state.selectedHabit.comment}</p>
+              </div>
+              <div className="remove">
+                <h3>
+                  <a
+                    id={this.state.selectedHabit.id}
+                    onClick={() =>
+                      this.removeHabit(this.state.selectedHabit.id)
+                    }
+                  >
+                    REMOVE HABIT
+                  </a>
+                </h3>
+              </div>
             </div>
-         
           </BodyWrapper>
         </div>
       </>

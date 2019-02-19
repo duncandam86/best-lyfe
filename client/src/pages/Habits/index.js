@@ -41,6 +41,7 @@ class Habits extends Component {
       comment: filteredHabit[0].comment
     };
     //console.log(selectedHabit);
+  }
 
   updateStreak = streak => {
     console.log("in updateStreak", streak);
@@ -57,7 +58,7 @@ class Habits extends Component {
   };
 
 
-  removeSelectedHabit() {
+  removeSelectedHabit = () => {
     const selectedHabit = {};
     this.setState({
       dropDownTitle: "Select a Habit",

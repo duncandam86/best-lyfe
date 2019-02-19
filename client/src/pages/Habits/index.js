@@ -5,6 +5,9 @@ import BodyWrapper from "../../components/Bodywrapper";
 import "./style.scss";
 
 import axios from "axios";
+import Button from "../../components/ButtonLink";
+import PieChart from "../../components/PieChart";
+import SevenDayChart from "../../components/SevenDayChart";
 
 class Habits extends Component {
   state = {
@@ -20,8 +23,24 @@ class Habits extends Component {
       this.setState({
         selectedHabit: res.data
       });
+      console.log(res.data)
     });
   }
+
+
+  handleDropDownChange = habitid => {
+    const filteredHabit = this.state.habitArray
+      .slice(0)
+      .filter(habit => habit.id === habitid);
+    const selectedHabit = {
+      id: filteredHabit[0].id,
+      title: filteredHabit[0].title,
+      consecutive: filteredHabit[0].consecutive,
+      longestStreak: filteredHabit[0].longestStreak,
+      time: filteredHabit[0].time,
+      comment: filteredHabit[0].comment
+    };
+    //console.log(selectedHabit);
 
   updateStreak = streak => {
     console.log("in updateStreak", streak);
@@ -35,6 +54,25 @@ class Habits extends Component {
     this.setState({
       selectedHabit: selectedHabitStreak
     });
+  };
+
+
+  removeSelectedHabit() {
+    const selectedHabit = {};
+    this.setState({
+      dropDownTitle: "Select a Habit",
+      selectedHabit: selectedHabit
+    });
+  }
+
+  removeHabit = id => {
+    axios
+      .delete("api/habits/" + id)
+      .then(res => {
+        this.loadHabits();
+        this.removeSelectedHabit();
+      })
+      .catch(err => console.log(err));
   };
 
   // handleDropDownChange = habitid => {
@@ -55,17 +93,22 @@ class Habits extends Component {
   //   });
   // };
 
+
   render() {
     //console.log("Streak", this.state.selectedHabit.consecutive);
     const hasStreak = this.state.selectedHabit.consecutive;
+    const longestStreak = this.state.selectedHabit.longestStreak;
     const madeSelection = this.state.selectedHabit.title;
     const hasTime = this.state.selectedHabit.time;
     let displayStatus = "hide";
     if (madeSelection) {
       displayStatus = "show";
     }
+    // console.log(longestStreak)
+
     return (
       <>
+    
         <Navbar />
 
         {/*  this button console.logs the streak
@@ -73,54 +116,70 @@ class Habits extends Component {
 
         <div className="container">
           <BodyWrapper title1="Your" title2="Habits">
+
             {/* <div id="habits">
               <DropDownComponent
                 habitArray={this.state.habitArray}
                 selectedHabit={this.state.dropDownTitle}
                 onClick={this.handleDropDownChange}
               />
+
               <img src="../../images/AddButton.png" />
             </div> */}
+
             <div id="habits-body">
               <div id="habits-header">
                 <h2>{this.state.selectedHabit.title}</h2>
                 {madeSelection ? (
-                  <div className="remove">
-                    <h3>
-                      <a>remove</a>
-                    </h3>
-                  </div>
+                <Button name="back" page="/routine" />
+// {/* <a href="/routine"><img src="../../images/BackArrow.png" width="32.5px" /></a> */}
+
+
                 ) : (
                   <div />
+                  
                 )}
+               
               </div>
-              <hr />
+         
 
               {/* <h3>Progress:</h3><figure></figure> */}
 
               <div className={displayStatus}>
-                <h4>Streak:</h4>
-                <p>
-                  {hasStreak
-                    ? hasStreak + " DAYS"
-                    : "Start a new streak today!"}
-                </p>
+                {/* <hr /> */}
+                <div id="streaks">
+                  <h4>Current Streak: <span id="green"> {hasStreak
+                      ? hasStreak + " DAYS"
+                      : "Start a new streak!"}</span></h4>
 
-                <div>
-                  {hasTime ? (
-                    <div>
-                      <h4>Time:</h4>
-                      <p>{this.state.selectedHabit.time}</p>
-                    </div>
-                  ) : (
-                    <div />
-                  )}
+                  <h4>Longest Streak: <span id="green">{longestStreak
+                      ? longestStreak + " DAYS"
+                      : "Get started on your longest streak!"}</span></h4>
+                  </div>
+                  
+                  <PieChart />
+                  <SevenDayChart />
+                  
+                  <div>
+                    {hasTime ? (
+                      <div>
+                        <h4>Time:</h4>
+                        <p>{this.state.selectedHabit.time}</p>
+                      </div>
+                    ) : (
+                      <div />
+                    )}
+                  </div>
+
+                  <h4>Comments:</h4>
+                  <p>{this.state.selectedHabit.comment}</p>
+                  
                 </div>
-
-                <h4>Comments:</h4>
-                <p>{this.state.selectedHabit.comment}</p>
-              </div>
+                <div className="remove">
+                  <h3><a>REMOVE HABIT</a></h3>
+                </div>
             </div>
+         
           </BodyWrapper>
         </div>
       </>

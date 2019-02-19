@@ -91,6 +91,9 @@ class Navbar extends Component {
                   <a className="navbar-item is-right" href="/habits">
                     Habits
                   </a>
+                  <a className="navbar-item is-right" href="/habitsform">
+                    New Habit
+                  </a>
                 </div>
 
                 <div className="navbar-end">

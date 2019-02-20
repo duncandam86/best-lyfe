@@ -1,112 +1,89 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
-
 import Navbar from "../../components/Navbar";
 import TradNavbar from "../../components/TradNavbar";
 import BodyWrapper from "../../components/Bodywrapper";
-import DropDownComponent from "../../components/DropDownComponent";
-//import "../../styles/shared.scss";
 import "./style.scss";
-import Moment from "moment";
-// import Moment from 'react-moment';
+
 import axios from "axios";
+import Button from "../../components/ButtonLink";
+import PieChart from "../../components/PieChart";
+import SevenDayChart from "../../components/SevenDayChart";
 
 class Habits extends Component {
   state = {
-    habitArray: [],
     selectedHabit: {},
-    dropDownTitle: "Select a Habit"
+    redirect: null
   };
 
   componentDidMount() {
-    this.loadHabits();
-  }
-
-  loadHabits() {
-    axios.get("/api/habits").then(res => {
+    const habitid = parseInt(this.props.match.params.id, 10);
+    axios.get("/api/habits/" + habitid).then(res => {
       // console.log(res);
       this.setState({
-        habitArray: res.data
+        selectedHabit: res.data
       });
     });
   }
 
-  // getHabitStreak = () => {
-  //   this.state.habitArray.forEach(habit => {
-  //     console.log(habit);
-  //     console.log("Updated at" + habit.updatedAt);
-
-  //     //* current Date
-  //     let d1 = new Date();
-  //     //* last update Date
-  //     let updatedAt = habit.updatedAt;
-  //     let d2 = new Date(updatedAt);
-
-  //     //* find out how long from this moment compared to the last update
-  //     let diff = Math.abs(d1 - d2);
-  //     console.log("Difference in Milliseconds + " + diff);
-  //     let days = (diff / (1000 * 60 * 60 * 24)) % 7;
-  //     console.log("Day's difference (raw streak)" + days);
-
-  //     //* LOGIC
-  //     if (days === 1 || days > 1) {
-  //       let streak = 0;
-  //       console.log("Streak is " + streak);
-  //     } else {
-  //       let streak = Math.floor(days);
-  //       console.log("Streak is " + streak);
-  //     }
-
-  //     //*end GetHabitsStreak
-  //   });
-  //   //* end ComponentDidMount
-  // };
-
-  handleDropDownChange = habitid => {
-    const filteredHabit = this.state.habitArray
-      .slice(0)
-      .filter(habit => habit.id === habitid);
-    const selectedHabit = {
-      id: filteredHabit[0].id,
-      title: filteredHabit[0].title,
-      consecutive: filteredHabit[0].consecutive,
-      time: filteredHabit[0].time,
-      comment: filteredHabit[0].comment
-    };
-    //console.log(selectedHabit);
+  updateStreak = streak => {
+    console.log("in updateStreak", streak);
+    //FOR TESTING
+    streak = 4;
+    //
+    const selectedHabitStreak = this.state.selectedHabit.slice(0);
+    console.log("selectedstreak", selectedHabitStreak);
+    selectedHabitStreak.consecutive = streak;
     this.setState({
-      dropDownTitle: filteredHabit[0].title,
-      selectedHabit: selectedHabit
+      selectedHabit: selectedHabitStreak
     });
   };
 
-  removeSelectedHabit() {
-    const selectedHabit = {};
-    this.setState({
-      dropDownTitle: "Select a Habit",
-      selectedHabit: selectedHabit
-    });
-  }
-
   removeHabit = id => {
+    console.log("removeHabit", id);
     axios
-      .delete("api/habits/" + id)
+      .delete("/api/habits/" + id)
       .then(res => {
-        this.loadHabits();
-        this.removeSelectedHabit();
+        this.setState({
+          redirect: true
+        });
       })
       .catch(err => console.log(err));
   };
 
+  // handleDropDownChange = habitid => {
+  //   const filteredHabit = this.state.habitArray
+  //     .slice(0)
+  //     .filter(habit => habit.id === habitid);
+  //   const selectedHabit = {
+  //     id: filteredHabit[0].id,
+  //     title: filteredHabit[0].title,
+  //     consecutive: filteredHabit[0].consecutive,
+  //     time: filteredHabit[0].time,
+  //     comment: filteredHabit[0].comment
+  //   };
+  //   //console.log(selectedHabit);
+  //   this.setState({
+  //     dropDownTitle: filteredHabit[0].title,
+  //     selectedHabit: selectedHabit
+  //   });
+  // };
+
   render() {
+    //console.log("Streak", this.state.selectedHabit.consecutive);
     const hasStreak = this.state.selectedHabit.consecutive;
+    const longestStreak = this.state.selectedHabit.longestStreak;
     const madeSelection = this.state.selectedHabit.title;
     const hasTime = this.state.selectedHabit.time;
     let displayStatus = "hide";
     if (madeSelection) {
       displayStatus = "show";
     }
-    return (
+    // console.log(longestStreak)
+
+    return this.state.redirect ? (
+      <Redirect to="/routine" />
+    ) : (
       <>
         <Navbar />
         {/* <TradNavbar /> */}
@@ -115,46 +92,43 @@ class Habits extends Component {
 
         <div className="container">
           <BodyWrapper title1="Your" title2="Habits">
-            <div id="habits">
-              <DropDownComponent
-                habitArray={this.state.habitArray}
-                selectedHabit={this.state.dropDownTitle}
-                onClick={this.handleDropDownChange}
-              />
-              <a href={"/habitsform"}>
-                <img src="../../images/AddButton.png" />
-              </a>
-            </div>
             <div id="habits-body">
               <div id="habits-header">
                 <h2>{this.state.selectedHabit.title}</h2>
                 {madeSelection ? (
-                  <div className="remove">
-                    <h3>
-                      <a
-                        onClick={() =>
-                          this.removeHabit(this.state.selectedHabit.id)
-                        }
-                      >
-                        remove
-                      </a>
-                    </h3>
-                  </div>
+                  <Button name="back" page="/routine" />
                 ) : (
+                  // {/* <a href="/routine"><img src="../../images/BackArrow.png" width="32.5px" /></a> */}
+
                   <div />
                 )}
               </div>
-              <hr />
 
               {/* <h3>Progress:</h3><figure></figure> */}
 
               <div className={displayStatus}>
-                <h4>Streak:</h4>
-                <p>
-                  {hasStreak
-                    ? hasStreak + " DAYS"
-                    : "Start a new streak today!"}
-                </p>
+                {/* <hr /> */}
+                <div id="streaks">
+                  <h4>
+                    Current Streak:{" "}
+                    <span id="green">
+                      {" "}
+                      {hasStreak ? hasStreak + " DAYS" : "Start a new streak!"}
+                    </span>
+                  </h4>
+
+                  <h4>
+                    Longest Streak:{" "}
+                    <span id="green">
+                      {longestStreak
+                        ? longestStreak + " DAYS"
+                        : "Get started on your longest streak!"}
+                    </span>
+                  </h4>
+                </div>
+
+                <PieChart />
+                <SevenDayChart />
 
                 <div>
                   {hasTime ? (
@@ -168,7 +142,19 @@ class Habits extends Component {
                 </div>
 
                 <h4>Comments:</h4>
-                <p>{this.state.selectedHabit.consecutive}</p>
+                <p>{this.state.selectedHabit.comment}</p>
+              </div>
+              <div className="remove">
+                <h3>
+                  <a
+                    id={this.state.selectedHabit.id}
+                    onClick={() =>
+                      this.removeHabit(this.state.selectedHabit.id)
+                    }
+                  >
+                    REMOVE HABIT
+                  </a>
+                </h3>
               </div>
             </div>
           </BodyWrapper>

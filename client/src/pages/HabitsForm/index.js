@@ -3,9 +3,9 @@ import { Redirect } from "react-router-dom";
 import axios from "axios";
 
 //components
-import TradNavbar from "../../components/TradNavbar";
 import Navbar from "../../components/Navbar";
 import BodyWrapper from "../../components/Bodywrapper";
+import SubmitButton from "../../components/ButtonSubmit";
 
 //styles
 import "./style.scss";
@@ -31,75 +31,93 @@ class HabitsForm extends Component {
 
   handleFormSubmit = event => {
     event.preventDefault();
+    let habitData = {};
+    if (this.state.time === "") {
+      habitData = {
+        title: this.state.title,
+        comment: this.state.comment
+      };
+    } else {
+      habitData = {
+        title: this.state.title,
+        time: this.state.time,
+        comment: this.state.comment
+      };
+    }
 
-    //   alert(`Habit: ${this.state.habitName} + ${this.state.habitTime} + ${this.state.habitComment}`);
-    // this.setState({
-    //   habitName: "",
-    //   habitTime: "",
-    //   habitComment: ""
-    // });
-
-    axios
-      .post("/api/newHabit", {
-        title: this.state.habitName,
-        time: this.state.habitTime,
-        comment: this.state.habitComment
-      })
-      .then(res => {
-        console.log("completed update");
-        this.setState({
-          //redirect to habits page
-          redirect: true
-        });
+    axios.post("/api/newHabit", habitData).then(res => {
+      console.log("completed update");
+      this.setState({
+        //redirect to habits page
+        redirect: true
       });
+    });
   };
 
   render() {
     //if state.redirect is not null, redirect to different page.
     return this.state.redirect ? (
-      <Redirect to="/habits" />
+      <Redirect to="/routine" />
     ) : (
       <div>
         <Navbar />
-        {/* <TradNavbar /> */}
         <BodyWrapper txtAlign="centered" title1="New" title2="Habit">
-          <div id="form-div">
-            <form className="form">
-              {/* Habit Name Input */}
-              <label>Name:</label>
-              <input
-                value={this.state.habitName}
-                name="habitName"
-                onChange={this.handleInputChange}
-                type="text"
-                placeholder="Workout"
-                maxlength = "19"
-              />
+          <div className="columns is-mobile is-centered">
+            <div className="column is-half-tablet is-three-quarters-mobile">
+              <div className="field">
+                <label className="label is-size-4 is-size-5-mobile">
+                  Name:
+                </label>
+                <div className="control">
+                  <input
+                    className="input"
+                    type="text"
+                    placeholder="Habit Name"
+                    name="title"
+                    value={this.state.title}
+                    onChange={this.handleInputChange}
+                    maxLength="19"
+                  />
+                </div>
+              </div>
+              <div className="field">
+                <label className="label is-size-4 is-size-5-mobile">
+                  Time:
+                </label>
+                <div className="control has-icons-left">
+                  <input
+                    className="input"
+                    type="text"
+                    placeholder="Military Time - 14:30"
+                    name="time"
+                    value={this.state.time}
+                    onChange={this.handleInputChange}
+                  />
+                  <span className="icon is-small is-left">
+                    <i className="far fa-clock" />
+                  </span>
+                </div>
+              </div>
 
-              {/* Habit Time Input */}
-              <label>Time:</label>
-              <input
-                value={this.state.habitTime}
-                name="habitTime"
-                onChange={this.handleInputChange}
-                type="text"
-                placeholder="Military Time - 14:30"
-                maxlength = "5"
-              />
-
-              {/* Habit Comment Input */}
-              <label>Comment:</label>
-              <input
-                value={this.state.habitComment}
-                name="habitComment"
-                onChange={this.handleInputChange}
-                type="text"
-                placeholder="Legs/Arms/Back&Chest/Cardio"
-                maxlength = "50"
-              />
-
-              <button onClick={this.handleFormSubmit}>Submit</button>
-            </form>
+              <div className="field">
+                <label className="label is-size-4 is-size-5-mobile">
+                  Comment:
+                </label>
+                <div className="control has-icons-left">
+                  <input
+                    className="input"
+                    type="text"
+                    name="comment"
+                    value={this.state.comment}
+                    onChange={this.handleInputChange}
+                  />
+                  <span className="icon is-small is-left">
+                    <i className="far fa-comment-alt" />
+                  </span>
+                </div>
+              </div>
+              <SubmitButton onClick={this.handleFormSubmit} text="Submit" />
+            </div>
           </div>
         </BodyWrapper>
       </div>

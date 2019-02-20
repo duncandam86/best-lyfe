@@ -26,7 +26,7 @@ module.exports = function(app) {
 
     console.log("logged in", req.user.dataValues);
     var userInfo = {
-      username: req.user.username,
+      userEmail: req.user.userEmail,
       userid: req.user.id
     };
     res.send(userInfo);
@@ -37,25 +37,28 @@ module.exports = function(app) {
   // otherwise send back an error
   app.post("/api/signup", function(req, res) {
     db.User.create({
-      username: req.body.username,
-      password: req.body.password
+      userEmail: req.body.userEmail,
+      password: req.body.password,
+      userPhone: req.body.userPhone,
+      userFirstName: req.body.userFirstName,
+      userLastName: req.body.userLastName
     })
       .then(function(data) {
         console.log(data.dataValues);
         //res.redirect(307, "/login");
-        res.json(data.dataValues);
+        res.json("SQLDataValues ", data.dataValues);
       })
       .catch(function(err) {
-        console.log(err);
-        res.json(err);
-        // res.status(422).json(err.errors[0].message);
+        console.log("SQLerror ", err.errors[0].message);
+        //res.json(err);
+        res.json(err.errors[0].message);
       });
   });
 
   // Route for logging user out
   app.post("/logout", function(req, res) {
     req.logout();
-    console.log(req.user)
+    console.log(req.user);
     res.redirect("/");
   });
 
@@ -63,13 +66,18 @@ module.exports = function(app) {
   app.get("/api/user_data", function(req, res) {
     if (!req.user) {
       // The user is not logged in, send back an empty object
-      res.json({});
+      res.json({
+        loggedIn: false
+      });
     } else {
       // Otherwise send back the user's email and id
       // Sending back a password, even a hashed password, isn't a good idea
       res.json({
-        username: req.user.username,
-        id: req.user.id
+        email: req.user.userEmail,
+        firstName: req.user.userFirstName,
+        lastName: req.user.userLastName,
+        phone: req.user.userPhone,
+        photo: "https://upload.wikimedia.org/wikipedia/commons/a/a7/Blank_portrait%2C_male_%28rectangular%29.png"
       });
     }
   });

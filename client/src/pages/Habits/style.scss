@@ -1,101 +1,93 @@
+//* *****************************
+//* HABITS GLOBAL
+//* *****************************
 #habits {
   display: flex;
   justify-content: flex-start;
   align-content: center;
   margin-top: 10px;
   height: 45px;
-  // margin-bottom:10px;
-  // padding:10px;
-}
-
-#habits img {
-  width: 20px;
-  height: 20px;
-  margin-left: 10px;
-  margin-top: auto;
-  margin-bottom: auto;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 #habits-body {
   text-align: left;
   padding: 10px;
   margin-top: 10px;
+  padding-top: 0;
 }
 
 #habits-body h2 {
   color: rgb(86, 177, 121);
   font-size: 30px;
-}
-
-#habits-body hr {
-  color: black;
-  background-color: black;
-  margin-top: 0;
-}
-
-#habits-body h3 {
-  font-size: 30px;
-  text-decoration: none;
-  color: rgb(77, 77, 77);
-  position: absolute;
-  right: 10px;
+  margin-top: 15px;
+  font-size: 2rem;
 }
 
 #habits-body p {
   font-weight: 300;
-  margin-bottom: 20px;
+  // margin-bottom: 20px;
   color: rgb(86, 177, 121);
-}
-
-#habits-body h4 {
-  font-size: 20px;
-  margin-left: 10px;
-}
-
-#habits-body figure {
-  width: 100%;
-  height: 200px;
-  background-color: rgb(86, 177, 121);
-  border-radius: 10px;
-}
-
-#habits-body button {
-  width: 15%;
-  height: 50px;
-  min-width: 150px;
-  background-color: rgb(77, 77, 77);
-  border-radius: 10px;
-  color: white;
-  font-size: 16px;
-}
-
-#habits-header {
-  display: flex;
-  justify-content: flex-start;
-}
-
-#habits-header a {
-  float: right;
-  margin-right: 5px;
-  font-size: 18px;
-  margin-top: 10px;
-}
-#habits-header .remove {
-  align-items: flex-end;
+  font-size: 1rem;
 }
 
 .hide {
   display: none;
 }
-
-#habits-body h2{
-font-size:2rem;
+#habits-body h4 {
+  font-size: 1.5rem;
+  margin-top: 10px;
 }
 
-#habits-body h4{
-  font-size:1.5rem;
-  }
+//* *****************************
+//* HABITS HEADER
+//* *****************************
 
-  #habits-body p{
-    font-size:1rem;
-    }
+#habits-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#habits-header h2 {
+  margin-top: 0;
+}
+
+//* *****************************
+//* STREAKS
+//* *****************************
+#green {
+  color: rgb(86, 177, 121);
+  font-size: 14px;
+}
+
+#streaks h4 {
+  font-size: 15px;
+  margin-top: 0;
+}
+
+#streaks {
+  margin-bottom: 15px;
+  border: black 2px solid;
+  border-radius: 10px;
+  text-align: center;
+}
+
+//* *****************************
+//* REMOVE BUTTON
+//* *****************************
+.remove a {
+  color: red;
+  text-align: center;
+  margin: auto;
+}
+div.remove {
+  display: flex;
+  justify-content: center;
+}
+
+.remove h3 {
+  margin-top: 1rem;
+}
+

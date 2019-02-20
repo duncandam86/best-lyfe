@@ -13,6 +13,7 @@ import Home from "./pages/Home";
 import Habits from "./pages/Habits";
 import Routine from "./pages/Routine";
 import HabitsForm from "./pages/HabitsForm";
+import UserProfile from "./pages/UserProfile";
 
 class App extends Component {
   constructor() {
@@ -43,8 +44,8 @@ class App extends Component {
 
   getUser() {
     axios.get("/api/users").then(response => {
-      console.log("Get user response: ");
-      console.log(response.data);
+      //console.log("Get user response: ");
+      //console.log(response.data);
       if (response.data.user) {
         console.log("Get User: There is a user saved in the server session: ");
 
@@ -54,7 +55,7 @@ class App extends Component {
           userid: response.data.user.id
         });
       } else {
-        console.log("Get user: no user");
+        //console.log("Get user: no user");
         this.setState({
           loggedIn: false,
           username: null,
@@ -78,9 +79,10 @@ class App extends Component {
           path="/signup"
           render={() => <Signup updateUser={this.updateUser} />}
         />
-        <Route exact path="/habits" render={() => <Habits />} />
+        <Route path="/habits/:id" component={Habits} />
         <Route exact path="/routine" component={Routine} />
-        <Route exact path="/habitsform" render={() => <HabitsForm />} />
+        <Route exact path="/habitsform" component={HabitsForm} />
+        <Route exact path="/userprofile" component={UserProfile} />
       </div>
     );
   }

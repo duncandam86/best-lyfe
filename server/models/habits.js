@@ -21,6 +21,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       defaultValue: 0
     },
+    daysMet: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
+    },
     totalDays: {
       type: DataTypes.INTEGER,
       defaultValue: 0

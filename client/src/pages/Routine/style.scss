@@ -1,3 +1,19 @@
 .field:first-child {
   margin-top: 0.75rem;
 }
+
+hr.routine-hr {
+  width: 280px;
+  color: black;
+  background-color: black;
+  margin-top: 0;
+  //width:80%;
+}
+
+#habit-complete {
+  margin-top: 20px;
+}
+
+#add-habit {
+  margin-top: 1rem;
+}

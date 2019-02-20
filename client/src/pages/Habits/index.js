@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import Navbar from "../../components/Navbar";
+import TradNavbar from "../../components/TradNavbar";
 import BodyWrapper from "../../components/Bodywrapper";
 import "./style.scss";
 
@@ -33,7 +34,6 @@ class Habits extends Component {
     const selectedHabitStreak = this.state.selectedHabit.slice(0);
     console.log("selectedstreak", selectedHabitStreak);
     selectedHabitStreak.consecutive = streak;
-
     this.setState({
       selectedHabit: selectedHabitStreak
     });
@@ -86,7 +86,7 @@ class Habits extends Component {
     ) : (
       <>
         <Navbar />
-
+        {/* <TradNavbar /> */}
         {/*  this button console.logs the streak
         <button onClick={this.getHabitStreak}>CHECK ME</button> */}
 

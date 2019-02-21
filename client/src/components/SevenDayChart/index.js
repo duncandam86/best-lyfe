@@ -4,12 +4,32 @@ import "./style.scss";
 
 class SevenDayChart extends Component {
   
-  componentDidMount() {
+  componentWillUpdate() {
+    // console.log(this.props);
     console.log(this.props.habit);
-    
+    // console.log(this.props.habit.recordArray);
+
   }
 
   render() {
+  //* Push the track record into an array   
+    // let lastSevenDays = [];
+    // lastSevenDays.push(this.props.habit.recordArray);
+    // console.log("lastSevenDays Array " + lastSevenDays)
+    // let cheese = "cheese"
+    // let newValue = cheese.split("e");
+    // console.log(newValue)
+    let strings = this.props.habit.recordArray.split("0")
+    console.log(strings)
+
+
+    //* Take the array of string values and convert to integers
+    // const mapped = lastSevenDays.map(x => parseInt(x));
+    // console.log("mapped Array " + mapped)
+    // parseInt(lastSevenDays)
+    // console.log(lastSevenDays)
+    // recordArray.slice(Math.max(arr.length - 7, 1))
+
     return (
        <>
        <h4>Last Seven Days:</h4>

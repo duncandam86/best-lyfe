@@ -9,6 +9,8 @@ import Button from "../../components/ButtonLink";
 import PieChart from "../../components/PieChart";
 import SevenDayChart from "../../components/SevenDayChart";
 
+import ButtonLinkIMG from "../../components/ButtonLinkIMG";
+
 class Habits extends Component {
   state = {
     selectedHabit: {},
@@ -50,24 +52,6 @@ class Habits extends Component {
       .catch(err => console.log(err));
   };
 
-  // handleDropDownChange = habitid => {
-  //   const filteredHabit = this.state.habitArray
-  //     .slice(0)
-  //     .filter(habit => habit.id === habitid);
-  //   const selectedHabit = {
-  //     id: filteredHabit[0].id,
-  //     title: filteredHabit[0].title,
-  //     consecutive: filteredHabit[0].consecutive,
-  //     time: filteredHabit[0].time,
-  //     comment: filteredHabit[0].comment
-  //   };
-  //   //console.log(selectedHabit);
-  //   this.setState({
-  //     dropDownTitle: filteredHabit[0].title,
-  //     selectedHabit: selectedHabit
-  //   });
-  // };
-
   render() {
     //console.log("Streak", this.state.selectedHabit.consecutive);
     const hasStreak = this.state.selectedHabit.consecutive;
@@ -86,24 +70,19 @@ class Habits extends Component {
       <>
         <Navbar />
      
-        {/*  this button console.logs the streak
-        <button onClick={this.getHabitStreak}>CHECK ME</button> */}
-
         <div className="container">
           <BodyWrapper title1="Your" title2="Habits">
             <div id="habits-body">
               <div id="habits-header">
                 <h2>{this.state.selectedHabit.title}</h2>
                 {madeSelection ? (
-                  <Button name="back" page="/routine" />
+                  <ButtonLinkIMG name="back" page="/routine" />
                 ) : (
-                  // {/* <a href="/routine"><img src="../../images/BackArrow.png" width="32.5px" /></a> */}
 
                   <div />
                 )}
               </div>
 
-              {/* <h3>Progress:</h3><figure></figure> */}
 
               <div className={displayStatus}>
                 {/* <hr /> */}

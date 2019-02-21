@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import Navbar from "../../components/Navbar";
-import TradNavbar from "../../components/TradNavbar";
 import BodyWrapper from "../../components/Bodywrapper";
 import "./style.scss";
 
@@ -86,7 +85,7 @@ class Habits extends Component {
     ) : (
       <>
         <Navbar />
-        {/* <TradNavbar /> */}
+     
         {/*  this button console.logs the streak
         <button onClick={this.getHabitStreak}>CHECK ME</button> */}
 
@@ -122,13 +121,13 @@ class Habits extends Component {
                     <span id="green">
                       {longestStreak
                         ? longestStreak + " DAYS"
-                        : "Get started on your longest streak!"}
+                        : "Start your longest streak!"}
                     </span>
                   </h4>
                 </div>
 
-                <PieChart />
-                <SevenDayChart />
+                <PieChart habit={this.state.selectedHabit} />
+                <SevenDayChart habit={this.state.selectedHabit}/>
 
                 <div>
                   {hasTime ? (
@@ -150,9 +149,7 @@ class Habits extends Component {
                     id={this.state.selectedHabit.id}
                     onClick={() =>
                       this.removeHabit(this.state.selectedHabit.id)
-                    }
-                  >
-                    REMOVE HABIT
+                    }>REMOVE HABIT
                   </a>
                 </h3>
               </div>

@@ -1,45 +1,39 @@
 import React, { Component } from "react";
+import axios from "axios";
 import "./style.scss";
-import {Bar, Line, Pie} from 'react-chartjs-2';
-
 
 class SevenDayChart extends Component {
-  state = {
-    habitArray: [],
-    selectedHabit: {},
-    dropDownTitle: "Select a Habit",
-    chartData:{
-      labels:['Days met', 'Days missed'],
-      datasets:[
-        {
-          label:'Population',
-          data:[
-            617594,
-            181045,
-           
-          ],
-          backgroundColor:[
-            'rgba(86,177,121)',
-            'rgba(144,143,143)'
-          ]
-        }]
-    }
-  }; 
+  
+  componentDidMount() {
+    console.log(this.props.habit);
+    
+  }
+
   render() {
     return (
        <>
-       <h4>Last 7 Days:</h4>
-              <div id="pie-chart-background">
-       <Bar
-                data={this.state.chartData}
-                options={{
-                  legend:{
-                    display:true,
-                    labels:{fontColor:'#fff'}
-                  }
-              }}
-              />
-              </div>
+       <h4>Last Seven Days:</h4>
+        <div id="SevenDaysContainer">
+          <div className="columns column-days">
+              <div className="column">Y</div>
+              <div className="column">2</div>
+              <div className="column">3</div>
+              <div className="column">4</div>
+              <div className="column">5</div>
+              <div className="column">6</div>
+              <div className="column">7</div>
+          </div>
+
+          <div className="columns column-info">
+              <div className="column day-1"></div>
+              <div className="column day-2"></div>
+              <div className="column day-3"></div>
+              <div className="column day-4"></div>
+              <div className="column day-5"></div>
+              <div className="column day-6"></div>
+              <div className="column day-7"></div>
+          </div>
+        </div>
        </>
     );
   }

@@ -19,7 +19,7 @@ nav {
   display: flex;
   margin-top: 10px;
   padding-bottom: 10px;
-  // border-bottom:solid grey 2px;
+  border-bottom:solid grey 2px;
   width: 100%;
 }
 
@@ -76,8 +76,4 @@ a.navbar-item.is-right{
   padding-left:10px;
   padding-right:10px;
   text-align:center;
-}
-
-div.navbar-dropdown.is-right{
-  padding:0;
 }

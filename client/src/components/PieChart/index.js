@@ -1,30 +1,13 @@
 import React, { Component } from "react";
 import "./style.scss";
-
+import axios from "axios";
 import {Bar, Line, Pie} from 'react-chartjs-2';
 
 class PieChart extends Component {
-  state = {
-    habitArray: [],
-    selectedHabit: {},
-    dropDownTitle: "Select a Habit",
-    chartData:{
-      labels:['Days met', 'Days missed'],
-      datasets:[
-        {
-          label:'Population',
-          data:[
-            617594,
-            181045,
-           
-          ],
-          backgroundColor:[
-            'rgba(86,177,121)',
-            'rgba(144,143,143)'
-          ]
-        }]
-    }
-  }; 
+
+  componentDidMount() {
+    console.log(this.props.habit);
+  }
 
   render() {
     return (
@@ -32,11 +15,14 @@ class PieChart extends Component {
             <h4>Overall Progress:</h4>
               <div id="pie-chart-background">
               <Pie
-                data={this.state.chartData}
+                data={this.props.habit}
                 options={{
                   legend:{
                     display:true,
                     labels:{fontColor:'#fff'}
+                  },
+                  label:{
+
                   }
               }}
               />

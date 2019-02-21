@@ -1,0 +1,30 @@
+input, label{
+    display:block;
+    text-align:left;
+    width:100%;
+}
+input{
+    border:solid grey 1px;
+    font-size:1rem;
+}
+
+label{
+    margin-top:20px;
+    font-size:1.5rem;
+}
+
+#submit-form-div{
+    display:flex;
+    justify-content: flex-end;
+}
+
+form button{
+    background-color:rgb(77,77,77);
+    width:150px;
+    color:white;
+    border-radius:10px;
+    height:40px;
+    font-size:20px;
+    margin-top:15px;
+
+}

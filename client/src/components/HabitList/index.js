@@ -52,6 +52,11 @@ export default function HabitListItem(props) {
               <i className="fa fa-check icon" />
             </span>
             <div>{link}</div>
+            <Link to={`/edit/${props.id}`}>
+              <span className="edit-habit">
+                <i className="far fa-edit" />
+              </span>
+            </Link>
           </span>
         ) : (
           <span className="label__text">
@@ -59,6 +64,11 @@ export default function HabitListItem(props) {
               <i className="fa fa-check icon" />
             </span>
             {link}
+            <Link to={`/edit/${props.id}`}>
+              <span className="edit-habit">
+                <i className="far fa-edit" />
+              </span>
+            </Link>
           </span>
         )}
       </label>

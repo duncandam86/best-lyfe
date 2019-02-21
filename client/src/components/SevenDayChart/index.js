@@ -1,23 +1,13 @@
 import React, { Component } from "react";
+import axios from "axios";
 import "./style.scss";
 
 class SevenDayChart extends Component {
-  state = {
-    habitArray: [],
-  }; 
-
-componentDidMount(){
-  let data = [0,0,0,0,0,0,0,1,1,1,1,1,1,1];
-
-  let SevenDays = function(){
-    let lastSevenArray = data.slice(Math.max(data.length - 7, 1));
-    console.log(lastSevenArray);
-    // map to get the index of the array
   
+  componentDidMount() {
+    console.log(this.props.habit);
+    
   }
-  
-  SevenDays();
-}
 
   render() {
     return (

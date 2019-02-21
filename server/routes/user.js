@@ -46,7 +46,7 @@ module.exports = function(app) {
       .then(function(data) {
         console.log(data.dataValues);
         //res.redirect(307, "/login");
-        res.json("SQLDataValues ", data.dataValues);
+        // res.json("SQLDataValues ", data.dataValues);
       })
       .catch(function(err) {
         console.log("SQLerror ", err.errors[0].message);

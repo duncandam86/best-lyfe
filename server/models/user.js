@@ -19,16 +19,19 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     },
     userPhone: {
-      type: DataTypes.BIGINT,
-      validate: {
-        len: 10,
-        isInt: true
-      }
+      type: DataTypes.STRING,
+      // validate: {
+      //   len: 10,
+      //   isInt: true
+      // }
     },
     userFirstName: {
       type: DataTypes.STRING
     },
     userLastName: {
+      type: DataTypes.STRING
+    },
+    profilePicture: {
       type: DataTypes.STRING
     }
   });

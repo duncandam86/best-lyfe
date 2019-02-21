@@ -122,7 +122,7 @@ class Habits extends Component {
                     <span id="green">
                       {longestStreak
                         ? longestStreak + " DAYS"
-                        : "Get started on your longest streak!"}
+                        : "Start your longest streak!"}
                     </span>
                   </h4>
                 </div>

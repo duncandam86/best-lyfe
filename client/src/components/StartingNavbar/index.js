@@ -1,10 +1,11 @@
 import React, { Component } from "react";
-
 import "./style.scss";
 import { Redirect, Link } from "react-router-dom";
+// import withClickOutside from "../HOC/withClickOutside";
+
 import axios from "axios";
 
-class TradNavbar extends Component {
+class StartingNavbar extends Component {
   constructor() {
     super();
     this.logout = this.logout.bind(this);
@@ -43,25 +44,23 @@ class TradNavbar extends Component {
     return this.state.redirect ? (
       <Redirect to="/login" userId={this.state.userid} />
     ) : (
-      <nav id="nav">
-        <div>
-          <img
-            id="nav-logo"
-            src="../images/BestLyfe_Logo_Horizontal.png"
-            alt="Best Lyfe logo"
-          />
+      <div>
+        <div
+          className="navbar is-right"
+          role="navigation"
+          aria-label="main navigation"
+        >
+          <div className="navbar-brand is-right">
+            <img
+              id="nav-logo"
+              src="../images/BestLyfe_Logo_Horizontal.png"
+              alt="Best Lyfe logo"
+            />
+          </div>
         </div>
-
-        <div id="nav-items">
-          <a href="/habits">Habits</a>
-          <a href="/routine">Routine</a>
-          <Link to="#" className="" onClick={this.logout}>
-            <span id="logout">Logout</span>
-          </Link>
-        </div>
-      </nav>
+      </div>
     );
   }
 }
 
-export default TradNavbar;
+export default StartingNavbar;

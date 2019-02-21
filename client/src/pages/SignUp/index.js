@@ -4,8 +4,7 @@ import { Redirect } from "react-router-dom";
 //components
 import BodyWrapper from "../../components/Bodywrapper";
 import UserForm from "../../components/UserForm";
-import Navbar from "../../components/Navbar";
-// import TradNavbar from "../../components/TradNavbar";
+import StartingNavbar from "../../components/StartingNavbar";
 
 //other packages
 import axios from "axios";
@@ -135,8 +134,7 @@ class Signup extends Component {
       <Redirect to="/habitsForm" />
     ) : (
         <>
-          <Navbar />
-          {/* <TradNavbar /> */}
+          <StartingNavbar />
           <div className="container">
             <BodyWrapper txtAlign="left" title2="Sign Up">
               <UserForm

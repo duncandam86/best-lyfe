@@ -100,7 +100,7 @@ class Routine extends Component {
               <div className="column is-four-fifths">
                 {this.state.remainingHabits.length > 0 && (
                   <div id="habit-remain" className="is-size-3">
-                    Habits Remaining Today
+                    <h1>Habits Remaining Today</h1>
                     <hr className="routine-hr" />
                     <div id="habit-list">
                       {this.state.remainingHabits.map(habit => (

@@ -109,9 +109,7 @@ module.exports = function(app) {
       habit.consecutive = 0;
       console.log("habit.consecutive ", habit.consecutive);
     }
-
     //console.log(habit);
-
     db.Habits.update(
       { consecutive: habit.consecutive, longestStreak: habit.longestStreak },
       { where: { id: habit.id } }

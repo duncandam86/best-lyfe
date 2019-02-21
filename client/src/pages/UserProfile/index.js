@@ -3,13 +3,12 @@ import Navbar from "../../components/Navbar";
 import BodyWrapper from "../../components/Bodywrapper";
 
 import axios from "axios";
-import HabitListItem from "../../components/HabitList";
-
+import RoutineList from "../../components/RoutineList";
 
 class UserProfile extends Component {
     state = {
-        userInfo: "",
-        routine: ""
+        userInfo: [],
+        routine: []
     };
 
     componentDidMount() {
@@ -48,22 +47,29 @@ class UserProfile extends Component {
                 <div className="container">
                     <BodyWrapper title1="Your" title2="Profile">
                         <div id="user-info">
-                            {console.log(userInfo)}
-                            {console.log(routine)}
                             <img src={userInfo.photo} />
                             <h2>{userInfo.firstName} {userInfo.lastName}</h2>
                             {userInfo.email} <br />
                             {userInfo.phone} <hr />
 
                             <h2>Routine</h2>
-                            
+
+                            {routine.map(habit => {
+                                return (
+                                    <RoutineList
+                                        habit = {habit}
+                                    />
+                                )
+                            })}
+
                         </div>
-    
+                        <button>Edit Profile</button>
+
                     </BodyWrapper>
                 </div>
             </>
-                );
-            }
-        }
-        
-        export default UserProfile;
+        );
+    }
+}
+
+export default UserProfile;

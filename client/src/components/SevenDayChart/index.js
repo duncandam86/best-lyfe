@@ -7,10 +7,7 @@ class SevenDayChart extends Component {
   componentWillUpdate() {
 
     let splitArray = this.props.recordArray.split("");
-    // console.log(splitArray)
     const reversed = splitArray.reverse();
-    console.log(reversed)
-    // console.log(reversed[0])
    
     document.querySelector('.day-1').style["background-color"] = "rgb(77, 77, 77)"
     document.querySelector('.day-2').style["background-color"] = "rgb(77, 77, 77)"
@@ -71,7 +68,6 @@ class SevenDayChart extends Component {
   }
 
   render() {
-
     return (
        <>
        <h4>Last Seven Days:</h4>

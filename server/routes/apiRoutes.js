@@ -39,14 +39,12 @@ module.exports = function(app) {
         userId: whichUser
       }
     }).then(function(result) {
-      // console.log(result);
       res.json(result);
     });
   });
 
   app.get("/api/habits/:id", function(req, res) {
-    console.log("URL", req.originalUrl);
-    console.log("DISPLAY HABIT ID: " + req.params.id);
+    //console.log("DISPLAY HABIT ID: " + req.params.id);
     let whichUser;
 
     if (req.user) {
@@ -67,26 +65,11 @@ module.exports = function(app) {
   });
 
   app.put("/api/habits/:id", function(req, res) {
-    console.log("UPDATE HABIT ID: " + req.params.id);
-    console.log("ReqBody ", req.body);
+    //console.log("UPDATE HABIT ID: " + req.params.id);
+    //console.log("ReqBody ", req.body);
 
     const habit = req.body[0];
-    console.log("habit", habit.id);
 
-    // console.log(
-    //   "Yesterday " +
-    //     moment()
-    //       .subtract(1, "days")
-    //       .format("ll")
-    // );
-    // console.log("Current Day " + moment().format("ll"));
-    // console.log("-----------------");
-
-    // //* For Each Habit....
-
-    //console.log("Updated At Moment " + moment(habit.updatedAt).format("ll"));
-
-    //* if the days are the same, dont update the streak
     if (moment(habit.updatedAt).format("ll") === moment().format("ll")) {
       //console.log("The day’s match");
       //* nothing should happen
@@ -97,9 +80,9 @@ module.exports = function(app) {
         .subtract(1, "days")
         .format("ll")
     ) {
-      console.log("The updated At is the same as yesterday ");
+      //console.log("The updated At is the same as yesterday ");
       habit.consecutive++;
-      console.log("number of consecutive days " + habit.consecutive);
+      //console.log("number of consecutive days " + habit.consecutive);
 
       //* if it way more than a day ago that it was updated, then record the longestStreak if possible and set consecutive back to 0
     } else if (moment(habit.updatedAt).format("ll") > moment().format("ll")) {
@@ -107,12 +90,40 @@ module.exports = function(app) {
         habit.longestStreak === habit.consecutive;
       }
       habit.consecutive = 0;
-      console.log("habit.consecutive ", habit.consecutive);
+      //console.log("habit.consecutive ", habit.consecutive);
     }
     //console.log(habit);
     db.Habits.update(
-      { consecutive: habit.consecutive, longestStreak: habit.longestStreak },
-      { where: { id: habit.id } }
+      {
+        consecutive: habit.consecutive,
+        longestStreak: habit.longestStreak,
+        checkedDate: new Date()
+      },
+      {
+        where: { id: habit.id }
+      }
+    ).then(function(result) {
+      res.json({
+        UPDATE: result
+      });
+    });
+  });
+
+  app.put("/api/edit/:id", function(req, res) {
+    //console.log("EDIT HABIT ID: " + req.params.id);
+    //console.log("ReqBody ", req.body);
+    db.Habits.update(
+      {
+        title: req.body.title,
+        time: req.body.time,
+        comment: req.body.comment,
+        editDate: req.body.editDate
+      },
+      {
+        where: {
+          id: req.params.id
+        }
+      }
     ).then(function(result) {
       res.json({
         UPDATE: result
@@ -121,7 +132,7 @@ module.exports = function(app) {
   });
 
   app.delete("/api/habits/:id", function(req, res) {
-    console.log("DELETE HABIT ID: " + req.params.id);
+    //console.log("DELETE HABIT ID: " + req.params.id);
     db.Habits.destroy({
       where: { id: req.params.id }
     }).then(function(result) {

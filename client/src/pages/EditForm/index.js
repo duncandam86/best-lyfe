@@ -22,12 +22,10 @@ class EditsForm extends Component {
   componentDidMount() {
     const habitid = parseInt(this.props.match.params.id, 10);
     axios.get("/api/habits/" + habitid).then(res => {
-      console.log("Mounted: ", res.data);
       this.setState({
         title: res.data.title,
         time: res.data.time,
-        comment: res.data.comment,
-        updatedAt: res.data.updatedAt
+        comment: res.data.comment
       });
     });
   }
@@ -45,24 +43,27 @@ class EditsForm extends Component {
   handleFormSubmit = event => {
     event.preventDefault();
     let habitData = {};
+    let today = new Date();
     if (this.state.time === "") {
       habitData = {
         title: this.state.title,
         comment: this.state.comment,
-        updatedAt: this.state.updatedAt
+        updatedAt: this.state.updatedAt,
+        editDate: today
       };
     } else {
       habitData = {
         title: this.state.title,
         time: this.state.time,
         comment: this.state.comment,
-        updatedAt: this.state.updatedAt
+        updatedAt: this.state.updatedAt,
+        editDate: today
       };
     }
 
     const habitid = parseInt(this.props.match.params.id, 10);
     axios.put("/api/edit/" + habitid, habitData).then(res => {
-      console.log("completed update");
+      //console.log("completed update");
       this.setState({
         //redirect to habits page
         redirect: true
@@ -77,7 +78,7 @@ class EditsForm extends Component {
     ) : (
       <div>
         <Navbar />
-        <BodyWrapper txtAlign="centered" title1="New" title2="Habit">
+        <BodyWrapper txtAlign="centered" title1="Edit" title2="Habit">
           <div className="columns is-mobile is-centered">
             <div className="column is-half-tablet is-three-quarters-mobile">
               <div className="field">

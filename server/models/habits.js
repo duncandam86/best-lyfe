@@ -13,6 +13,12 @@ module.exports = function(sequelize, DataTypes) {
     time: {
       type: DataTypes.TIME
     },
+    editDate: {
+      type: DataTypes.DATE
+    },
+    checkedDate: {
+      type: DataTypes.DATE
+    },
     consecutive: {
       type: DataTypes.INTEGER,
       defaultValue: 0
@@ -31,7 +37,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     recordArray: {
       //type: DataTypes.ARRAY(DataTypes.BOOLEAN)
-      type: DataTypes.STRING,
+      type: DataTypes.STRING
       // allowNull: false,
       // get() {
       //   return this.getDataValue("recordArray").split(",");

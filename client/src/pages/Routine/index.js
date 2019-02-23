@@ -27,7 +27,12 @@ class Routine extends Component {
         //console.log(response.data);
         const allHabits = response.data;
         allHabits.forEach(habit => {
-          let isUpdated = this.checkIfUpdated(habit.createdAt, habit.updatedAt);
+          let isUpdated = this.checkIfUpdated(
+            habit.createdAt,
+            habit.updatedAt,
+            habit.checkedDate,
+            habit.editDate
+          );
           if (isUpdated) {
             habit.checked = true;
             habit.disabled = true;
@@ -53,16 +58,21 @@ class Routine extends Component {
       .catch(err => console.log(err));
   };
 
-  checkIfUpdated = (createdDate, updatedDate) => {
+  checkIfUpdated = (createdDate, updatedDate, checkedDate, editDate) => {
     const todayDate = new Date().getDate();
     //const habitCreated = new Date(createdDate).getDate();
     const habitUpdated = new Date(updatedDate).getDate();
-    if (createdDate === updatedDate) {
-      return false;
-    } else if (todayDate - habitUpdated === 0) {
+    const editUpdated = new Date(editDate).getDate();
+    const checkUpdated = new Date(checkedDate).getDate();
+
+    if (updatedDate === checkedDate && updatedDate != editDate) {
       return true;
-    } else {
-      return false;
+    } else if (updatedDate != checkedDate && updatedDate === editDate) {
+      if (todayDate === checkUpdated) {
+        return true;
+      } else {
+        return false;
+      }
     }
   };
 

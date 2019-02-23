@@ -109,7 +109,7 @@ class UserForm extends Component {
 
       {/* PHONE NUMBER */}
         <div className="field">
-          <label className="label is-size-4 is-size-5-mobile">Phone Number (no spaces or dashes)</label>
+          <label className="label is-size-4 is-size-5-mobile">Phone Number</label>
           <div className="control has-icons-left">
             <input
               className="input"

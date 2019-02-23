@@ -15,6 +15,7 @@ import Routine from "./pages/Routine";
 import HabitsForm from "./pages/HabitsForm";
 import UserProfile from "./pages/UserProfile";
 import EditForm from "./pages/EditForm";
+import EditProfile from "./pages/EditProfile"
 
 class App extends Component {
   constructor() {
@@ -84,6 +85,7 @@ class App extends Component {
         <Route exact path="/routine" component={Routine} />
         <Route exact path="/habitsform" component={HabitsForm} />
         <Route exact path="/userprofile" component={UserProfile} />
+        <Route exact path="/editprofile" component={EditProfile} />
         <Route path="/edit/:id" component={EditForm} />
       </div>
     );

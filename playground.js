@@ -75,3 +75,18 @@ if (moment(habit.updatedAt).format('ll') === moment().format('ll')) {
 }
 
 console.log(habit);
+
+
+function ClockTime () {
+  
+  for (let i = 0; i > 1000; i++) {
+    let nowTime = 0 //moment.checkTime
+    let habitTime = 1 //(habit.time or whatever)
+    if (nowTime === habitTime) {
+      //trillio
+      console.log("Trillio");
+    }
+  }
+  
+  ClockTime()
+}

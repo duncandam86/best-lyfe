@@ -72,13 +72,41 @@ module.exports = function(app) {
     } else {
       // Otherwise send back the user's email and id
       // Sending back a password, even a hashed password, isn't a good idea
+      let tempPhoto;
+
+      if (!req.user.photo){
+        tempPhoto = "https://upload.wikimedia.org/wikipedia/commons/a/a7/Blank_portrait%2C_male_%28rectangular%29.png"
+      } else {
+        tempPhoto = req.user.photo;
+      }
+
       res.json({
+        id: req.user.id,
         email: req.user.userEmail,
         firstName: req.user.userFirstName,
         lastName: req.user.userLastName,
         phone: req.user.userPhone,
-        photo: "https://upload.wikimedia.org/wikipedia/commons/a/a7/Blank_portrait%2C_male_%28rectangular%29.png"
+        photo: tempPhoto
       });
     }
   });
+
+  //Route for updating user info
+  app.put("/api/user_data", (req, res) => {
+    db.User.update({
+      userPhone: req.body.phone,
+      userFirstName: req.body.firstName,
+      userLastName: req.body.lastName,
+      userPhoto: req.body.photo
+    }, 
+    { where: { id: req.body.id}})
+    .then(function(result) {
+      
+      // req.login(req.user, function(err) {
+      //   if (err) return next(err)
+      // })
+
+      res.json({UPDATE: result})
+    })
+  })
 };

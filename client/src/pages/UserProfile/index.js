@@ -30,6 +30,10 @@ class UserProfile extends Component {
             })
     }
 
+    handleEdit = () => {
+        
+    }
+
     render() {
 
         // console.log(longestStreak)
@@ -63,7 +67,9 @@ class UserProfile extends Component {
                             })}
 
                         </div>
-                        <button>Edit Profile</button>
+                        <button><a className="navbar-item is-right" href="/editprofile">
+                    Edit Profile
+                  </a></button>
 
                     </BodyWrapper>
                 </div>

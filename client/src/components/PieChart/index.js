@@ -15,8 +15,8 @@ constructor(props){
   }
 
   render() {
-    let daysMissed = (this.props.habit.totalDays - this.props.habit.daysMet);
-    let daysMet = this.props.habit.daysMet;
+    let daysMissed = (this.props.totalDays - this.props.daysMet);
+    let daysMet = this.props.daysMet;
     const chartData ={
       labels:[daysMet + ' Days Hit', daysMissed + ' Days Missed'],
       datasets:[

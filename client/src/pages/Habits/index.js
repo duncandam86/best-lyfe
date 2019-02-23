@@ -53,6 +53,8 @@ class Habits extends Component {
   };
 
   render() {
+    if (!this.state.selectedHabit)
+      return null;
     //console.log("Streak", this.state.selectedHabit.consecutive);
     const hasStreak = this.state.selectedHabit.consecutive;
     const longestStreak = this.state.selectedHabit.longestStreak;
@@ -104,9 +106,9 @@ class Habits extends Component {
                     </span>
                   </h4>
                 </div>
-
-                <PieChart habit={this.state.selectedHabit} />
-                <SevenDayChart habit={this.state.selectedHabit}/>
+                
+                <PieChart {...this.state.selectedHabit} />
+                <SevenDayChart {...this.state.selectedHabit}/>
 
                 <div>
                   {hasTime ? (

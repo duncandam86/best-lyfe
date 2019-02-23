@@ -97,7 +97,8 @@ module.exports = function(app) {
       {
         consecutive: habit.consecutive,
         longestStreak: habit.longestStreak,
-        checkedDate: new Date()
+        checkedDate: new Date(),
+        recordArray: habit.recordArray
       },
       {
         where: { id: habit.id }

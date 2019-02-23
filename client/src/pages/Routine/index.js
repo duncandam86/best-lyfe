@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import moment from "moment";
 //components
 import Navbar from "../../components/Navbar";
 import BodyWrapper from "../../components/Bodywrapper";
@@ -76,12 +77,38 @@ class Routine extends Component {
     }
   };
 
+  daysSinceLastCompleted = checkedDate => {
+    if (checkedDate) {
+      const lastChecked = moment(checkedDate);
+      const days = moment().diff(lastChecked, "days");
+      return days;
+    } else {
+      return 0;
+    }
+  };
+
   handleHabitClick = event => {
     event.preventDefault();
     //console.log(event.target.id);
     const checkedHabit = this.state.remainingHabits.filter(
       habit => habit.id === +event.target.id
     );
+
+    let daysSince = this.daysSinceLastCompleted(checkedHabit[0].checkedDate);
+    //console.log("days since", daysSince);
+
+    const daysSinceArray = Array(daysSince);
+    daysSinceArray.fill(0, 0, daysSince - 1);
+    daysSinceArray.fill(1, daysSince - 1);
+    //console.log("Days Since Array", daysSinceArray);
+    const daysString = daysSinceArray.join("");
+    //console.log("checked habit", checkedHabit);
+    let updateRecordArray = checkedHabit[0].recordArray;
+
+    updateRecordArray += daysString;
+    //console.log("update rec array", updateRecordArray);
+    checkedHabit[0].recordArray = updateRecordArray;
+    //console.log("checked habit", checkedHabit);
 
     axios
       .put("/api/habits/" + event.target.id, checkedHabit)

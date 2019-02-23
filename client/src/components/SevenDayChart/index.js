@@ -4,9 +4,67 @@ import "./style.scss";
 
 class SevenDayChart extends Component {
   
-  componentDidMount() {
-    console.log(this.props.habit);
-    
+  componentWillUpdate() {
+
+    let splitArray = this.props.recordArray.split("");
+    const reversed = splitArray.reverse();
+   
+    document.querySelector('.day-1').style["background-color"] = "rgb(77, 77, 77)"
+    document.querySelector('.day-2').style["background-color"] = "rgb(77, 77, 77)"
+    document.querySelector('.day-3').style["background-color"] = "rgb(77, 77, 77)"
+    document.querySelector('.day-4').style["background-color"] = "rgb(77, 77, 77)"
+    document.querySelector('.day-5').style["background-color"] = "rgb(77, 77, 77)"
+    document.querySelector('.day-6').style["background-color"] = "rgb(77, 77, 77)"
+    document.querySelector('.day-7').style["background-color"] = "rgb(77, 77, 77)"
+  //* Yesterday
+    if (reversed[0] === '0'){
+      document.querySelector('.day-1').style["background-color"] = "rgb(161, 72, 72)";
+      }else if (reversed[0]==='1'){
+        document.querySelector('.day-1').style["background-color"] = "rgb(86,177,121)";
+      }
+
+    //* Day 2
+    if (reversed[1] === '0'){
+      document.querySelector('.day-2').style["background-color"] = "rgb(161, 72, 72)";
+    }else if (reversed[1]==='1'){
+        document.querySelector('.day-2').style["background-color"] = "rgb(86,177,121)";
+      }
+
+    //* Day 3
+    if (reversed[2] === '0'){
+      document.querySelector('.day-3').style["background-color"] = "rgb(161, 72, 72)";
+    }else if (reversed[2]==='1'){
+        document.querySelector('.day-3').style["background-color"] = "rgb(86,177,121)";
+      }
+
+    //* Day 4
+    if (reversed[3] === '0'){
+      document.querySelector('.day-4').style["background-color"] = "rgb(161, 72, 72)";
+    }else if (reversed[3]==='1'){
+        document.querySelector('.day-4').style["background-color"] = "rgb(86,177,121)";
+      }
+
+    //* Day 5
+    if (reversed[4] === '0'){
+      document.querySelector('.day-5').style["background-color"] = "rgb(161, 72, 72)";
+    }else if (reversed[4]==='1'){
+        document.querySelector('.day-5').style["background-color"] = "rgb(86,177,121)";
+      }
+
+    //* Day 6
+    if (reversed[5] === '0'){
+      document.querySelector('.day-6').style["background-color"] = "rgb(161, 72, 72)";
+    }else if (reversed[5]==='1'){
+        document.querySelector('.day-6').style["background-color"] = "rgb(86,177,121)";
+      }
+
+    //* Day 7
+    if (reversed[6] === '0'){
+      document.querySelector('.day-7').style["background-color"] = "rgb(161, 72, 72)";
+    }else if (reversed[6]==='1'){
+        document.querySelector('.day-7').style["background-color"] = "rgb(86,177,121)";
+      }
+
   }
 
   render() {
@@ -26,6 +84,7 @@ class SevenDayChart extends Component {
 
           <div className="columns column-info">
               <div className="column day-1"></div>
+     
               <div className="column day-2"></div>
               <div className="column day-3"></div>
               <div className="column day-4"></div>
@@ -38,5 +97,9 @@ class SevenDayChart extends Component {
     );
   }
 }
+
+SevenDayChart.defaultProps = {
+  recordArray: ""
+};
 
 export default SevenDayChart;

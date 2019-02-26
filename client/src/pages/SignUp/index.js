@@ -91,6 +91,37 @@ class Signup extends Component {
 
   }
 
+  loginUser = () => {
+    axios
+      .post("/api/login", {
+        userEmail: this.state.userEmail,
+        password: this.state.password
+      })
+      .then(response => {
+        //console.log("login response: ", response);
+        if (response.status === 200) {
+          // update App.js state
+          this.props.updateUser({
+            loggedIn: true,
+            username: response.data.username,
+            userid: response.data.userid
+          });
+          // update the state to redirect to home
+          this.setState({
+            redirect: true
+          });
+        } else if (response.status === 401) {
+          console.log("invalid login, RED TEXT");
+        }
+      })
+      .catch(error => {
+        console.log("login error: ");
+        console.log(error);
+        console.log("invalid login");
+        document.getElementById("login-error").style.display = "block";
+      });
+  }
+  
   signUpUser = () => {
     //request to server to add a new username/password
     axios
@@ -105,15 +136,19 @@ class Signup extends Component {
         console.log(response);
         if (!response.data.errmsg) {
           console.log("successful signup");
+          // this.props.history.replace("/habitsform");
+
           this.props.updateUser({
             loggedIn: true,
             userEmail: response.data.userEmail,
-            userid: response.data.id
+            userid: response.data.id,
           });
-          this.setState({
-            //redirect to login page
-            redirect: true
-          });
+
+          // this.setState({
+          //   redirect: true
+          // })
+          this.loginUser();
+          
         } else {
           console.log("username already taken");
         }

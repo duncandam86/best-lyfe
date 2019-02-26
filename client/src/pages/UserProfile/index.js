@@ -15,11 +15,16 @@ class UserProfile extends Component {
 
         axios.get("/api/user_data")
             .then(res => {
+                if (!res.data.id) {
+                    console.log("log in motherfucker")
+                    this.props.history.push("/login")
+                } else {
+                    console.log("Logged in")
+                    this.setState({
+                        userInfo: res.data
+                    });
+                }
                 //   console.log(res.data);
-                this.setState({
-                    userInfo: res.data
-                });
-
             });
 
         axios.get("/api/habits")
@@ -31,7 +36,7 @@ class UserProfile extends Component {
     }
 
     handleEdit = () => {
-        
+
     }
 
     render() {
@@ -61,14 +66,14 @@ class UserProfile extends Component {
                             {routine.map(habit => {
                                 return (
                                     <RoutineList
-                                        habit = {habit}
+                                        habit={habit}
                                     />
                                 )
                             })}
 
                         </div>
                         <button><a className="navbar-item is-right" href="/editprofile">
-                    Edit Profile
+                            Edit Profile
                   </a></button>
 
                     </BodyWrapper>

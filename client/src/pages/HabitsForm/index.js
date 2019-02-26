@@ -19,6 +19,24 @@ class HabitsForm extends Component {
     redirect: null
   };
 
+  componentDidMount() {
+    axios.get("/api/user_data")
+    .then(res => {
+
+      if (!res.data.id) {
+        console.log("log in motherfucker")
+        this.props.history.push("/login")
+      } else {
+        console.log("Logged in")
+        this.setState({
+          userInfo: res.data
+        });
+      }
+      //   console.log(res.data);
+    });
+
+  }
+
   handleInputChange = event => {
     // Getting the value and name of the input which triggered the change
     const { name, value } = event.target;

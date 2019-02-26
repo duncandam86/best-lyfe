@@ -33,7 +33,11 @@ class App extends Component {
 
   componentDidMount() {
     this.getUser();
+    if (!this.state.loggedIn) {
+      console.log("Log in, sucker")
+    }
   }
+
 
   updateUser(userObject) {
     //console.log(userObject);
@@ -74,7 +78,7 @@ class App extends Component {
         <Route
           exact
           path="/login"
-          render={() => <Login updateUser={this.updateUser} />}
+          render={() => <Login updateUser={this.updateUser} persist={this.getUser} />}
         />
         <Route
           exact

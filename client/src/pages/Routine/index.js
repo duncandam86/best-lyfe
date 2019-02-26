@@ -18,7 +18,27 @@ class Routine extends Component {
   };
 
   componentDidMount() {
+
+    this.checkUser();
     this.loadHabits();
+
+  }
+
+  checkUser = () => {
+    axios.get("/api/user_data")
+      .then(res => {
+
+        if (!res.data.id) {
+          console.log("log in motherfucker")
+          this.props.history.push("/login")
+        } else {
+          console.log("Logged in")
+          this.setState({
+            userInfo: res.data
+          });
+        }
+        //   console.log(res.data);
+      });
   }
 
   loadHabits = () => {

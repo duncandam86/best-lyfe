@@ -22,20 +22,33 @@ class EditProfile extends Component {
 
         axios.get("/api/user_data")
             .then(res => {
-                console.log(res.data);
-                this.setState({
-                    id: res.data.id,
-                    email: res.data.email,
-                    photo: res.data.photo,
-                    phone: res.data.phone,
-                    firstName: res.data.firstName,
-                    lastName: res.data.lastName
-                });
+                if (!res.data.id) {
+                    console.log("log in motherfucker")
+                    this.props.history.push("/login")
+                } else {
+                    console.log("Logged in")
+                    this.setState({
+                        id: res.data.id,
+                        email: res.data.email,
+                        photo: res.data.photo,
+                        phone: res.data.phone,
+                        firstName: res.data.firstName,
+                        lastName: res.data.lastName
+                    });
+                }
 
             });
 
     }
 
+    checkUser = () => {
+        axios.get("/api/user_data")
+            .then(res => {
+
+
+                //   console.log(res.data);
+            });
+    }
 
     handleChange = event => {
         // console.log(event.target.name);

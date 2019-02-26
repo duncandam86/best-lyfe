@@ -88,9 +88,10 @@ class Navbar extends Component {
                     Routine
                   </a>
 
-                  <a className="navbar-item is-right" href="/habits">
+                  {/* <a className="navbar-item is-right" href="/habits">
                     Habits
-                  </a>
+                  </a> */}
+                  
                   <a className="navbar-item is-right" href="/habitsform">
                     New Habit
                   </a>

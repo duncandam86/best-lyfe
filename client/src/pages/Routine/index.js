@@ -103,7 +103,7 @@ class Routine extends Component {
       const days = moment().diff(lastChecked, "days");
       return days;
     } else {
-      return 0;
+      return 1;
     }
   };
 
@@ -120,13 +120,17 @@ class Routine extends Component {
     const daysSinceArray = Array(daysSince);
     daysSinceArray.fill(0, 0, daysSince - 1);
     daysSinceArray.fill(1, daysSince - 1);
-    //console.log("Days Since Array", daysSinceArray);
+    console.log("Days Since Array", daysSinceArray);
     const daysString = daysSinceArray.join("");
     //console.log("checked habit", checkedHabit);
     let updateRecordArray = checkedHabit[0].recordArray;
 
-    updateRecordArray += daysString;
-    //console.log("update rec array", updateRecordArray);
+    if (updateRecordArray) {
+      updateRecordArray += daysString;
+    } else {
+      updateRecordArray = daysString;
+    }
+    console.log("update rec array", updateRecordArray);
     checkedHabit[0].recordArray = updateRecordArray;
     //console.log("checked habit", checkedHabit);
 

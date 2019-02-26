@@ -7,6 +7,11 @@ const bodyParser = require("body-parser");
 const db = require("./server/models");
 const passport = require("./server/config/passport");
 
+//Read and set environment variables
+require("dotenv").config();
+console.log(process.env.TWILIO_ACCOUNT_SID);
+console.log(process.env.TWILIO_AUT_TOKEN);
+
 // Define middleware here
 app.use(
   bodyParser.urlencoded({

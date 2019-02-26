@@ -10,7 +10,7 @@ import SubmitButton from "../../components/ButtonSubmit";
 //styles
 import "./style.scss";
 
-class HabitsForm extends Component {
+class EditsForm extends Component {
   // Setting the component's initial state
   state = {
     title: "",
@@ -20,28 +20,21 @@ class HabitsForm extends Component {
   };
 
   componentDidMount() {
-    axios.get("/api/user_data")
-    .then(res => {
-
-      if (!res.data.id) {
-        console.log("log in motherfucker")
-        this.props.history.push("/login")
-      } else {
-        console.log("Logged in")
-        this.setState({
-          userInfo: res.data
-        });
-      }
-      //   console.log(res.data);
+    const habitid = parseInt(this.props.match.params.id, 10);
+    axios.get("/api/habits/" + habitid).then(res => {
+      this.setState({
+        title: res.data.title,
+        time: res.data.time,
+        comment: res.data.comment
+      });
     });
-
   }
 
   handleInputChange = event => {
     // Getting the value and name of the input which triggered the change
     const { name, value } = event.target;
 
-    // Updating the input's state
+    //Updating the input's state
     this.setState({
       [name]: value
     });
@@ -50,21 +43,27 @@ class HabitsForm extends Component {
   handleFormSubmit = event => {
     event.preventDefault();
     let habitData = {};
+    let today = new Date();
     if (this.state.time === "") {
       habitData = {
         title: this.state.title,
-        comment: this.state.comment
+        comment: this.state.comment,
+        updatedAt: this.state.updatedAt,
+        editDate: today
       };
     } else {
       habitData = {
         title: this.state.title,
         time: this.state.time,
-        comment: this.state.comment
+        comment: this.state.comment,
+        updatedAt: this.state.updatedAt,
+        editDate: today
       };
     }
 
-    axios.post("/api/newHabit", habitData).then(res => {
-      console.log("completed update");
+    const habitid = parseInt(this.props.match.params.id, 10);
+    axios.put("/api/edit/" + habitid, habitData).then(res => {
+      //console.log("completed update");
       this.setState({
         //redirect to habits page
         redirect: true
@@ -79,7 +78,7 @@ class HabitsForm extends Component {
     ) : (
       <div>
         <Navbar />
-        <BodyWrapper txtAlign="centered" title1="New" title2="Habit">
+        <BodyWrapper txtAlign="centered" title1="Edit" title2="Habit">
           <div className="columns is-mobile is-centered">
             <div className="column is-half-tablet is-three-quarters-mobile">
               <div className="field">
@@ -143,4 +142,4 @@ class HabitsForm extends Component {
   }
 }
 
-export default HabitsForm;
+export default EditsForm;

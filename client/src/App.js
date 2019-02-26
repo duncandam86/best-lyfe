@@ -14,6 +14,8 @@ import Habits from "./pages/Habits";
 import Routine from "./pages/Routine";
 import HabitsForm from "./pages/HabitsForm";
 import UserProfile from "./pages/UserProfile";
+import EditForm from "./pages/EditForm";
+import EditProfile from "./pages/EditProfile"
 
 class App extends Component {
   constructor() {
@@ -31,7 +33,11 @@ class App extends Component {
 
   componentDidMount() {
     this.getUser();
+    if (!this.state.loggedIn) {
+      console.log("Log in, sucker")
+    }
   }
+
 
   updateUser(userObject) {
     //console.log(userObject);
@@ -72,7 +78,7 @@ class App extends Component {
         <Route
           exact
           path="/login"
-          render={() => <Login updateUser={this.updateUser} />}
+          render={() => <Login updateUser={this.updateUser} persist={this.getUser} />}
         />
         <Route
           exact
@@ -83,6 +89,8 @@ class App extends Component {
         <Route exact path="/routine" component={Routine} />
         <Route exact path="/habitsform" component={HabitsForm} />
         <Route exact path="/userprofile" component={UserProfile} />
+        <Route exact path="/editprofile" component={EditProfile} />
+        <Route path="/edit/:id" component={EditForm} />
       </div>
     );
   }

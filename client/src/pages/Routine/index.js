@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import moment from "moment";
 //components
 import Navbar from "../../components/Navbar";
 import BodyWrapper from "../../components/Bodywrapper";
@@ -17,7 +18,27 @@ class Routine extends Component {
   };
 
   componentDidMount() {
+
+    this.checkUser();
     this.loadHabits();
+
+  }
+
+  checkUser = () => {
+    axios.get("/api/user_data")
+      .then(res => {
+
+        if (!res.data.id) {
+          console.log("log in motherfucker")
+          this.props.history.push("/login")
+        } else {
+          console.log("Logged in")
+          this.setState({
+            userInfo: res.data
+          });
+        }
+        //   console.log(res.data);
+      });
   }
 
   loadHabits = () => {
@@ -27,7 +48,12 @@ class Routine extends Component {
         //console.log(response.data);
         const allHabits = response.data;
         allHabits.forEach(habit => {
-          let isUpdated = this.checkIfUpdated(habit.createdAt, habit.updatedAt);
+          let isUpdated = this.checkIfUpdated(
+            habit.createdAt,
+            habit.updatedAt,
+            habit.checkedDate,
+            habit.editDate
+          );
           if (isUpdated) {
             habit.checked = true;
             habit.disabled = true;
@@ -53,16 +79,31 @@ class Routine extends Component {
       .catch(err => console.log(err));
   };
 
-  checkIfUpdated = (createdDate, updatedDate) => {
+  checkIfUpdated = (createdDate, updatedDate, checkedDate, editDate) => {
     const todayDate = new Date().getDate();
     //const habitCreated = new Date(createdDate).getDate();
     const habitUpdated = new Date(updatedDate).getDate();
-    if (createdDate === updatedDate) {
-      return false;
-    } else if (todayDate - habitUpdated === 0) {
+    const editUpdated = new Date(editDate).getDate();
+    const checkUpdated = new Date(checkedDate).getDate();
+
+    if (updatedDate === checkedDate && updatedDate != editDate) {
       return true;
+    } else if (updatedDate != checkedDate && updatedDate === editDate) {
+      if (todayDate === checkUpdated) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  };
+
+  daysSinceLastCompleted = checkedDate => {
+    if (checkedDate) {
+      const lastChecked = moment(checkedDate);
+      const days = moment().diff(lastChecked, "days");
+      return days;
     } else {
-      return false;
+      return 1;
     }
   };
 
@@ -72,6 +113,26 @@ class Routine extends Component {
     const checkedHabit = this.state.remainingHabits.filter(
       habit => habit.id === +event.target.id
     );
+
+    let daysSince = this.daysSinceLastCompleted(checkedHabit[0].checkedDate);
+    //console.log("days since", daysSince);
+
+    const daysSinceArray = Array(daysSince);
+    daysSinceArray.fill(0, 0, daysSince - 1);
+    daysSinceArray.fill(1, daysSince - 1);
+    console.log("Days Since Array", daysSinceArray);
+    const daysString = daysSinceArray.join("");
+    //console.log("checked habit", checkedHabit);
+    let updateRecordArray = checkedHabit[0].recordArray;
+
+    if (updateRecordArray) {
+      updateRecordArray += daysString;
+    } else {
+      updateRecordArray = daysString;
+    }
+    console.log("update rec array", updateRecordArray);
+    checkedHabit[0].recordArray = updateRecordArray;
+    //console.log("checked habit", checkedHabit);
 
     axios
       .put("/api/habits/" + event.target.id, checkedHabit)
@@ -100,7 +161,7 @@ class Routine extends Component {
               <div className="column is-four-fifths">
                 {this.state.remainingHabits.length > 0 && (
                   <div id="habit-remain" className="is-size-3">
-                    Habits Remaining Today
+                    <h1>Habits Remaining Today</h1>
                     <hr className="routine-hr" />
                     <div id="habit-list">
                       {this.state.remainingHabits.map(habit => (

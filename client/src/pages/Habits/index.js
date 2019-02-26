@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import Navbar from "../../components/Navbar";
-import TradNavbar from "../../components/TradNavbar";
 import BodyWrapper from "../../components/Bodywrapper";
 import "./style.scss";
 
@@ -10,10 +9,18 @@ import Button from "../../components/ButtonLink";
 import PieChart from "../../components/PieChart";
 import SevenDayChart from "../../components/SevenDayChart";
 
+import ButtonLinkIMG from "../../components/ButtonLinkIMG";
+
 class Habits extends Component {
   state = {
     selectedHabit: {},
-    redirect: null
+    redirect: null,
+    splitString: "",
+    reversedString: "",
+    daysMet: "",
+    totalDays: "",
+    consecutiveDays: "",
+    longestStreak: ""
   };
 
   componentDidMount() {
@@ -23,21 +30,98 @@ class Habits extends Component {
       this.setState({
         selectedHabit: res.data
       });
+
+      //* State Global
+      let recordArray = this.state.selectedHabit.recordArray;
+      if (recordArray) {
+        console.log("Record Array: " + recordArray);
+        let splitString = recordArray.split("");
+        // console.log(splitString);
+
+        //* TOTAL DAYS is the sum of the record array - WORKS
+        let totalDays = recordArray.length;
+        console.log("Total Days: " + totalDays);
+
+        //* DAYS MET = Record array
+        let integerArray = splitString.map(Number);
+        // console.log(integerArray);
+        const daysMet = integerArray.reduce((total, amount) => total + amount);
+        console.log("Days Met: " + daysMet);
+
+        //* CONSECUTIVE DAYS
+        let reversedString = splitString.reverse();
+        let consecutiveDays;
+        if (reversedString.indexOf("0") === -1) {
+          consecutiveDays = integerArray.reduce(
+            (total, amount) => total + amount
+          );
+        } else {
+          consecutiveDays = reversedString.indexOf("0");
+        }
+        console.log("Consecutive Days " + consecutiveDays);
+
+        //* LONGEST STREAK
+        let longestStreak;
+        if (recordArray.length === 1 && recordArray[0] === 0) {
+          longestStreak = 0;
+        } else if (recordArray.length > 1) {
+          function streak(arr) {
+            var i,
+              temp,
+              streak,
+              highestStreakValue,
+              length = arr.length,
+              highestStreak = 0;
+
+            for (i = 0; i < length; i++) {
+              // check the value of the current entry against the last
+              if (temp != "" && temp == arr[i]) {
+                // it’s a match
+                streak++;
+              } else {
+                // it’s not a match, start streak from 1
+                streak = 1;
+              }
+              // set current letter for next time
+              temp = arr[i];
+
+              if (streak > highestStreak) {
+                highestStreakValue = temp;
+                highestStreak = streak;
+              }
+            }
+            return [highestStreak, highestStreakValue];
+          }
+          console.log(streak(integerArray));
+          let longStreak = streak(integerArray);
+          // console.log(longStreak)
+          longestStreak = longStreak[0];
+          console.log(longestStreak);
+        }
+
+        //! Set the state so we can use the material in the render function
+        this.setState({ splitString: splitString });
+        this.setState({ reversedString: reversedString });
+        this.setState({ totalDays: totalDays });
+        this.setState({ daysMet: daysMet });
+        this.setState({ consecutiveDays: consecutiveDays });
+        this.setState({ longestStreak: longestStreak });
+      }
     });
   }
 
-  updateStreak = streak => {
-    console.log("in updateStreak", streak);
-    //FOR TESTING
-    streak = 4;
-    //
-    const selectedHabitStreak = this.state.selectedHabit.slice(0);
-    console.log("selectedstreak", selectedHabitStreak);
-    selectedHabitStreak.consecutive = streak;
-    this.setState({
-      selectedHabit: selectedHabitStreak
-    });
-  };
+  // updateStreak = streak => {
+  //   console.log("in updateStreak", streak);
+  //   //FOR TESTING
+  //   streak = 4;
+  //   //
+  //   const selectedHabitStreak = this.state.selectedHabit.slice(0);
+  //   console.log("selectedstreak", selectedHabitStreak);
+  //   selectedHabitStreak.consecutive = streak;
+  //   this.setState({
+  //     selectedHabit: selectedHabitStreak
+  //   });
+  // };
 
   removeHabit = id => {
     console.log("removeHabit", id);
@@ -51,32 +135,29 @@ class Habits extends Component {
       .catch(err => console.log(err));
   };
 
-  // handleDropDownChange = habitid => {
-  //   const filteredHabit = this.state.habitArray
-  //     .slice(0)
-  //     .filter(habit => habit.id === habitid);
-  //   const selectedHabit = {
-  //     id: filteredHabit[0].id,
-  //     title: filteredHabit[0].title,
-  //     consecutive: filteredHabit[0].consecutive,
-  //     time: filteredHabit[0].time,
-  //     comment: filteredHabit[0].comment
-  //   };
-  //   //console.log(selectedHabit);
-  //   this.setState({
-  //     dropDownTitle: filteredHabit[0].title,
-  //     selectedHabit: selectedHabit
-  //   });
-  // };
-
   render() {
-    //console.log("Streak", this.state.selectedHabit.consecutive);
-    const hasStreak = this.state.selectedHabit.consecutive;
+    // console.log("SH", this.state.selectedHabbit)
+
+    //  console.log(this.state.splitString)
+
+    // let array = [];
+
+    // array.push(recordArray)
+    // // console.log(array)
+    // // console.log(array.length)
+    // let splitArray = array[0].split('');
+    // console.log(splitArray);
+
+    // if (!this.state.selectedHabit)
+    //   return null;
+    // //console.log("Streak", this.state.selectedHabit.consecutive);
+    // const hasStreak = this.state.selectedHabit.consecutive;
+    const recArray = this.state.selectedHabit.recordArray;
     const longestStreak = this.state.selectedHabit.longestStreak;
     const madeSelection = this.state.selectedHabit.title;
     const hasTime = this.state.selectedHabit.time;
     let displayStatus = "hide";
-    if (madeSelection) {
+    if (recArray) {
       displayStatus = "show";
     }
     // console.log(longestStreak)
@@ -86,25 +167,17 @@ class Habits extends Component {
     ) : (
       <>
         <Navbar />
-        {/* <TradNavbar /> */}
-        {/*  this button console.logs the streak
-        <button onClick={this.getHabitStreak}>CHECK ME</button> */}
-
         <div className="container">
           <BodyWrapper title1="Your" title2="Habits">
             <div id="habits-body">
               <div id="habits-header">
                 <h2>{this.state.selectedHabit.title}</h2>
                 {madeSelection ? (
-                  <Button name="back" page="/routine" />
+                  <ButtonLinkIMG name="back" page="/routine" />
                 ) : (
-                  // {/* <a href="/routine"><img src="../../images/BackArrow.png" width="32.5px" /></a> */}
-
                   <div />
                 )}
               </div>
-
-              {/* <h3>Progress:</h3><figure></figure> */}
 
               <div className={displayStatus}>
                 {/* <hr /> */}
@@ -113,28 +186,36 @@ class Habits extends Component {
                     Current Streak:{" "}
                     <span id="green">
                       {" "}
-                      {hasStreak ? hasStreak + " DAYS" : "Start a new streak!"}
+                      {this.state.consecutiveDays
+                        ? this.state.consecutiveDays + " DAYS"
+                        : "Start a new streak!"}
                     </span>
                   </h4>
 
                   <h4>
                     Longest Streak:{" "}
                     <span id="green">
-                      {longestStreak
-                        ? longestStreak + " DAYS"
-                        : "Get started on your longest streak!"}
+                      {this.state.longestStreak
+                        ? this.state.longestStreak + " DAYS"
+                        : "Start your longest streak!"}
                     </span>
                   </h4>
                 </div>
 
-                <PieChart />
-                <SevenDayChart />
+                <PieChart
+                  totalDays={this.state.totalDays}
+                  daysMet={this.state.daysMet}
+                />
+                <SevenDayChart
+                  split={this.state.splitString}
+                  reversed={this.state.reversedString}
+                />
 
                 <div>
                   {hasTime ? (
                     <div>
                       <h4>Time:</h4>
-                      <p>{this.state.selectedHabit.time}</p>
+                      <p>{hasTime}</p>
                     </div>
                   ) : (
                     <div />
@@ -144,6 +225,11 @@ class Habits extends Component {
                 <h4>Comments:</h4>
                 <p>{this.state.selectedHabit.comment}</p>
               </div>
+              {!recArray && (
+                <div id="no-data" className="is-size-3">
+                  No Data to Display
+                </div>
+              )}
               <div className="remove">
                 <h3>
                   <a

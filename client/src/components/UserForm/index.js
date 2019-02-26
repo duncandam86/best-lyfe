@@ -70,7 +70,7 @@ class UserForm extends Component {
         </div>
 
       {/* PASSWORD */}
-        <div className="field">
+        <div className="field" id="pw-input">
           <label className="label is-size-4 is-size-5-mobile">Password</label>
           <div className="control has-icons-left">
             <input
@@ -89,7 +89,7 @@ class UserForm extends Component {
         </div>
 
       {/* REPEAT PASSWORD */}
-        <div className="field">
+        <div className="field" id="pw2-input">
           <label className="label is-size-4 is-size-5-mobile">Repeat Password</label>
           <div className="control has-icons-left">
             <input
@@ -109,7 +109,7 @@ class UserForm extends Component {
 
       {/* PHONE NUMBER */}
         <div className="field">
-          <label className="label is-size-4 is-size-5-mobile">Phone Number (no spaces or dashes)</label>
+          <label className="label is-size-4 is-size-5-mobile">Phone Number</label>
           <div className="control has-icons-left">
             <input
               className="input"

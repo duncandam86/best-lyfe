@@ -18,28 +18,24 @@ class Routine extends Component {
   };
 
   componentDidMount() {
-
     this.checkUser();
     this.loadHabits();
-
   }
 
   checkUser = () => {
-    axios.get("/api/user_data")
-      .then(res => {
-
-        if (!res.data.id) {
-          console.log("log in motherfucker")
-          this.props.history.push("/login")
-        } else {
-          console.log("Logged in")
-          this.setState({
-            userInfo: res.data
-          });
-        }
-        //   console.log(res.data);
-      });
-  }
+    axios.get("/api/user_data").then(res => {
+      if (!res.data.id) {
+        console.log("log in motherfucker");
+        this.props.history.push("/login");
+      } else {
+        console.log("Logged in");
+        this.setState({
+          userInfo: res.data
+        });
+      }
+      //   console.log(res.data);
+    });
+  };
 
   loadHabits = () => {
     axios
@@ -81,18 +77,27 @@ class Routine extends Component {
 
   checkIfUpdated = (createdDate, updatedDate, checkedDate, editDate) => {
     const todayDate = new Date().getDate();
-    //const habitCreated = new Date(createdDate).getDate();
+    const habitCreated = new Date(createdDate).getDate();
     const habitUpdated = new Date(updatedDate).getDate();
     const editUpdated = new Date(editDate).getDate();
     const checkUpdated = new Date(checkedDate).getDate();
 
-    if (updatedDate === checkedDate && updatedDate != editDate) {
-      return true;
-    } else if (updatedDate != checkedDate && updatedDate === editDate) {
-      if (todayDate === checkUpdated) {
+    if (
+      habitCreated !== todayDate &&
+      habitUpdated !== todayDate &&
+      editUpdated !== todayDate &&
+      checkUpdated !== todayDate
+    ) {
+      return false;
+    } else {
+      if (updatedDate === checkedDate && updatedDate !== editDate) {
         return true;
-      } else {
-        return false;
+      } else if (updatedDate !== checkedDate && updatedDate === editDate) {
+        if (todayDate === checkUpdated) {
+          return true;
+        } else {
+          return false;
+        }
       }
     }
   };

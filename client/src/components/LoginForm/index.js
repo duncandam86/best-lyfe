@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import SubmitButton from "../ButtonSubmit";
+import ButtonLinkIMG from "../ButtonLinkIMG";
+import './style.scss';
 
 class LoginForm extends Component {
 
@@ -15,7 +17,10 @@ class LoginForm extends Component {
     <div className="columns is-mobile is-centered">
       <div className="column is-half-tablet is-three-quarters-mobile">
         <div className="field">
-          <label className="label is-size-4 is-size-5-mobile">E-Mail</label>
+          <div id="login-header">
+            <label className="label is-size-4 is-size-5-mobile">E-Mail</label>
+            <div id="login-back"><ButtonLinkIMG name="back" page="/" /></div>
+          </div>
           <div className="control has-icons-left has-icons-right">
             <input
               className="input"

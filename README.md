@@ -27,7 +27,7 @@ Best Lyfe is a semi-social habit tracking platform to help keep you on track of 
 
 - Sequelize / MySQL.  Database ORM and management.
 
-- Trillio.  Notifications
+- Twilio.  Notifications
 
 - CSS. But only, like, a little bit.
 

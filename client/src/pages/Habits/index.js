@@ -62,9 +62,16 @@ class Habits extends Component {
 
         //* LONGEST STREAK
         let longestStreak;
-        if (recordArray.length === 1 && recordArray[0] === 0) {
+        // console.log(recordArray[0]);
+        // console.log(recordArray.length)
+        if (recordArray.length === 1 && recordArray[0] === '0') {
           longestStreak = 0;
-        } else if (recordArray.length > 1) {
+        } 
+        else if (recordArray.length === 1 && recordArray[0] === '1') {
+          longestStreak = 1;
+          console.log("longestStreak" + longestStreak);
+        } 
+        else if (recordArray.length > 1) {
           function streak(arr) {
             var i,
               temp,
@@ -96,9 +103,7 @@ class Habits extends Component {
           let longStreak = streak(integerArray);
           // console.log(longStreak)
           longestStreak = longStreak[0];
-          console.log(longestStreak);
         }
-
         //! Set the state so we can use the material in the render function
         this.setState({ splitString: splitString });
         this.setState({ reversedString: reversedString });
@@ -107,6 +112,7 @@ class Habits extends Component {
         this.setState({ consecutiveDays: consecutiveDays });
         this.setState({ longestStreak: longestStreak });
       }
+      
     });
   }
 

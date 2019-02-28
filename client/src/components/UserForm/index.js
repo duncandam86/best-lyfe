@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import SubmitButton from "../ButtonSubmit";
-import "./style.css"
+import ButtonLinkIMG from "../ButtonLinkIMG";
+import "./style.scss"
 
 class UserForm extends Component {
 
@@ -14,7 +15,10 @@ class UserForm extends Component {
 
       {/* EMAIL */}
         <div className="field">
-          <label className="label is-size-4 is-size-5-mobile">E-Mail</label>
+        <div id="login-header">
+            <label className="label is-size-4 is-size-5-mobile">E-Mail</label>
+            <div id="login-back"><ButtonLinkIMG name="back" page="/" /></div>
+          </div>
           <div className="control has-icons-left has-icons-right">
             <input
               className="input"

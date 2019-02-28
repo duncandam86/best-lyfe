@@ -1,0 +1,29 @@
+#login-head{
+    display:flex;
+    justify-content: space-between;
+}
+
+#login-head input{
+    height:30px;
+    margin-bottom:10px;
+}
+
+div#back-button{
+    height:30px;
+}
+
+div#login-header{
+    display: flex;
+    justify-content: space-between;
+    align-items:center;
+    flex-direction:row;
+}
+
+#login-back input{
+    display:inline-block;
+}
+
+label#login-header.label{
+    width:80%;
+}
+

@@ -1,31 +1,44 @@
-# Create React Express App
+# Best Lyfe
+## Tracking your habits to help you get the most out of your day-to-day
 
 https://best-lyfe.herokuapp.com/
 
-## About This Boilerplate
+## About
 
-This setup allows for a Node/Express/React app which can be easily deployed to Heroku.
+Best Lyfe is a semi-social habit tracking platform to help keep you on track of your busy life. Want to make a habit of playing an instrument?  Reading?  Hitting the gym?  Cooking your own food?  Just sign up and add your habit!  
 
-The front-end React app will auto-reload as it's updated via webpack dev server, and the backend Express app will auto-reload independently with nodemon.
+- Get daily reminders, or don't, it's your lyfe.  
 
-## Starting the app locally
+- Track your progress over the last 7 days or all time.
 
-Start by installing front and backend dependencies. While in this directory, run the following command:
+- Win fabulous prizes!*
 
-```
-yarn install
-```
+## Tech Stack
 
-This should install node modules within the server and the client folder.
+- React.js.  Front-end framework, front-end routing, and organization
 
-After both installations complete, run the following command in your terminal:
+- Bulma.  Style.
 
-```
-yarn start
-```
+- Node.js.  Server-side logic.
 
-Your app should now be running on <http://localhost:3000>. The Express server should intercept any AJAX requests from the client.
+- Express.js.  Back-end routing.
 
-## Deployment (Heroku)
+- Moment.js.  To help with tracking logic.
 
-To deploy, simply add and commit your changes, and push to Heroku. As is, the NPM scripts should take care of the rest.
+- Sequelize / MySQL.  Database ORM and management.
+
+- Trillio.  Notifications
+
+- CSS. But only, like, a little bit.
+
+## The Team
+
+- Tyler Guthrie.  Design, tracking logic, Super Smash Bros.
+
+- Patrick Kent.  Express routing, notifications, WatchESPN account.
+
+- Jason Moore.  Database design and maintenence, user profiles, snacks.
+
+- Bill Wunsch.  React Router, routine logic, chill disposition.
+
+*Prizes are metaphorical unless you decide to reward your newfound good behavior by treating yourself.  Best Lyfe is not a fulfillment center or otherwise capable of issuing prizes, rewards, or compensation to non-empolyees.  But know we're proud of you for living your Best Lyfe.
